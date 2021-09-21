@@ -4,6 +4,7 @@ import UserDashboardHeader from "../components/UserDashboardHeader";
 import UserDashboardNav from "../components/UserDashboardNav";
 import UserPersonalInfo from "../components/UserPersonalInfo";
 import UserProperties from "../components/UserProperties";
+import UserPropertyPromote from "../components/UserPropertyPromote";
 import UserSecurityDetails from "../components/UserSecurityDetails";
 import UserWishlist from "../components/UserWishlist";
 
@@ -35,6 +36,9 @@ function UserDashboard() {
               </Route>
               <Route path={`${path}/wishlist`}>
                 <UserWishlist />
+              </Route>
+              <Route path={`${path}/promote/:id`}>
+                <UserPropertyPromote />
               </Route>
             </Switch>
           </div>

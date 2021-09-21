@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { selectUser } from "../../../slices/userSlice";
 import Loader from "../../shared/components/Loader";
 import UserPropertyCard from "../../shared/components/UserPropertyCard";
@@ -49,9 +50,13 @@ function UserProperties() {
             </>
           ) : (
             <div>
-              <h3 className="text-muted">
-                Currenly you have no properties listed!
-              </h3>
+              <h4>
+                Currently you have no properties listed for sale! If you wish to
+                list a property you can click the Add Property button or
+                <Link to="/addproperty" style={{ marginLeft: "6px" }}>
+                  click here.
+                </Link>
+              </h4>
             </div>
           )}{" "}
         </>

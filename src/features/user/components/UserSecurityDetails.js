@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setErrorToast, setSuccessToast } from "../../../slices/toastSlice";
 import { selectUser } from "../../../slices/userSlice";
+import CreditCard from "../../shared/components/CreditCard";
 
 function UserSecurityDetails() {
   const [info, setInfo] = useState({ password: "", confirmPassword: "" });
@@ -90,6 +91,7 @@ function UserSecurityDetails() {
         className="d-inline-block fw-bold text-decoration-none mt-3"
         href="#"
       ></a>
+      <CreditCard />
     </>
   );
 }

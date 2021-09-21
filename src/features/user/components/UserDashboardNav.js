@@ -56,6 +56,7 @@ function UserDashboardNav() {
           >
             <i className="fi-heart opacity-60 me-2"></i>Wishlist
           </Link>
+
           <a className="card-nav-link" href="real-estate-account-reviews.html">
             <i className="fi-star opacity-60 me-2"></i>Reviews
           </a>

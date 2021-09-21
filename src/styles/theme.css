@@ -14397,7 +14397,7 @@ h6.text-white .nav-link.disabled,
   z-index: 5;
 }
 .card:hover > .card-img-hover .img-overlay {
-  opacity: 0.33 !important;
+  opacity: 0.85 !important;
 }
 .card:hover > .card-img-hover .img-overlay.opacity-25 {
   opacity: 0.25 !important;

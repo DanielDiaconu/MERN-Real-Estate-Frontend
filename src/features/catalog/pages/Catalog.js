@@ -77,6 +77,8 @@ function Catalog() {
     for (let [key, value] of queryParams.entries()) {
       if (key === "sort") {
         sortUrl += `sort=${encodeURIComponent(sortValue)}&`;
+      } else if (key === "skip") {
+        sortUrl += "skip=0&";
       } else {
         sortUrl += `${key}=${value}&`;
       }

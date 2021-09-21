@@ -265,5 +265,9 @@
 }
 
 .property-card.golden-border {
-  box-shadow: 1px 1px 25px #fd390e !important;
+  box-shadow: 1px 1px 10px #fd390e !important;
+}
+
+.card.golden-border {
+  box-shadow: 1px 1px 15px #fd390e !important;
 }
