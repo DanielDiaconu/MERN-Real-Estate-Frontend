@@ -1,11 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setErrorToast, setSuccessToast } from "../../../slices/toastSlice";
 import DropzoneWithPreview from "../../shared/components/DropzoneWithPreview";
 import AddPropertyAmenities from "../components/addProperty/AddPropertyAmenities";
 import AddPropertyBasicInfo from "../components/addProperty/AddPropertyBasicInfo";
 import AddPropertyDetails from "../components/addProperty/AddPropertyDetails";
 import AddPropertyPets from "../components/addProperty/AddPropertyPets";
 import AddPropertyProgress from "../components/addProperty/AddPropertyProgress";
+import { selectUser } from "../../../slices/userSlice";
+import { useHistory } from "react-router";
 
 const initPropertyObject = {
   name: "",
@@ -31,6 +35,9 @@ const initPropertyObject = {
 function AddProperty() {
   const [property, setProperty] = useState(initPropertyObject);
   const [progress, setProgress] = useState(0);
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const handlePropertyChange = (payload) => {
     setProperty({ ...property, ...payload });
@@ -71,14 +78,17 @@ function AddProperty() {
     data.append("dogsAllowed", property.dogsAllowed);
     data.append("cityId", property.cityId);
     data.append("categoryId", property.categoryId);
-    data.append("ownerId", "6138a7958c65b6c7735fe9af");
+    data.append("ownerId", user._id);
 
     try {
       await axios.post("http://localhost:8080/properties", data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+      history.push("/user/dashboard/my-properties");
     } catch (error) {
-      console.log(error);
+      dispatch(
+        setErrorToast("There has been a problem processing your request!")
+      );
     }
   };
 

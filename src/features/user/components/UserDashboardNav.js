@@ -56,6 +56,16 @@ function UserDashboardNav() {
           >
             <i className="fi-heart opacity-60 me-2"></i>Wishlist
           </Link>
+          <Link
+            className={
+              location.pathname === `${url}/wallet`
+                ? "card-nav-link active"
+                : "card-nav-link"
+            }
+            to={`${url}/wallet`}
+          >
+            <i className="fi-wallet opacity-60 me-2"></i>Payment & Funds
+          </Link>
 
           <a className="card-nav-link" href="real-estate-account-reviews.html">
             <i className="fi-star opacity-60 me-2"></i>Reviews

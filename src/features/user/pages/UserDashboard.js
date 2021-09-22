@@ -1,15 +1,19 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Redirect, Route, Switch, useRouteMatch } from "react-router";
+import { selectUser } from "../../../slices/userSlice";
 import UserDashboardHeader from "../components/UserDashboardHeader";
 import UserDashboardNav from "../components/UserDashboardNav";
 import UserPersonalInfo from "../components/UserPersonalInfo";
 import UserProperties from "../components/UserProperties";
 import UserPropertyPromote from "../components/UserPropertyPromote";
 import UserSecurityDetails from "../components/UserSecurityDetails";
+import UserWallet from "../components/UserWallet";
 import UserWishlist from "../components/UserWishlist";
 
 function UserDashboard() {
   let { path } = useRouteMatch();
+
   return (
     <>
       <div className="container pt-5 pb-lg-4 mt-5 mb-sm-2">
@@ -39,6 +43,9 @@ function UserDashboard() {
               </Route>
               <Route path={`${path}/promote/:id`}>
                 <UserPropertyPromote />
+              </Route>
+              <Route path={`${path}/wallet`} exact>
+                <UserWallet />
               </Route>
             </Switch>
           </div>

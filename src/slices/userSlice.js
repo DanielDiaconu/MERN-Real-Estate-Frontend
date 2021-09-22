@@ -8,6 +8,7 @@ const initialState = {
   user: {
     _id: null,
     wishlist: [],
+    funds: 50,
   },
 };
 

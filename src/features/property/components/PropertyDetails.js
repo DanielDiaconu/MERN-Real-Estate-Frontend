@@ -1,12 +1,24 @@
+import moment from "moment";
 import React from "react";
 import PropertyAmenities from "./PropertyAmenities";
 
 function PropertyDetails({ property }) {
+  const viewParsedPublishedDate = () => {
+    return moment(property?.date).format("MMM D, YYYY");
+  };
+
+  const handlePropertyAge = () => {
+    let currentDate = moment(new Date(), "YYYY-MM-DD");
+    let propertyDate = moment(property?.date, "YYYY-MM-DD");
+    return currentDate.diff(propertyDate, "days");
+  };
+
   return (
     <>
       <div className="col-md-7 mb-md-0 mb-4">
-        <span className="badge bg-success me-2 mb-3">Verified</span>
-        <span className="badge bg-info me-2 mb-3">New</span>
+        {handlePropertyAge() < 10 && (
+          <span className="badge bg-info me-2 mb-3">New</span>
+        )}
         <h2 className="h3 mb-4 pb-4 border-bottom">${property?.price}</h2>
         <div className="mb-4 pb-md-3">
           <h3 className="h4">Overview</h3>
@@ -83,7 +95,7 @@ function PropertyDetails({ property }) {
         <div className="mb-lg-5 mb-md-4 pb-lg-2 py-4 border-top">
           <ul className="d-flex mb-4 list-unstyled fs-sm">
             <li className="me-3 pe-3 border-end">
-              Published: <b>Dec 9, 2020</b>
+              Published: <b>{viewParsedPublishedDate()}</b>
             </li>
             <li className="me-3 pe-3 border-end">
               Ad number: <b>{property?._id}</b>
