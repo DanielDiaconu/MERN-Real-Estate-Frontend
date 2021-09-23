@@ -20,21 +20,29 @@ function UserAddCreditCard({ handleAddPaymentMethod }) {
     setCard({ ...card, [e.target.name]: e.target.value });
   };
 
+  const onPostCreditCardSubmit = (e) => {
+    e.preventDefault();
+    handleAddPaymentMethod(card);
+  };
+
   return (
     <>
-      <section class="card card-body border-0 shadow-sm p-4 mb-4" id="location">
-        <h2 class="h4 mb-4">Add payment method</h2>
+      <section
+        className="card card-body border-0 shadow-sm p-4 mb-4"
+        id="location"
+      >
+        <h2 className="h4 mb-4">Add payment method</h2>
         <div className="d-flex justify-content-center">
-          <CreditCard card={card} />
+          <CreditCard card={card} isSelected={null} />
         </div>
         <form>
-          <div class="mb-3 col-12">
-            <label class="form-label">
-              Card Number <span class="text-danger">*</span>
+          <div className="mb-3 col-12">
+            <label className="form-label">
+              Card Number <span className="text-danger">*</span>
             </label>
             <input
               name="number"
-              class="form-control"
+              className="form-control"
               type="text"
               name="number"
               maxLength="16"
@@ -43,13 +51,13 @@ function UserAddCreditCard({ handleAddPaymentMethod }) {
             />
           </div>
           <div className="row">
-            <div class="mb-3 col-8">
-              <label class="form-label" for="ap-address">
-                Card Name <span class="text-danger">*</span>
+            <div className="mb-3 col-8">
+              <label className="form-label" for="ap-address">
+                Card Name <span className="text-danger">*</span>
               </label>
               <input
                 name="address"
-                class="form-control"
+                className="form-control"
                 type="text"
                 id="ap-address"
                 value={card.name}
@@ -57,13 +65,13 @@ function UserAddCreditCard({ handleAddPaymentMethod }) {
                 onChange={onInputChange}
               />
             </div>
-            <div class="mb-3 col-4">
-              <label class="form-label" for="ap-address">
-                Funds <span class="text-danger">*</span>
+            <div className="mb-3 col-4">
+              <label className="form-label" for="ap-address">
+                Funds <span className="text-danger">*</span>
               </label>
               <input
                 name="address"
-                class="form-control"
+                className="form-control"
                 type="number"
                 id="ap-address"
                 value={card.funds}
@@ -73,12 +81,12 @@ function UserAddCreditCard({ handleAddPaymentMethod }) {
             </div>
           </div>
           <div className="row">
-            <div class="mb-3 col-4">
-              <label class="form-label" for="ap-address">
-                Month <span class="text-danger">*</span>
+            <div className="mb-3 col-4">
+              <label className="form-label" for="ap-address">
+                Month <span className="text-danger">*</span>
               </label>
               <select
-                class="form-select"
+                className="form-select"
                 id="ap-type"
                 value={card.month}
                 name="month"
@@ -99,12 +107,12 @@ function UserAddCreditCard({ handleAddPaymentMethod }) {
                 <option value="12">December</option>
               </select>
             </div>
-            <div class="mb-3 col-4">
-              <label class="form-label" for="ap-address">
-                Year <span class="text-danger">*</span>
+            <div className="mb-3 col-4">
+              <label className="form-label" for="ap-address">
+                Year <span className="text-danger">*</span>
               </label>
               <select
-                class="form-select"
+                className="form-select"
                 id="ap-type"
                 value={card.year}
                 name="year"
@@ -163,13 +171,13 @@ function UserAddCreditCard({ handleAddPaymentMethod }) {
                 <option value="2030">2030</option>
               </select>
             </div>
-            <div class="mb-3 col-4">
-              <label class="form-label" for="ap-address">
-                CVV <span class="text-danger">*</span>
+            <div className="mb-3 col-4">
+              <label className="form-label" for="ap-address">
+                CVV <span className="text-danger">*</span>
               </label>
               <input
                 name="address"
-                class="form-control"
+                className="form-control"
                 type="text"
                 maxLength="3"
                 id="ap-address"
@@ -181,8 +189,8 @@ function UserAddCreditCard({ handleAddPaymentMethod }) {
           </div>
           <div className="d-flex align-items-center justify-content-center">
             <button
-              onClick={() => handleAddPaymentMethod(card)}
-              class="btn btn-primary px-3 px-sm-4"
+              onClick={onPostCreditCardSubmit}
+              className="btn btn-primary px-3 px-sm-4"
               type="submit"
               disabled={
                 !card.name ||

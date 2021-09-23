@@ -32,6 +32,22 @@ export const updateUserWishlist = createAsyncThunk(
   }
 );
 
+export const updateUserFunds = createAsyncThunk(
+  "user/updateUserFunds",
+  async ({ amount, id, cardId }, { dispatch }) => {
+    try {
+      let response = await axios.patch(
+        `http://localhost:8080/users/deposit-funds/${id}`,
+        { funds: amount, cardId }
+      );
+      dispatch(setSuccessToast(response.data.message));
+      return amount;
+    } catch (error) {
+      dispatch(setErrorToast(error.message));
+    }
+  }
+);
+
 export const updateUser = createAsyncThunk(
   "user/updateUser",
   async ({ id, data }, { dispatch }) => {
@@ -51,6 +67,9 @@ export const userSlice = createSlice({
   reducers: {
     setUser: (state, { payload }) => {
       state.user = payload;
+    },
+    extractUserFunds: (state, { payload }) => {
+      state.user.funds -= payload;
     },
   },
   extraReducers: {
@@ -72,10 +91,13 @@ export const userSlice = createSlice({
     [updateUserWishlist.rejected]: (state, { payload }) => {
       toast.error("There was a problem proccesing your request!");
     },
+    [updateUserFunds.fulfilled]: (state, { payload }) => {
+      state.user.funds += payload;
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, extractUserFunds } = userSlice.actions;
 export const selectUser = (state) => state.user.user;
 
 export default userSlice.reducer;

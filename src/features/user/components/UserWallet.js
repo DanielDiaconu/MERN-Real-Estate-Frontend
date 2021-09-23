@@ -1,15 +1,17 @@
 import axios from "axios";
+import { set } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setErrorToast, setSuccessToast } from "../../../slices/toastSlice";
-import { selectUser } from "../../../slices/userSlice";
-import CreditCard from "../../shared/components/CreditCard";
+import { selectUser, updateUserFunds } from "../../../slices/userSlice";
 import UserAddCreditCard from "./UserAddCreditCard";
 import UserCreditCardsList from "./UserCreditCardsList";
 
 function UserWallet() {
   const [creditCards, setCreditCards] = useState([]);
   const [view, setView] = useState("list");
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [depositAmount, setDepositAmount] = useState(0);
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
@@ -28,19 +30,68 @@ function UserWallet() {
     }
   };
 
-  const postPaymentMethod = async (data) => {
+  const postPaymentMethod = async (payload) => {
     try {
-      let response = await axios.post(
+      let res = await axios.post(
         `http://localhost:8080/credit-cards/${user._id}`,
-        data
+        payload
       );
       setView("list");
-      dispatch(setSuccessToast(response.data.message));
+      setCreditCards([...creditCards, res.data]);
     } catch (error) {
       dispatch(setErrorToast(error.message));
     }
   };
 
+  const deletePaymentMethod = async (id) => {
+    try {
+      let response = await axios.delete(
+        `http://localhost:8080/credit-cards/${id}`
+      );
+      dispatch(setSuccessToast(response.data.message));
+      setCreditCards(creditCards.filter((card) => card._id !== id));
+      if (selectedCard && selectedCard.id === id) {
+        setSelectedCard(null);
+      }
+    } catch (error) {
+      dispatch(setErrorToast(error.message));
+    }
+  };
+
+  const onFundsDeposit = () => {
+    if (depositAmount <= selectedCard.funds) {
+      setSelectedCard({
+        ...selectedCard,
+        funds: selectedCard.funds - depositAmount,
+      });
+      dispatch(
+        updateUserFunds({
+          amount: depositAmount,
+          id: user._id,
+          cardId: selectedCard._id,
+        })
+      );
+      setDepositAmount(0);
+    } else {
+      dispatch(
+        setErrorToast("Not enough funds on your current payment method!")
+      );
+    }
+    setSelectedCard(null);
+  };
+  console.log(selectedCard);
+
+  const selectPaymentMethod = (card) => {
+    if (!selectedCard) {
+      setSelectedCard(card);
+    } else if (selectedCard._id === card._id) {
+      setSelectedCard(null);
+    } else {
+      setSelectedCard(card);
+    }
+  };
+
+  console.log(user);
   useEffect(() => {
     if (user._id) getCreditCards();
   }, [user]);
@@ -51,30 +102,29 @@ function UserWallet() {
         <div className=" border-bottom pb-3 d-flex mb-2 align-items-center justify-content-between">
           <div className="d-flex">
             <input
-              class="form-control"
+              className="form-control"
               name="amount"
               type="number"
-              min="50"
-              max="500"
-              step="20"
+              value={depositAmount}
               id="ap-title"
               placeholder="Amount you want to deposit"
-              value={50}
+              onChange={(e) => setDepositAmount(parseInt(e.target.value))}
               style={{ width: "250px" }}
             />
             <button
-              class="btn btn-primary px-3 px-sm-4"
+              className="btn btn-primary px-3 px-sm-4"
               type="button"
-              // disabled={!selected}
+              disabled={!selectedCard || view === "add" || !depositAmount}
+              onClick={onFundsDeposit}
               style={{ marginLeft: "20px" }}
             >
               Deposit
             </button>
           </div>
           <div>
-            <i className="fi-wallet opacity-60 me-2"></i>
+            <i className="fi-wallet opacity-60 me-2 mb-1"></i>
             <span className="ml-5" style={{ fontSize: "22px" }}>
-              Wallet: 50$
+              Wallet: {user.funds}$
             </span>
           </div>
         </div>
@@ -82,7 +132,7 @@ function UserWallet() {
           <div className="d-flex justify-content-end mb-3">
             {view === "list" && (
               <button
-                class="btn btn-primary"
+                className="btn btn-primary"
                 type="button"
                 onClick={() => setView("add")}
               >
@@ -91,7 +141,7 @@ function UserWallet() {
             )}
             {view === "add" && (
               <button
-                class="btn btn-primary"
+                className="btn btn-primary"
                 type="button"
                 onClick={handleViewPayments}
               >
@@ -99,7 +149,14 @@ function UserWallet() {
               </button>
             )}
           </div>
-          {view === "list" && <UserCreditCardsList list={creditCards} />}
+          {view === "list" && (
+            <UserCreditCardsList
+              selectedPaymentMethod={selectedCard}
+              list={creditCards}
+              handlePaymentMethodRemoval={deletePaymentMethod}
+              handlePaymentMethodSelection={selectPaymentMethod}
+            />
+          )}
           {view === "add" && (
             <UserAddCreditCard handleAddPaymentMethod={postPaymentMethod} />
           )}

@@ -5,6 +5,10 @@
   position: relative;
   border-radius: 10px;
   padding: 5px;
+
+  &.selected {
+    background: #fd390e;
+  }
 }
 
 .credit-card-content {

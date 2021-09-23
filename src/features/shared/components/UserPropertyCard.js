@@ -27,54 +27,28 @@ function UserPropertyCard({ property }) {
 
           <div className="card-body position-relative pb-3">
             <div className="dropdown position-absolute zindex-5 top-0 end-0 mt-3 me-3">
-              {!location.pathname.includes("promote") && (
+              {!location.pathname.includes("wishlist") && (
                 <>
-                  {!(
-                    property?.standard &&
-                    property.premium &&
-                    property.pro
-                  ) && (
-                    <Link
-                      className="text-decoration-none"
-                      to={`/user/dashboard/promote/${property._id}`}
-                    >
-                      <button className="dropdown-item" type="button">
-                        <i className="fi-flame opacity-60 me-2"></i>Promote
-                      </button>
-                    </Link>
+                  {!location.pathname.includes("promote") && (
+                    <>
+                      {!(
+                        property?.standard &&
+                        property.premium &&
+                        property.pro
+                      ) && (
+                        <Link
+                          className="text-decoration-none"
+                          to={`/user/dashboard/promote/${property._id}`}
+                        >
+                          <button className="dropdown-item" type="button">
+                            <i className="fi-flame opacity-60 me-2"></i>Promote
+                          </button>
+                        </Link>
+                      )}
+                    </>
                   )}
                 </>
               )}
-              {/* <button
-                className="btn btn-icon btn-light btn-xs rounded-circle shadow-sm"
-                type="button"
-                id={`contextmenu${property._id}`}
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i className="fi-dots-vertical"></i>
-              </button>
-              <ul
-                className="dropdown-menu my-1"
-                aria-labelledby={`contextmenu${property._id}`}
-              >
-                <li>
-                  <button className="dropdown-item" type="button">
-                    <i className="fi-edit opacity-60 me-2"></i>Edit
-                  </button>
-                </li>
-                <li></li>
-                <li>
-                  <button className="dropdown-item" type="button">
-                    <i className="fi-power opacity-60 me-2"></i>Deactivate
-                  </button>
-                </li>
-                <li>
-                  <button className="dropdown-item" type="button">
-                    <i className="fi-trash opacity-60 me-2"></i>Delete
-                  </button>
-                </li>
-              </ul> */}
             </div>
             <h3 className="h6 mb-2 fs-base">
               <Link

@@ -91,7 +91,6 @@ function UserSecurityDetails() {
         className="d-inline-block fw-bold text-decoration-none mt-3"
         href="#"
       ></a>
-      <CreditCard />
     </>
   );
 }

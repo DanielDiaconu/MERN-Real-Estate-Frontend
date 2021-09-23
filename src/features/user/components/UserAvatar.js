@@ -14,14 +14,19 @@ function UserAvatar() {
 
   return (
     <>
-      <div className="dropdown d-none d-lg-block order-lg-3 my-n2 me-3">
-        <a className="d-block py-2" href="real-estate-account-info.html">
-          <img
-            className="rounded-circle"
-            src={`http://localhost:8080/images/avatars/${user?.avatar}`}
-            width="40"
-          />
-        </a>
+      <div className="dropdown d-none d-lg-block  order-lg-3 my-n2 me-3">
+        <div className="align-items-center d-flex">
+          <i className="fi-wallet opacity-60 me-2"></i>
+          <span className="me-2">{user?.funds}$</span>
+
+          <Link className="d-block py-2">
+            <img
+              className="rounded-circle"
+              src={`http://localhost:8080/images/avatars/${user?.avatar}`}
+              width="40"
+            />
+          </Link>
+        </div>
         <div className="dropdown-menu dropdown-menu-end">
           <div
             className="d-flex align-items-start border-bottom px-3 py-1 mb-2"
@@ -63,15 +68,15 @@ function UserAvatar() {
           <Link className="dropdown-item" to="/user/dashboard/wishlist">
             <i className="fi-heart opacity-60 me-2"></i>Wishlist
           </Link>
-          <a className="dropdown-item" href="real-estate-account-reviews.html">
+          <Link className="dropdown-item" to="/user/dashboard/wallet">
+            <i className="fi-wallet opacity-60 me-2"></i>Payment & Funds
+          </Link>
+          <Link className="dropdown-item" to="#">
             <i className="fi-star opacity-60 me-2"></i>Reviews
-          </a>
-          <a
-            className="dropdown-item"
-            href="real-estate-account-notifications.html"
-          >
+          </Link>
+          <Link className="dropdown-item" to="#">
             <i className="fi-bell opacity-60 me-2"></i>Notifications
-          </a>
+          </Link>
           <div className="dropdown-divider"></div>
 
           <a
