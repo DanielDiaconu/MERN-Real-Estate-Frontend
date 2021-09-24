@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import PropertyDetails from "../components/PropertyDetails";
 import PropertyImages from "../components/PropertyImages";
+import PropertyQuestionSection from "../components/PropertyQuestionSection";
+import PropertyReviews from "../components/PropertyQuestionSection";
 import PropertyUser from "../components/PropertyUser";
 
 function Property() {
@@ -47,7 +49,10 @@ function Property() {
           <PropertyImages />
           <section className="container mb-5 pb-1">
             <div className="row">
-              <PropertyDetails property={property} />
+              <div class="col-md-7 mb-md-0 mb-4">
+                <PropertyDetails property={property} />
+                <PropertyQuestionSection property={property} />
+              </div>
               <PropertyUser user={property.ownerId} />
             </div>
           </section>
