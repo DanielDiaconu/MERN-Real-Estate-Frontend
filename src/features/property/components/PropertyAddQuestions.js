@@ -1,10 +1,7 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../../slices/userSlice";
 
 function PropertyAddQuestions({ handleQuestionCancel, postQuestion }) {
-  const [question, setQuestion] = useState({ questionBody: "" });
+  const [questionBody, setQuestionBody] = useState("");
 
   return (
     <div className="mt-3">
@@ -13,19 +10,17 @@ function PropertyAddQuestions({ handleQuestionCancel, postQuestion }) {
       </label>
       <textarea
         name="overview"
-        value={question.questionBody}
+        value={questionBody}
         className="form-control"
         id="ap-description"
         rows="3"
         placeholder="Enter your question here"
-        onChange={(e) =>
-          setQuestion({ ...question, questionBody: e.target.value })
-        }
+        onChange={(e) => setQuestionBody(e.target.value)}
       ></textarea>
       <div className="mt-3">
         <button
           className="btn btn-primary p-2 me-2"
-          onClick={() => postQuestion(question.questionBody)}
+          onClick={() => postQuestion(questionBody)}
         >
           Post
         </button>

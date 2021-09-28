@@ -1,98 +1,105 @@
 import React from "react";
 
 function PropertyUser({ user }) {
+  console.log(user);
   return (
-    <aside class="col-lg-4 col-md-5 ms-lg-auto pb-1">
-      <div class="card shadow-sm mb-4">
-        <div class="card-body">
-          <div class="d-flex align-items-start justify-content-between">
+    <aside className="col-lg-4 col-md-5 ms-lg-auto pb-1">
+      <div className="card shadow-sm mb-4">
+        <div className="card-body">
+          <div className="d-flex align-items-start justify-content-between">
             <a
-              class="text-decoration-none"
+              className="text-decoration-none"
               href="real-estate-vendor-properties.html"
             >
               <img
-                class="rounded-circle mb-2"
-                src="/img/01.jpg"
+                className="rounded-circle mb-2"
+                src={`http://localhost:8080/images/avatars/${user?.avatar}`}
                 width="60"
                 alt="Avatar"
               />
-              <h5 class="mb-1">{`${user?.firstName} ${user?.lastName}`}</h5>
-              <div class="mb-1">
-                <span class="star-rating">
-                  <i class="star-rating-icon fi-star-filled active"></i>
-                  <i class="star-rating-icon fi-star-filled active"></i>
-                  <i class="star-rating-icon fi-star-filled active"></i>
-                  <i class="star-rating-icon fi-star-filled active"></i>
-                  <i class="star-rating-icon fi-star-filled active"></i>
+              <h5 className="mb-1">{user?.fullName}</h5>
+              <div className="mb-1">
+                <span className="star-rating">
+                  <i className="star-rating-icon fi-star-filled active"></i>
+                  <i className="star-rating-icon fi-star-filled active"></i>
+                  <i className="star-rating-icon fi-star-filled active"></i>
+                  <i className="star-rating-icon fi-star-filled active"></i>
+                  <i className="star-rating-icon fi-star-filled active"></i>
                 </span>
-                <span class="ms-1 fs-sm text-muted">(45 reviews)</span>
+                <span className="ms-1 fs-sm text-muted">(45 reviews)</span>
               </div>
-              <p class="text-body">Imperial Property Group Agent</p>
             </a>
           </div>
-          <ul class="list-unstyled border-bottom mb-4 pb-4">
+          <ul className="list-unstyled border-bottom mb-4 pb-4">
             <li>
-              <a class="nav-link fw-normal p-0" href="tel:3025550107">
-                <i class="fi-phone mt-n1 me-2 align-middle opacity-60"></i>(302)
-                555-0107
+              <a className="nav-link fw-normal p-0" href="tel:3025550107">
+                <i className="fi-phone mt-n1 me-2 align-middle opacity-60"></i>
+                {user?.phone}
               </a>
             </li>
             <li>
               <a
-                class="nav-link fw-normal p-0"
+                className="nav-link fw-normal p-0"
                 href="mailto:floyd_miles@email.com"
               >
-                <i class="fi-mail mt-n1 me-2 align-middle opacity-60"></i>
+                <i className="fi-mail mt-n1 me-2 align-middle opacity-60"></i>
                 {user?.email}
               </a>
             </li>
           </ul>
-          <form class="needs-validation" novalidate="">
-            <div class="mb-3">
+          <form className="needs-validation" noValidate="">
+            <div className="mb-3">
               <input
-                class="form-control"
+                className="form-control"
                 type="text"
                 placeholder="Your name*"
                 required=""
               />
-              <div class="invalid-feedback">Please enter your name!</div>
+              <div className="invalid-feedback">Please enter your name!</div>
             </div>
-            <div class="mb-3">
+            <div className="mb-3">
               <input
-                class="form-control"
+                className="form-control"
                 type="email"
                 placeholder="Email*"
                 required=""
               />
-              <div class="invalid-feedback">
+              <div className="invalid-feedback">
                 Please provide valid email address!
               </div>
             </div>
-            <input class="form-control mb-3" type="tel" placeholder="Phone" />
-            <div class="input-group mb-3">
+            <input
+              className="form-control mb-3"
+              type="tel"
+              placeholder="Phone"
+            />
+            <div className="input-group mb-3">
               <input
-                class="form-control date-picker rounded pe-5 flatpickr-input"
+                className="form-control date-picker rounded pe-5 flatpickr-input"
                 type="hidden"
                 placeholder="Choose date"
                 data-datepicker-options='{"altInput": true, "altFormat": "F j, Y", "dateFormat": "Y-m-d"}'
               />
               <input
-                class="form-control date-picker rounded pe-5 form-control input"
+                className="form-control date-picker rounded pe-5 form-control input"
                 placeholder="Choose date"
-                tabindex="0"
+                tabIndex="0"
                 type="text"
-                readonly="readonly"
+                readOnly="readonly"
               />
-              <i class="fi-calendar position-absolute top-50 end-0 translate-middle-y me-3"></i>
+              <i className="fi-calendar position-absolute top-50 end-0 translate-middle-y me-3"></i>
             </div>
             <textarea
-              class="form-control mb-3"
+              className="form-control mb-3"
               rows="3"
               placeholder="Message"
               style={{ resize: "none" }}
             ></textarea>
 
-            <button class="btn btn-lg btn-primary d-block w-100" type="submit">
+            <button
+              className="btn btn-lg btn-primary d-block w-100"
+              type="submit"
+            >
               Send request
             </button>
           </form>

@@ -24,8 +24,6 @@ function PropertiesCard({ property }) {
     );
   };
 
-  console.log(property);
-
   const handlePropertyAge = () => {
     let currentDate = moment(new Date(), "YYYY-MM-DD");
     let propertyDate = moment(property.date, "YYYY-MM-DD");
@@ -46,7 +44,7 @@ function PropertiesCard({ property }) {
 
   return (
     <div
-      className={`card shadow-sm  border-0 h-100 property-card ${
+      className={`card shadow-sm  border-0 h-100 property-card p-0 ${
         property.pro ? "golden-border" : ""
       }`}
     >

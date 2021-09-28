@@ -79,7 +79,6 @@ function UserWallet() {
     }
     setSelectedCard(null);
   };
-  console.log(selectedCard);
 
   const selectPaymentMethod = (card) => {
     if (!selectedCard) {
@@ -91,7 +90,6 @@ function UserWallet() {
     }
   };
 
-  console.log(user);
   useEffect(() => {
     if (user._id) getCreditCards();
   }, [user]);

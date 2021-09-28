@@ -14,10 +14,13 @@ function PropertiesRow() {
     getProperties();
   }, []);
   return (
-    <section className="container mb-5">
-      <div className="row row-cols-lg-4 row-cols-sm-3 row-cols-2 g-3 g-xl-4">
+    <section className="container mb-5 mt-5">
+      <h1>Featured Properties</h1>
+      <div className="row my-5 justify-content-evenly g-4">
         {properties.map((property, i) => (
-          <PropertiesCard property={property} key={i} />
+          <div key={i} className=" col-lg-3 col-md-6 col-sm-6 mt-4">
+            <PropertiesCard property={property} />
+          </div>
         ))}
       </div>
     </section>

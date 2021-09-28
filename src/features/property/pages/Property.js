@@ -20,6 +20,8 @@ function Property() {
     getProperty();
   }, [id]);
 
+  console.log(property);
+
   return (
     <>
       {property && (
@@ -49,11 +51,11 @@ function Property() {
           <PropertyImages />
           <section className="container mb-5 pb-1">
             <div className="row">
-              <div class="col-md-7 mb-md-0 mb-4">
+              <div className="col-md-7 mb-md-0 mb-4">
                 <PropertyDetails property={property} />
                 <PropertyQuestionSection property={property} />
               </div>
-              <PropertyUser user={property.ownerId} />
+              <PropertyUser user={property?.ownerId} />
             </div>
           </section>
         </>

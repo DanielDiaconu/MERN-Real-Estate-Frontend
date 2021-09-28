@@ -23,26 +23,6 @@ function PropertyDetails({ property }) {
         <div className="mb-4 pb-md-3">
           <h3 className="h4">Overview</h3>
           <p className="mb-1">{property?.overview}</p>
-          <div className="collapse" id="seeMoreOverview">
-            <p className="mb-1">
-              Asperiores eos molestias, aspernatur assumenda vel corporis ex,
-              magni excepturi totam exercitationem quia inventore quod amet
-              labore impedit quae distinctio? Officiis blanditiis consequatur
-              alias, atque, sed est incidunt accusamus repudiandae tempora
-              repellendus obcaecati delectus ducimus inventore tempore harum
-              numquam autem eligendi culpa.
-            </p>
-          </div>
-          <a
-            className="collapse-label collapsed"
-            href="#seeMoreOverview"
-            data-bs-toggle="collapse"
-            data-bs-label-collapsed="Show more"
-            data-bs-label-expanded="Show less"
-            role="button"
-            aria-expanded="false"
-            aria-controls="seeMoreOverview"
-          ></a>
         </div>
         <div className="mb-4 pb-md-3">
           <h3 className="h4">Property Details</h3>
@@ -80,7 +60,7 @@ function PropertyDetails({ property }) {
         </div>
         <div className="mb-4 pb-md-3">
           <h3 className="h4">Amenities</h3>
-          <ul className="list-unstyled row row-cols-lg-3 row-cols-md-2 row-cols-1 gy-1 mb-1 text-nowrap">
+          <ul className="list-unstyled row row-cols-lg-2 row-cols-md-2 row-cols-1 gy-1 mb-1 text-nowrap">
             {property?.amenities?.length > 0 ? (
               <>
                 {property?.amenities.map((amenity, i) => (

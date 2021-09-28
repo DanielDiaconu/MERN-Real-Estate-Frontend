@@ -26,9 +26,7 @@ export const updateUserWishlist = createAsyncThunk(
         data
       );
       return { data: res.data, removed };
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 );
 
