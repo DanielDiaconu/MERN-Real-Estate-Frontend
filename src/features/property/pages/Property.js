@@ -20,8 +20,6 @@ function Property() {
     getProperty();
   }, [id]);
 
-  console.log(property);
-
   return (
     <>
       {property && (

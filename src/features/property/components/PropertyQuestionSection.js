@@ -1,8 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setErrorToast, setSuccessToast } from "../../../slices/toastSlice";
 import { selectUser } from "../../../slices/userSlice";
+import Pagination from "../../shared/components/Pagination";
+import SmallLoader from "../../shared/components/SmallLoader";
 import PropertyAddQuestions from "./PropertyAddQuestions";
 import PropertyQuestion from "./PropertyQuestion";
 
@@ -10,14 +12,25 @@ function PropertyQuestionSection({ property }) {
   const [toggleAddQuestion, setToggleAddQuestion] = useState(false);
   const [propertyClone, setPropertyClone] = useState(null);
   const [questions, setQuestions] = useState([]);
+  const [questionLoading, setQuestionLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const questionRef = useRef();
+
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
   const getQuestions = async () => {
     let res = await axios.get(
-      `http://localhost:8080/questions/${property?._id}`
+      `http://localhost:8080/questions/${property?._id}?page=${currentPage}`
     );
-    setQuestions(res.data);
+
+    setQuestions(res.data.results);
+    setTotalPages(res.data.total);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   const onSortChange = async (e) => {
@@ -25,10 +38,11 @@ function PropertyQuestionSection({ property }) {
     let res = await axios.get(
       `http://localhost:8080/questions/${property?._id}${sortUrl}`
     );
-    setQuestions(res.data);
+    setQuestions(res.data.results);
   };
 
   const handlePostQuestion = async (data) => {
+    setQuestionLoading(true);
     try {
       let res = await axios.post("http://localhost:8080/question", {
         questionBody: data,
@@ -37,6 +51,7 @@ function PropertyQuestionSection({ property }) {
       });
       setQuestions([...questions, res.data]);
       setToggleAddQuestion(false);
+      setQuestionLoading(false);
     } catch (error) {
       dispatch(setErrorToast(error.message));
     }
@@ -57,6 +72,7 @@ function PropertyQuestionSection({ property }) {
 
   const postReply = async (data, question) => {
     try {
+      questionRef.current.enableLoading();
       let res = await axios.post("http://localhost:8080/replies", {
         replyBody: data,
         userId: user._id,
@@ -68,6 +84,7 @@ function PropertyQuestionSection({ property }) {
         }
         return qst;
       });
+      questionRef.current.disableLoading();
       setQuestions(updatedQuestions);
     } catch (error) {}
   };
@@ -274,12 +291,12 @@ function PropertyQuestionSection({ property }) {
     if (property) {
       getQuestions();
     }
-  }, []);
+  }, [currentPage]);
 
   return (
     <>
       <div className="mb-4 pb-4 border-bottom">
-        <h3 className="h4 pb-3">Questions ({questions?.length})</h3>
+        <h3 className="h4 pb-3">Questions ({totalPages})</h3>
         <div className="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between">
           {!toggleAddQuestion && (
             <button
@@ -315,19 +332,33 @@ function PropertyQuestionSection({ property }) {
           />
         )}
       </div>
-      {questions?.map((question, i) => (
-        <PropertyQuestion
-          key={i}
-          question={question}
-          property={propertyClone}
-          handlePostReply={postReply}
-          handleQuestionLike={handleQuestionLike}
-          handleQuestionDislike={handleQuestionDislike}
-          handleReplyLike={handleReplyLike}
-          handleReplyDislike={handleReplyDislike}
-          handleQuestionDelete={handleQuestionDelete}
-        />
-      ))}
+      {questionLoading ? (
+        <div className="d-flex align-items-center justify-content-center mb-2 mt-2">
+          <SmallLoader />
+        </div>
+      ) : (
+        <>
+          {questions?.map((question, i) => (
+            <PropertyQuestion
+              key={i}
+              question={question}
+              property={propertyClone}
+              handlePostReply={postReply}
+              handleQuestionLike={handleQuestionLike}
+              handleQuestionDislike={handleQuestionDislike}
+              handleReplyLike={handleReplyLike}
+              handleReplyDislike={handleReplyDislike}
+              handleQuestionDelete={handleQuestionDelete}
+              ref={questionRef}
+            />
+          ))}
+        </>
+      )}
+      <Pagination
+        questions={questions}
+        handlePageChange={handlePageChange}
+        count={totalPages}
+      />
     </>
   );
 }

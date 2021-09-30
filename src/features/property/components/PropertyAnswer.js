@@ -13,8 +13,6 @@ function PropertyAnswer({
     return moment(reply?.createdAt).format("MMM DD,YYYY");
   };
 
-  console.log(reply._id);
-
   const hasLiked = () => {
     return reply?.likes.userIds?.includes(user?._id) ? "active" : "";
   };
@@ -46,8 +44,9 @@ function PropertyAnswer({
               width="48"
               alt="Avatar"
             />
-            <div className="ps-2">
-              <h6 className="fs-base mb-0">{reply?.userId?.fullName}</h6>
+            <div className="ps-2 d-flex align-items-center">
+              <h6 className="fs-base mb-0">{reply?.userId?.fullName} </h6>
+              <span className="owner-reply-pill">owner</span>
             </div>
           </div>
           <span className="text-muted fs-sm">{parseTime()}</span>

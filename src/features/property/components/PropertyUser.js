@@ -1,7 +1,6 @@
 import React from "react";
 
 function PropertyUser({ user }) {
-  console.log(user);
   return (
     <aside className="col-lg-4 col-md-5 ms-lg-auto pb-1">
       <div className="card shadow-sm mb-4">
