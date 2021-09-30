@@ -1,12 +1,11 @@
-import axios from "axios";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../slices/userSlice";
-import PropertyAddAnswer from "../../property/components/PropertyAddAnswer";
-import PropertyAnswer from "../../property/components/PropertyAnswer";
+import PropertyAddAnswer from "./PropertyAddAnswer";
+import PropertyAnswer from "./PropertyAnswer";
 
-function PropertyQuestionAndAnswer({
+function PropertyQuestion({
   property,
   question,
   handlePostReply,
@@ -14,6 +13,7 @@ function PropertyQuestionAndAnswer({
   handleQuestionDislike,
   handleReplyLike,
   handleReplyDislike,
+  handleQuestionDelete,
 }) {
   const [replyState, setReplyState] = useState(false);
   const user = useSelector(selectUser);
@@ -22,16 +22,20 @@ function PropertyQuestionAndAnswer({
     return moment(question?.createdAt).format("MMM DD,YYYY");
   };
 
-  const onPostReply = async (data) => {
+  const deleteQuestion = () => {
+    handleQuestionDelete(question);
+  };
+
+  const onPostReply = (data) => {
     setReplyState(false);
     handlePostReply(data, question);
   };
 
-  const onQuestionLike = async () => {
+  const onQuestionLike = () => {
     handleQuestionLike(question);
   };
 
-  const onQuestionDislike = async () => {
+  const onQuestionDislike = () => {
     handleQuestionDislike(question);
   };
 
@@ -75,7 +79,7 @@ function PropertyQuestionAndAnswer({
         </div>
         <p>{question?.questionBody}</p>
         {!replyState ? (
-          <div className="d-flex align-items-center">
+          <div className="d-flex single-property-replies align-items-center ">
             <button
               className={`btn-like ${hasLiked()}`}
               type="button"
@@ -99,6 +103,11 @@ function PropertyQuestionAndAnswer({
                 <span className="ms-1 ">Reply </span>
               </span>
             )}
+            {question?.userId !== user?._id && (
+              <div className="ms-3" onClick={deleteQuestion}>
+                <i class="fas fa-trash-alt"></i>
+              </div>
+            )}
           </div>
         ) : (
           <PropertyAddAnswer
@@ -108,6 +117,8 @@ function PropertyQuestionAndAnswer({
         )}
         {question?.replies?.map((reply, i) => (
           <PropertyAnswer
+            isLast={i === question?.replies?.length - 1}
+            isFirst={i === 0}
             key={i}
             reply={reply}
             handleReplyLike={onReplyLike}
@@ -120,4 +131,4 @@ function PropertyQuestionAndAnswer({
   );
 }
 
-export default PropertyQuestionAndAnswer;
+export default PropertyQuestion;

@@ -1,7 +1,14 @@
 import moment from "moment";
 import React from "react";
 
-function PropertyAnswer({ reply, handleReplyLike, handleReplyDislike, user }) {
+function PropertyAnswer({
+  reply,
+  handleReplyLike,
+  handleReplyDislike,
+  user,
+  isLast,
+  isFirst,
+}) {
   const parseTime = () => {
     return moment(reply?.createdAt).format("MMM DD,YYYY");
   };
@@ -26,7 +33,11 @@ function PropertyAnswer({ reply, handleReplyLike, handleReplyDislike, user }) {
 
   return (
     <>
-      <div className="mt-3 ms-5 mb-2">
+      <div
+        className={`mt-3  ms-5  ${isFirst ? "mt-4" : ""} ${
+          !isLast ? "border-bottom pb-3  mb-2" : ""
+        }  `}
+      >
         <div className="d-flex justify-content-between mb-3">
           <div className="d-flex align-items-center pe-2">
             <img

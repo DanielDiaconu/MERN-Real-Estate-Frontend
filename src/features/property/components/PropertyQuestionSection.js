@@ -1,11 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouteMatch } from "react-router";
 import { setErrorToast, setSuccessToast } from "../../../slices/toastSlice";
-import userSlice, { selectUser } from "../../../slices/userSlice";
-import PropertyQuestionAndAnswer from "../../shared/components/PropertyQuestionAndAnswer";
+import { selectUser } from "../../../slices/userSlice";
 import PropertyAddQuestions from "./PropertyAddQuestions";
+import PropertyQuestion from "./PropertyQuestion";
 
 function PropertyQuestionSection({ property }) {
   const [toggleAddQuestion, setToggleAddQuestion] = useState(false);
@@ -21,6 +20,14 @@ function PropertyQuestionSection({ property }) {
     setQuestions(res.data);
   };
 
+  const onSortChange = async (e) => {
+    let sortUrl = `?sort=${encodeURIComponent(e.target.value)}`;
+    let res = await axios.get(
+      `http://localhost:8080/questions/${property?._id}${sortUrl}`
+    );
+    setQuestions(res.data);
+  };
+
   const handlePostQuestion = async (data) => {
     try {
       let res = await axios.post("http://localhost:8080/question", {
@@ -32,6 +39,19 @@ function PropertyQuestionSection({ property }) {
       setToggleAddQuestion(false);
     } catch (error) {
       dispatch(setErrorToast(error.message));
+    }
+  };
+
+  const handleQuestionDelete = async (question) => {
+    try {
+      await axios.delete(`http://localhost:8080/question/${question._id}`);
+      const filteredQuestions = questions.filter(
+        (qst) => qst._id !== question._id
+      );
+      setQuestions(filteredQuestions);
+      dispatch(setSuccessToast("Question successfully deleted!"));
+    } catch (error) {
+      dispatch(setErrorToast("An error occured, please try again!"));
     }
   };
 
@@ -259,10 +279,7 @@ function PropertyQuestionSection({ property }) {
   return (
     <>
       <div className="mb-4 pb-4 border-bottom">
-        <h3 className="h4 pb-3">
-          <i className="fi-star-filled mt-n1 me-2 lead align-middle text-warning"></i>
-          4,9 (32 reviews)
-        </h3>
+        <h3 className="h4 pb-3">Questions ({questions?.length})</h3>
         <div className="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between">
           {!toggleAddQuestion && (
             <button
@@ -277,10 +294,17 @@ function PropertyQuestionSection({ property }) {
             <label className="me-2 pe-1 text-nowrap" htmlFor="reviews-sorting">
               <i className="fi-arrows-sort text-muted mt-n1 me-2"></i>Sort by:
             </label>
-            <select className="form-select" id="reviews-sorting">
-              <option>Newest</option>
-              <option>Oldest</option>
-              <option>Popular</option>
+            <select
+              className="form-select"
+              id="reviews-sorting"
+              onChange={onSortChange}
+            >
+              <option selected disabled defaultValue>
+                ...
+              </option>
+              <option value="createdAt">Newest</option>
+              <option value="-createdAt">Oldest</option>
+              <option value="likes.count">Popular</option>
             </select>
           </div>
         </div>
@@ -291,8 +315,8 @@ function PropertyQuestionSection({ property }) {
           />
         )}
       </div>
-      {questions.map((question, i) => (
-        <PropertyQuestionAndAnswer
+      {questions?.map((question, i) => (
+        <PropertyQuestion
           key={i}
           question={question}
           property={propertyClone}
@@ -301,6 +325,7 @@ function PropertyQuestionSection({ property }) {
           handleQuestionDislike={handleQuestionDislike}
           handleReplyLike={handleReplyLike}
           handleReplyDislike={handleReplyDislike}
+          handleQuestionDelete={handleQuestionDelete}
         />
       ))}
     </>
