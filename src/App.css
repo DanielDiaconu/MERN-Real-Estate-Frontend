@@ -324,3 +324,8 @@
   /* filter: opacity(0.5); */
   filter: contrast(calc(1 / 3)) brightness(1.5);
 }
+
+.fa-check.active {
+  color: #13aa52;
+  font-size: 18px;
+}

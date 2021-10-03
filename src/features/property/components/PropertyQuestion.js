@@ -22,6 +22,8 @@ const PropertyQuestion = forwardRef(
       handleReplyLike,
       handleReplyDislike,
       handleQuestionDelete,
+      onReplyDelete,
+      onQuestionAnsweredStatus,
     },
     ref
   ) => {
@@ -32,6 +34,10 @@ const PropertyQuestion = forwardRef(
 
     const enableLoading = () => {
       setLoading(true);
+    };
+
+    const handleQuestionAnsweredStatus = () => {
+      onQuestionAnsweredStatus(question?._id, !question?.isAnswered);
     };
 
     const onHovering = () => {
@@ -95,6 +101,10 @@ const PropertyQuestion = forwardRef(
       handleReplyDislike(replyId, question);
     };
 
+    const handleReplyDelete = (replyId) => {
+      onReplyDelete(replyId, question._id);
+    };
+
     useEffect(() => {
       setIsFaded(false);
       if (question) {
@@ -113,7 +123,7 @@ const PropertyQuestion = forwardRef(
           onMouseEnter={onHovering}
           onMouseLeave={onHoveringOut}
         >
-          <div className="d-flex justify-content-between mb-3">
+          <div className="d-flex justify-content-between align-items-center mb-3">
             <div className="d-flex align-items-center pe-2">
               <img
                 className="rounded-circle me-1"
@@ -125,7 +135,22 @@ const PropertyQuestion = forwardRef(
                 <h6 className="fs-base mb-0">{question?.userId?.fullName}</h6>
               </div>
             </div>
-            <span className="text-muted fs-sm">{parseTime()}</span>
+            <div className="d-flex align-items-center">
+              {question?.userId?._id === user?._id && (
+                <i
+                  class={`fas fa-check ${
+                    question?.isAnswered ? "active" : ""
+                  }  me-3`}
+                  title={` ${
+                    question?.isAnswered
+                      ? "Question marked as answered by user."
+                      : "Mark this question as answered."
+                  }`}
+                  onClick={handleQuestionAnsweredStatus}
+                ></i>
+              )}
+              <span className="text-muted fs-sm">{parseTime()}</span>
+            </div>
           </div>
           <p>{question?.questionBody}</p>
           {!replyState ? (
@@ -153,9 +178,9 @@ const PropertyQuestion = forwardRef(
                   <span className="ms-1 ">Reply </span>
                 </span>
               )}
-              {question?.userId !== user?._id && (
-                <div className="ms-3" onClick={deleteQuestion}>
-                  <i class="fas fa-trash-alt"></i>
+              {question?.userId?._id === user?._id && (
+                <div className="ms-3 cursor-pointer" onClick={deleteQuestion}>
+                  <i className="fas fa-trash-alt"></i>
                 </div>
               )}
             </div>
@@ -174,6 +199,7 @@ const PropertyQuestion = forwardRef(
               handleReplyLike={onReplyLike}
               handleReplyDislike={onReplyDislike}
               user={user}
+              handleReplyDelete={handleReplyDelete}
             />
           ))}
           {loading && (

@@ -8,6 +8,7 @@ function PropertyAnswer({
   user,
   isLast,
   isFirst,
+  handleReplyDelete,
 }) {
   const parseTime = () => {
     return moment(reply?.createdAt).format("MMM DD,YYYY");
@@ -27,6 +28,10 @@ function PropertyAnswer({
 
   const onReplyDislike = () => {
     handleReplyDislike(reply._id);
+  };
+
+  const deleteReply = () => {
+    handleReplyDelete(reply._id);
   };
 
   return (
@@ -71,6 +76,11 @@ function PropertyAnswer({
             <i className="fi-dislike"></i>
             <span>({reply?.dislikes?.count})</span>
           </button>
+          {user?._id === reply?.userId?._id && (
+            <div className="ms-3 cursor-pointer" onClick={deleteReply}>
+              <i className="fas fa-trash-alt"></i>
+            </div>
+          )}
         </div>
       </div>
     </>

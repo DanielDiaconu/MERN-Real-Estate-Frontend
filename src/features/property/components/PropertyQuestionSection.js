@@ -10,6 +10,7 @@ import PropertyQuestion from "./PropertyQuestion";
 
 function PropertyQuestionSection({ property }) {
   const [toggleAddQuestion, setToggleAddQuestion] = useState(false);
+  const [loader, setLoader] = useState(false);
   const [propertyClone, setPropertyClone] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [questionLoading, setQuestionLoading] = useState(false);
@@ -21,12 +22,17 @@ function PropertyQuestionSection({ property }) {
   const user = useSelector(selectUser);
 
   const getQuestions = async () => {
-    let res = await axios.get(
-      `http://localhost:8080/questions/${property?._id}?page=${currentPage}`
-    );
-
-    setQuestions(res.data.results);
-    setTotalPages(res.data.total);
+    setQuestionLoading(true);
+    try {
+      let res = await axios.get(
+        `http://localhost:8080/questions/${property?._id}?page=${currentPage}`
+      );
+      setQuestions(res.data.results);
+      setTotalPages(res.data.total);
+      setQuestionLoading(false);
+    } catch (error) {
+      dispatch(setErrorToast(error.message));
+    }
   };
 
   const handlePageChange = (page) => {
@@ -55,6 +61,34 @@ function PropertyQuestionSection({ property }) {
     } catch (error) {
       dispatch(setErrorToast(error.message));
     }
+  };
+
+  const handleQuestionAnsweredStatus = async (questionId, answeredState) => {
+    try {
+      await axios.patch(
+        `http://localhost:8080/question-answered/${questionId}`,
+        {
+          answeredState,
+        }
+      );
+      const updatedQuestions = questions.map((qst) => {
+        if (qst._id === questionId) {
+          return { ...qst, isAnswered: answeredState };
+        }
+        return qst;
+      });
+
+      setQuestions(updatedQuestions);
+      dispatch(
+        setSuccessToast(
+          `${
+            answeredState
+              ? "Question marked as answered."
+              : "Question unmarked as answered by user."
+          }`
+        )
+      );
+    } catch (error) {}
   };
 
   const handleQuestionDelete = async (question) => {
@@ -87,6 +121,27 @@ function PropertyQuestionSection({ property }) {
       questionRef.current.disableLoading();
       setQuestions(updatedQuestions);
     } catch (error) {}
+  };
+
+  const handleReplyDelete = async (replyId, questionId) => {
+    try {
+      await axios.delete(`http://localhost:8080/replies/${replyId}`, {
+        questionId,
+      });
+      const updatedQuestions = questions.map((qst) => {
+        if (qst._id === questionId) {
+          return {
+            ...qst,
+            replies: qst.replies.filter((item) => item._id !== replyId),
+          };
+        }
+        return qst;
+      });
+      setQuestions(updatedQuestions);
+      dispatch(setSuccessToast("Reply deleted successfully!"));
+    } catch (error) {
+      dispatch(setErrorToast("An error occured, please try again!"));
+    }
   };
 
   const handleQuestionLike = async (question) => {
@@ -131,7 +186,7 @@ function PropertyQuestionSection({ property }) {
         });
         setQuestions(updatedQuestions);
       }
-      dispatch(setSuccessToast("Liked!"));
+      dispatch(setSuccessToast("Successfully reacted to question!"));
     } catch (error) {}
   };
 
@@ -181,7 +236,7 @@ function PropertyQuestionSection({ property }) {
         });
         setQuestions(updatedQuestions);
       }
-      dispatch(setSuccessToast("Disliked!"));
+      dispatch(setSuccessToast("Succesfully reacted to question !"));
     } catch (error) {}
   };
 
@@ -322,6 +377,7 @@ function PropertyQuestionSection({ property }) {
               <option value="createdAt">Newest</option>
               <option value="-createdAt">Oldest</option>
               <option value="likes.count">Popular</option>
+              <option value="-isAnswered">Answered</option>
             </select>
           </div>
         </div>
@@ -350,15 +406,13 @@ function PropertyQuestionSection({ property }) {
               handleReplyDislike={handleReplyDislike}
               handleQuestionDelete={handleQuestionDelete}
               ref={questionRef}
+              onReplyDelete={handleReplyDelete}
+              onQuestionAnsweredStatus={handleQuestionAnsweredStatus}
             />
           ))}
         </>
       )}
-      <Pagination
-        questions={questions}
-        handlePageChange={handlePageChange}
-        count={totalPages}
-      />
+      <Pagination handlePageChange={handlePageChange} count={totalPages} />
     </>
   );
 }

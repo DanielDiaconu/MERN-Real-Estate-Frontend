@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactPaginate from "react-paginate";
 
-function Pagination({ questions, handlePageChange, count }) {
+function Pagination({ handlePageChange, count, limit = 5 }) {
   const changePage = ({ selected }) => {
     handlePageChange(selected + 1);
   };
@@ -10,7 +10,7 @@ function Pagination({ questions, handlePageChange, count }) {
     <ReactPaginate
       previousLabel={"Prev"}
       nextLabel={"Next"}
-      pageCount={Math.ceil(count / 5)}
+      pageCount={Math.ceil(count / limit)}
       onPageChange={changePage}
       containerClassName={"paggination"}
       previousLinkClassName={"previous-btn"}

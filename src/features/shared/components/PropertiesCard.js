@@ -107,15 +107,26 @@ function PropertiesCard({ property }) {
           {property?.price} $
         </div>
       </div>
-      <div className="card-footer d-flex align-items-center justify-content-center mx-3 pt-3 text-nowrap">
-        <span className="d-inline-block mx-1 px-2 fs-sm">
-          {property?.bedrooms}
-          <i className="fi-bed ms-1 mt-n1 fs-lg text-muted"></i>
-        </span>
-        <span className="d-inline-block mx-1 px-2 fs-sm">
-          {property?.bathrooms}
-          <i className="fi-bath ms-1 mt-n1 fs-lg text-muted"></i>
-        </span>
+      <div className="card-footer d-flex align-items-center justify-content-evenly mx-3 pt-3 text-nowrap">
+        <div>
+          <span className="d-inline-block mx-1 px-2 fs-sm">
+            {property?.bedrooms}
+            <i className="fi-bed ms-1 mt-n1 fs-lg text-muted"></i>
+          </span>
+          <span className="d-inline-block mx-1 px-2 fs-sm">
+            {property?.bathrooms}
+            <i className="fi-bath ms-1 mt-n1 fs-lg text-muted"></i>
+          </span>
+        </div>
+        <div className="d-flex text-center align-content-end justify-content-evenly ">
+          <Link to={`/profile/${property?.ownerId?._id}`}>
+            <img
+              className="rounded-circle"
+              style={{ width: "20%" }}
+              src={`http://localhost:8080/images/avatars/${property?.ownerId?.avatar}`}
+            />
+          </Link>
+        </div>
       </div>
     </div>
   );

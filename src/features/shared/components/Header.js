@@ -66,6 +66,11 @@ export default function Header() {
                 Catalog
               </Link>
             </li>
+            <li className="nav-item active">
+              <Link to={`/profile/${user._id}`} className="nav-link">
+                User
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

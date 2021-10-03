@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser, selectUser, setUser } from "./slices/userSlice";
 import UserDashboard from "./features/user/pages/UserDashboard";
 import { ToastContainer } from "react-toastify";
+import UserProfile from "./features/user/pages/UserProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -82,6 +83,10 @@ function App() {
           <Route path="/user/dashboard">
             <Header />
             <UserDashboard />
+          </Route>
+          <Route path="/profile/:id" exact>
+            <Header />
+            <UserProfile />
           </Route>
         </Switch>
       </Router>
