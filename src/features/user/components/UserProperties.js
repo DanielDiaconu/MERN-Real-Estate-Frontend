@@ -16,7 +16,7 @@ function UserProperties() {
       let res = await axios.get(
         `http://localhost:8080/users/my-properties/${user._id}`
       );
-      setProperties(res.data);
+      setProperties(res.data.properties);
       setLoading(false);
     } catch (error) {
       setLoading(false);

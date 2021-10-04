@@ -118,13 +118,17 @@ function PropertiesCard({ property }) {
             <i className="fi-bath ms-1 mt-n1 fs-lg text-muted"></i>
           </span>
         </div>
-        <div className="d-flex text-center align-content-end justify-content-evenly ">
-          <Link to={`/profile/${property?.ownerId?._id}`}>
+        <div className="row text-center align-content-end justify-content-between  ms-lg-5 ">
+          <Link
+            to={`/profile/${property?.ownerId?._id}`}
+            className="d-flex justfiy-content-evenly align-items-center text-decoration-none ms-lg-5"
+          >
             <img
-              className="rounded-circle"
+              className="rounded-circle me-2"
               style={{ width: "20%" }}
               src={`http://localhost:8080/images/avatars/${property?.ownerId?.avatar}`}
             />
+            {property?.ownerId?.fullName}
           </Link>
         </div>
       </div>

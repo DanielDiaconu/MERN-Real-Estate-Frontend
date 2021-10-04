@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import StarsSelect from "../../shared/components/StarsSelect";
 
 const initObject = {
   description: "",
@@ -20,35 +21,23 @@ function UserProfileAddReview({ handleReviewPost }) {
 
   return (
     <div>
-      <form class="needs-validation" noValidate="">
-        <div class="mb-3">
-          <label class="form-label" htmlFor="review-rating">
-            Rating <span class="text-danger">*</span>
+      <form className="needs-validation" noValidate="">
+        <div className="mb-3">
+          <label className="form-label" htmlFor="review-rating">
+            Rating <span className="text-danger">*</span>
           </label>
-          <select
-            class="form-select"
-            id="review-rating"
-            required=""
-            name="rating"
-            onChange={onInputChange}
-          >
-            <option defaultValue="" selected disabled>
-              Choose rating
-            </option>
-            <option value={5}>5 stars</option>
-            <option value={4}>4 stars</option>
-            <option value={3}>3 stars</option>
-            <option value={2}>2 stars</option>
-            <option value={1}>1 star</option>
-          </select>
-          <div class="invalid-feedback">Please rate the property.</div>
+
+          <StarsSelect
+            onStarsSelect={(rating) => setReview({ ...review, rating })}
+          />
+          <div className="invalid-feedback">Please rate the property.</div>
         </div>
-        <div class="mb-4">
-          <label class="form-label" htmlFor="review-text">
-            Review <span class="text-danger">*</span>
+        <div className="mb-4">
+          <label className="form-label" htmlFor="review-text">
+            Review <span className="text-danger">*</span>
           </label>
           <textarea
-            class="form-control"
+            className="form-control"
             id="review-text"
             rows="5"
             placeholder="Your review message"
@@ -57,10 +46,10 @@ function UserProfileAddReview({ handleReviewPost }) {
             value={review.description}
             onChange={onInputChange}
           ></textarea>
-          <div class="invalid-feedback">Please write your review.</div>
+          <div className="invalid-feedback">Please write your review.</div>
         </div>
         <button
-          class="btn btn-primary d-block w-100 mb-4"
+          className="btn btn-primary d-block w-100 mb-4"
           type="submit"
           onClick={submitReview}
           disabled={!review.description || !review.rating}

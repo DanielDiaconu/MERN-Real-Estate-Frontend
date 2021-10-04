@@ -377,7 +377,7 @@ function PropertyQuestionSection({ property }) {
               <option value="createdAt">Newest</option>
               <option value="-createdAt">Oldest</option>
               <option value="likes.count">Popular</option>
-              <option value="-isAnswered">Answered</option>
+              <option value="isAnswered">Answered</option>
             </select>
           </div>
         </div>

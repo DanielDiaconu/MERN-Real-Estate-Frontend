@@ -1,4 +1,5 @@
 import React from "react";
+import displayStarsRating from "../../shared/components/StarsRating";
 
 function UserProfileAside({ user, total }) {
   return (
@@ -16,7 +17,9 @@ function UserProfileAside({ user, total }) {
           </h2>
 
           <div className="d-flex justify-content-center justify-content-md-start border-bottom pb-4 mb-4 align-items-center">
-            <span className="star-rating"></span>
+            <span className="star-rating">
+              {displayStarsRating(user?.rating?.average)}
+            </span>
             <div className="text-muted ms-2">
               {user?.rating?.average.toFixed(1)} ({total} reviews)
             </div>
@@ -26,31 +29,18 @@ function UserProfileAside({ user, total }) {
           </div>
           <ul className="d-table list-unstyled mx-auto mx-md-0 mb-3 mb-md-4">
             <li className="mb-2">
-              <a className="nav-link fw-normal p-0" href="tel:3025550107">
+              <a className="nav-link fw-normal p-0">
                 <i className="fi-phone text-primary mt-n1 me-2 align-middle"></i>
                 {user?.phone}
               </a>
             </li>
             <li>
-              <a
-                className="nav-link fw-normal p-0"
-                href="mailto:floyd_miles@email.com"
-              >
+              <a className="nav-link fw-normal p-0">
                 <i className="fi-mail text-primary mt-n1 me-2 align-middle"></i>
                 {user?.email}
               </a>
             </li>
           </ul>
-
-          <div className="text-center text-md-start pt-md-2 mt-4">
-            <a
-              className="btn btn-primary"
-              href="#message-modal"
-              data-bs-toggle="modal"
-            >
-              <i className="fi-chat-left fs-sm me-2"></i>Direct message
-            </a>
-          </div>
         </div>
       </aside>
     </>

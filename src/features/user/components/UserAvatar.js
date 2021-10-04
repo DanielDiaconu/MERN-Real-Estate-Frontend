@@ -19,13 +19,13 @@ function UserAvatar() {
           <i className="fi-wallet opacity-60 me-2"></i>
           <span className="me-2">{user?.funds}$</span>
 
-          <Link className="d-block py-2">
+          <div className="d-block py-2">
             <img
               className="rounded-circle"
               src={`http://localhost:8080/images/avatars/${user?.avatar}`}
               width="40"
             />
-          </Link>
+          </div>
         </div>
         <div className="dropdown-menu dropdown-menu-end">
           <div

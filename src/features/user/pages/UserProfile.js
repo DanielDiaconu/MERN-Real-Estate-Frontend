@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { setErrorToast, setSuccessToast } from "../../../slices/toastSlice";
 import { selectUser } from "../../../slices/userSlice";
 import UserProfileAside from "../components/UserProfileAside";
+import UserProfileProperties from "../components/UserProfileProperties";
 import UserProfileReviews from "../components/UserProfileReviews";
 
 function UserPublic() {
@@ -21,6 +22,7 @@ function UserPublic() {
     let res = await axios.get(
       `http://localhost:8080/users/profile-user/${id}?page=${currentPage}`
     );
+
     setProfileUser({ ...res.data.user, reviews: res.data.reviews });
     setTotalPages(res.data.total);
   };
@@ -95,22 +97,6 @@ function UserPublic() {
       <div className="container mt-5 mb-md-2 pt-5 pb-3">
         <div className="row">
           <div className="col-lg-8 order-lg-2 mb-5">
-            <div className="d-sm-flex align-items-center justify-content-between pb-4 mb-sm-2">
-              <h1 className="h3 mb-sm-0 me-sm-3">User properties</h1>
-              <div className="d-flex align-items-center">
-                <label
-                  className="fs-sm me-2 pe-1 text-nowrap"
-                  htmlFor="sorting"
-                >
-                  <i className="fi-arrows-sort mt-n1 me-2"></i>Sort by:
-                </label>
-                <select className="form-select form-select-sm" id="sorting">
-                  <option>Newest</option>
-                  <option>Popular</option>
-                  <option>Highest Salary</option>
-                </select>
-              </div>
-            </div>
             <UserProfileReviews
               onReviewPost={handleReviewPost}
               reviews={profileUser?.reviews}
@@ -120,9 +106,14 @@ function UserPublic() {
               handleSorting={handleSorting}
               total={totalPages}
               loading={isLoading}
+              profileUser={profileUser}
             />
-
-            {/* <UserProfileProperties user={user} /> */}
+            <div className="d-sm-flex align-items-center justify-content-between pb-4 mb-sm-2">
+              <div className="d-flex flex-column justify-content-center">
+                <h1 className="h3 mb-sm-0 me-sm-3">User properties</h1>
+                <UserProfileProperties user={profileUser} />
+              </div>
+            </div>
           </div>
           <UserProfileAside user={profileUser} total={totalPages} />
         </div>

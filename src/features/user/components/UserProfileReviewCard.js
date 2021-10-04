@@ -2,11 +2,13 @@ import moment from "moment";
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../slices/userSlice";
+import displayStarsRating from "../../shared/components/StarsRating";
+import StarsRating from "../../shared/components/StarsRating";
 
 function UserProfileReviewCard({ review, handleReviewDelete }) {
   const user = useSelector(selectUser);
   const parseTime = () => {
-    return moment(review?.createdAt).format(" DD MMM ,YYYY");
+    return moment(review?.createdAt).format(" DD MMM, YYYY");
   };
 
   const onReviewDelete = () => {
@@ -26,7 +28,9 @@ function UserProfileReviewCard({ review, handleReviewDelete }) {
             />
             <div className="ps-2">
               <h6 className="fs-base mb-0">{review?.userId?.fullName}</h6>
-              <span className="star-rating">{review.rating}</span>
+              <span className="star-rating">
+                {displayStarsRating(review?.rating)}
+              </span>
             </div>
           </div>
           <div>

@@ -1,5 +1,9 @@
+import userEvent from "@testing-library/user-event";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../slices/userSlice";
 import Pagination from "../../shared/components/Pagination";
+import ReviewsRatingProgressBar from "../../shared/components/ReviewsRatingProgressBar";
 import SmallLoader from "../../shared/components/SmallLoader";
 import UserProfileAddReview from "./UserProfileAddReview";
 import UserProfileReviewCard from "./UserProfileReviewCard";
@@ -13,8 +17,10 @@ function UserProfileReviews({
   total,
   loading,
   handleSorting,
+  profileUser,
 }) {
   const [toggleAddReview, setToggleAddReview] = useState(false);
+  const user = useSelector(selectUser);
 
   const onSortChange = (e) => {
     handleSorting(e.target.value);
@@ -32,140 +38,46 @@ function UserProfileReviews({
             Reviews ({total})
           </h1>
         </div>
-        <div className="d-flex align-items-center mb-2">
-          <div className="text-nowrap fs-sm me-3">
-            5<i className="fi-star text-muted ms-1 mt-n1"></i>
-          </div>
-          <div className="progress w-100">
-            <div
-              className="progress-bar bg-warning"
-              role="progressbar"
-              style={{ width: "70%" }}
-              aria-valuenow="70"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-          <div
-            className="flex-shrink-0 flex-grow-1 fs-sm text-end ps-2"
-            style={{ width: "3rem" }}
-          >
-            70%
-          </div>
-        </div>
-        <div className="d-flex align-items-center mb-2">
-          <div className="text-nowrap fs-sm me-3">
-            4<i className="fi-star text-muted ms-1 mt-n1"></i>
-          </div>
-          <div className="progress w-100">
-            <div
-              className="progress-bar bg-warning"
-              role="progressbar"
-              style={{ width: "15%" }}
-              aria-valuenow="15"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-          <div
-            className="flex-shrink-0 flex-grow-1 fs-sm text-end ps-2"
-            style={{ width: "3rem" }}
-          >
-            15%
-          </div>
-        </div>
-        <div className="d-flex align-items-center mb-2">
-          <div className="text-nowrap fs-sm me-3">
-            3<i className="fi-star text-muted ms-1 mt-n1"></i>
-          </div>
-          <div className="progress w-100">
-            <div
-              className="progress-bar bg-warning"
-              role="progressbar"
-              style={{ width: "0" }}
-              aria-valuenow="0"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-          <div
-            className="flex-shrink-0 flex-grow-1 fs-sm text-end ps-2"
-            style={{ width: "3rem" }}
-          >
-            0%
-          </div>
-        </div>
-        <div className="d-flex align-items-center mb-2">
-          <div className="text-nowrap fs-sm me-3">
-            2<i className="fi-star text-muted ms-1 mt-n1"></i>
-          </div>
-          <div className="progress w-100">
-            <div
-              className="progress-bar bg-warning"
-              role="progressbar"
-              style={{ width: "10%" }}
-              aria-valuenow="10"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-          <div
-            className="flex-shrink-0 flex-grow-1 fs-sm text-end ps-2"
-            style={{ width: "3rem" }}
-          >
-            10%
-          </div>
-        </div>
-        <div className="d-flex align-items-center mb-2">
-          <div className="text-nowrap fs-sm me-3">
-            1<i className="fi-star text-muted ms-1 mt-n1"></i>
-          </div>
-          <div className="progress w-100">
-            <div
-              className="progress-bar bg-warning"
-              role="progressbar"
-              style={{ width: "5%" }}
-              aria-valuenow="5"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-          <div
-            className="flex-shrink-0 flex-grow-1 fs-sm text-end ps-2"
-            style={{ width: "3rem" }}
-          >
-            5%
-          </div>
-        </div>
+        <ReviewsRatingProgressBar rating={5} reviews={reviews} />
+        <ReviewsRatingProgressBar rating={4} reviews={reviews} />
+        <ReviewsRatingProgressBar rating={3} reviews={reviews} />
+        <ReviewsRatingProgressBar rating={2} reviews={reviews} />
+        <ReviewsRatingProgressBar rating={1} reviews={reviews} />
         <div className="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between border-bottom py-4 mt-3 mb-4">
-          <div className="d-flex align-items-center me-sm-4 mb-sm-0 mb-3">
-            <label className="me-2 pe-1 text-nowrap" htmlFor="review-sorting">
-              <i className="fi-arrows-sort text-muted mt-n1 me-2"></i>Sort by:
-            </label>
-            <select
-              className="form-select"
-              id="review-sorting"
-              name="sort"
-              onChange={onSortChange}
-            >
-              <option selected disabled>
-                ...
-              </option>
-              <option value="-createdAt">Newest</option>
-              <option value="createdAt">Oldest</option>
-              <option value="-rating">High rating</option>
-              <option value="rating">Low rating</option>
-            </select>
-          </div>
+          {reviews?.length > 0 && (
+            <div className="d-flex align-items-center me-sm-4 mb-sm-0 mb-3">
+              <label className="me-2 pe-1 text-nowrap" htmlFor="review-sorting">
+                <i className="fi-arrows-sort text-muted mt-n1 me-2"></i>Sort by:
+              </label>
+              <select
+                className="form-select"
+                id="review-sorting"
+                name="sort"
+                onChange={onSortChange}
+              >
+                <option selected disabled>
+                  Select a sorting option
+                </option>
+                <option value="-createdAt">Newest</option>
+                <option value="createdAt">Oldest</option>
+                <option value="-rating">High rating</option>
+                <option value="rating">Low rating</option>
+              </select>
+            </div>
+          )}
+          {/* {profileUser?._id !== user?._id && ( */}
           <a
             className="btn btn-outline-primary"
             onClick={() => setToggleAddReview((prev) => !prev)}
           >
             <i className="fi-edit me-1"></i>Add review
           </a>
+          {/* )} */}
         </div>
         {toggleAddReview ? (
-          <UserProfileAddReview handleReviewPost={handleReviewPost} />
+          <>
+            <UserProfileAddReview handleReviewPost={handleReviewPost} /> )
+          </>
         ) : (
           <>
             {reviews?.map((review, i) => (
@@ -180,11 +92,13 @@ function UserProfileReviews({
                 <SmallLoader />
               </div>
             )}
-            <Pagination
-              limit={4}
-              count={count}
-              handlePageChange={onPageChange}
-            />
+            {reviews?.length > 0 && (
+              <Pagination
+                limit={4}
+                count={count}
+                handlePageChange={onPageChange}
+              />
+            )}
           </>
         )}
       </div>
