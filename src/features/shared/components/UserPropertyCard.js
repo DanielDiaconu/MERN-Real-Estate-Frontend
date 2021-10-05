@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-function UserPropertyCard({ property }) {
+function UserPropertyCard({ property, canPromote }) {
   let location = useLocation();
   return (
     <>
@@ -27,26 +27,22 @@ function UserPropertyCard({ property }) {
 
           <div className="card-body position-relative pb-3">
             <div className="dropdown position-absolute zindex-5 top-0 end-0 mt-3 me-3">
-              {!location.pathname.includes("wishlist") && (
+              {canPromote && (
                 <>
-                  {!location.pathname.includes("promote") && (
-                    <>
-                      {!(
-                        property?.standard &&
-                        property.premium &&
-                        property.pro
-                      ) && (
-                        <Link
-                          className="text-decoration-none"
-                          to={`/user/dashboard/promote/${property._id}`}
-                        >
-                          <button className="dropdown-item" type="button">
-                            <i className="fi-flame opacity-60 me-2"></i>Promote
-                          </button>
-                        </Link>
-                      )}
-                    </>
-                  )}
+                  {!(
+                    property?.standard &&
+                    property.premium &&
+                    property.pro
+                  ) && (
+                    <Link
+                      className="text-decoration-none"
+                      to={`/user/dashboard/promote/${property._id}`}
+                    >
+                      <button className="dropdown-item" type="button">
+                        <i className="fi-flame opacity-60 me-2"></i>Promote
+                      </button>
+                    </Link>
+                  )}{" "}
                 </>
               )}
             </div>

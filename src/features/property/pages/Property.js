@@ -46,7 +46,7 @@ function Property() {
               </ul>
             </div>
           </section>
-          <PropertyImages />
+          <PropertyImages gallery={property?.gallery} />
           <section className="container mb-5 pb-1">
             <div className="row">
               <div className="col-md-7 mb-md-0 mb-4">

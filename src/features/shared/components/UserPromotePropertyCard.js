@@ -14,12 +14,12 @@ function UserPromotePropertyCard({ property, preview }) {
             style={{ objectFit: "cover" }}
             src={`http://localhost:8080/images/property/${property?.thumbnail}`}
           />
-          <div class="position-absolute  top-0 pt-3 ps-3">
+          <div className="position-absolute  top-0 pt-3 ps-3">
             {preview?.premium && (
-              <span class="d-table badge bg-success mb-1">Sticky</span>
+              <span className="d-table badge bg-success mb-1">Sticky</span>
             )}
             {preview?.standard && (
-              <span class="d-table badge bg-danger">Featured</span>
+              <span className="d-table badge bg-danger">Featured</span>
             )}
           </div>
 

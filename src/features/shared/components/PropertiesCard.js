@@ -1,13 +1,16 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { selectUser, updateUserWishlist } from "../../../slices/userSlice";
 
 function PropertiesCard({ property }) {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const [wishlist, setWishlist] = useState([]);
+  const location = useLocation();
+
+  console.log(location);
 
   const handleAddtoWishlist = () => {
     let updatedWishlist = [...user.wishlist];
@@ -47,8 +50,12 @@ function PropertiesCard({ property }) {
       className={`card shadow-sm  border-0 h-100 property-card p-0 ${
         property.pro ? "golden-border" : ""
       }`}
+      style={{ maxHeight: "500px" }}
     >
-      <div className="card-img-top card-img-hover">
+      <div
+        className="card-img-top card-img-hover"
+        style={{ maxHeight: "160px" }}
+      >
         <Link to={`property/${property?._id}`} className="img-overlay">
           <div className="position-absolute  top-0 pt-3 ps-3">
             {property?.standard && (
@@ -118,19 +125,21 @@ function PropertiesCard({ property }) {
             <i className="fi-bath ms-1 mt-n1 fs-lg text-muted"></i>
           </span>
         </div>
-        <div className="row text-center align-content-end justify-content-between  ms-lg-5 ">
-          <Link
-            to={`/profile/${property?.ownerId?._id}`}
-            className="d-flex justfiy-content-evenly align-items-center text-decoration-none ms-lg-5"
-          >
-            <img
-              className="rounded-circle me-2"
-              style={{ width: "20%" }}
-              src={`http://localhost:8080/images/avatars/${property?.ownerId?.avatar}`}
-            />
-            {property?.ownerId?.fullName}
-          </Link>
-        </div>
+        {location.pathname === "/properties" && (
+          <div className="row text-center align-content-end justify-content-between  ms-lg-5 ">
+            <Link
+              to={`/profile/${property?.ownerId?._id}`}
+              className="d-flex justfiy-content-evenly align-items-center text-decoration-none ms-lg-5"
+            >
+              <img
+                className="rounded-circle me-2"
+                style={{ width: "20%" }}
+                src={`http://localhost:8080/images/avatars/${property?.ownerId?.avatar}`}
+              />
+              {property?.ownerId?.fullName}
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

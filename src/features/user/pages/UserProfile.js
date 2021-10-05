@@ -109,7 +109,7 @@ function UserPublic() {
               profileUser={profileUser}
             />
             <div className="d-sm-flex align-items-center justify-content-between pb-4 mb-sm-2">
-              <div className="d-flex flex-column justify-content-center">
+              <div className="d-flex flex-column justify-content-center mt-3">
                 <h1 className="h3 mb-sm-0 me-sm-3">User properties</h1>
                 <UserProfileProperties user={profileUser} />
               </div>

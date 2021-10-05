@@ -10,7 +10,6 @@ import PropertyQuestion from "./PropertyQuestion";
 
 function PropertyQuestionSection({ property }) {
   const [toggleAddQuestion, setToggleAddQuestion] = useState(false);
-  const [loader, setLoader] = useState(false);
   const [propertyClone, setPropertyClone] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [questionLoading, setQuestionLoading] = useState(false);
@@ -371,8 +370,8 @@ function PropertyQuestionSection({ property }) {
               id="reviews-sorting"
               onChange={onSortChange}
             >
-              <option selected disabled defaultValue>
-                ...
+              <option disabled selected>
+                Select a sorting option
               </option>
               <option value="createdAt">Newest</option>
               <option value="-createdAt">Oldest</option>

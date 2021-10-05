@@ -138,7 +138,7 @@ const PropertyQuestion = forwardRef(
             <div className="d-flex align-items-center">
               {question?.userId?._id === user?._id && (
                 <i
-                  class={`fas fa-check ${
+                  className={`fas fa-check ${
                     question?.isAnswered ? "active" : ""
                   }  me-3`}
                   title={` ${

@@ -44,7 +44,11 @@ function UserProperties() {
           {properties?.length > 0 ? (
             <>
               {properties?.map((property, i) => (
-                <UserPropertyCard property={property} key={i} />
+                <UserPropertyCard
+                  property={property}
+                  key={i}
+                  canPromote={true}
+                />
               ))}{" "}
             </>
           ) : (

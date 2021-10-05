@@ -112,7 +112,7 @@ function AddProperty() {
             <DropzoneWithPreview
               onFilesDrop={handleGalleryChange}
               title="Gallery"
-              maxFiles={8}
+              maxFiles={6}
             />
             <DropzoneWithPreview
               onFilesDrop={handleThumbnailChange}

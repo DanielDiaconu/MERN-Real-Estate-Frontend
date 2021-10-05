@@ -105,7 +105,7 @@ function UserPropertyPromote() {
               />
               <label
                 className="form-check-label d-sm-flex align-items-center justify-content-between"
-                for="ad-option-3"
+                htmlFor="ad-option-3"
               >
                 <span className="d-block px-1">
                   <span className="d-block h6 mb-2">Standard plan</span>
@@ -132,7 +132,7 @@ function UserPropertyPromote() {
               />
               <label
                 className="form-check-label d-sm-flex align-items-center justify-content-between"
-                for="ad-option-2"
+                htmlFor="ad-option-2"
               >
                 <span className="d-block px-1">
                   <span className="d-block h6 mb-2">Premium plan</span>
@@ -159,7 +159,7 @@ function UserPropertyPromote() {
               />
               <label
                 className="form-check-label d-sm-flex align-items-center justify-content-between"
-                for="ad-option-1"
+                htmlFor="ad-option-1"
               >
                 <span className="d-block px-1">
                   <span className="d-block h6 mb-2">Pro plan</span>
