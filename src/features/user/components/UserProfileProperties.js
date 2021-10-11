@@ -21,7 +21,6 @@ function UserProfileProperties({ user }) {
       setLoading(false);
     } catch (error) {}
   };
-  console.log(total);
 
   const onPageChange = (data) => {
     setCurrentPage(data);

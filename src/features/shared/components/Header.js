@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectUser } from "../../../slices/userSlice";
 import UserAvatar from "../../user/components/UserAvatar";
+import NotificationBell from "./NotificationBell";
 
 export default function Header() {
   const user = useSelector(selectUser);
@@ -33,6 +34,7 @@ export default function Header() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+
         {!user._id ? (
           <Link
             className="btn btn-sm text-primary d-none d-lg-block order-lg-3"
@@ -66,12 +68,10 @@ export default function Header() {
                 Catalog
               </Link>
             </li>
-            <li className="nav-item active">
-              <Link to={`/profile/${user._id}`} className="nav-link">
-                User
-              </Link>
-            </li>
           </ul>
+          <div>
+            <NotificationBell />
+          </div>
         </div>
       </div>
     </header>

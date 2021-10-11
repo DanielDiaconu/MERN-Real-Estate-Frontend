@@ -1,7 +1,6 @@
-import { isEqual, property } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Prompt } from "react-router";
+import { useHistory } from "react-router";
 import { selectUser, updateUser } from "../../../slices/userSlice";
 import DropzoneWithPreview from "../../shared/components/DropzoneWithPreview";
 import InputWithEditButton from "../../shared/components/InputWithEditButton";
@@ -19,6 +18,7 @@ function UserPersonalInfo() {
   const user = useSelector(selectUser);
   const [info, setInfo] = useState(initObject);
   const [progress, setProgress] = useState(0);
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const onPersonalInfoChange = ({ name, value }) => {
@@ -82,9 +82,13 @@ function UserPersonalInfo() {
     calculateProgress();
   }, [info]);
 
+  if (!user._id) {
+    history.push("/");
+  }
+
   return (
     <>
-      <Prompt
+      {/* <Prompt
         when={
           progress > 99
             ? info.fullName === user?.fullName &&
@@ -96,7 +100,7 @@ function UserPersonalInfo() {
             : true
         }
         message="You have unsaved changes! Are you sure you want to leave this page?"
-      />
+      /> */}
 
       <h1 className="h2">Personal Info</h1>
 

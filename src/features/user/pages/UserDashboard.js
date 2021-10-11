@@ -1,7 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Redirect, Route, Switch, useRouteMatch } from "react-router";
-import { selectUser } from "../../../slices/userSlice";
 import UserDashboardHeader from "../components/UserDashboardHeader";
 import UserDashboardNav from "../components/UserDashboardNav";
 import UserPersonalInfo from "../components/UserPersonalInfo";

@@ -71,7 +71,6 @@ function UserPublic() {
       let res = await axios.delete(`http://localhost:8080/reviews/${id}`, {
         data: { profileUser: profileUser._id },
       });
-      console.log(res);
       const updatedReview = {
         ...profileUser,
         reviews: profileUser.reviews.filter((item) => item._id !== id),

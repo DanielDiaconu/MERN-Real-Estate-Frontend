@@ -18,21 +18,23 @@ import AddProperty from "./features/property/pages/AddProperty";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, selectUser, setUser } from "./slices/userSlice";
 import UserDashboard from "./features/user/pages/UserDashboard";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import UserProfile from "./features/user/pages/UserProfile";
+import { socket } from "./sockets";
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
   const getUserDetails = () => {
-    const token = localStorage.getItem("auth-token");
+    const token = sessionStorage.getItem("auth-token");
     const parsedToken = JSON.parse(atob(token.split(".")[1]));
     dispatch(getUser(parsedToken._id));
+    socket.emit("join-server", parsedToken._id);
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("auth-token");
+    const token = sessionStorage.getItem("auth-token");
     if (token) {
       axios.interceptors.request.use((req) => {
         req.headers["Content-Type"] = "application/json; charset=utf-8";
@@ -42,6 +44,13 @@ function App() {
       getUserDetails();
     }
   }, [user]);
+
+  useEffect(() => {
+    socket.on("receive-question", (data) => {
+      toast.info(data);
+    });
+    return () => socket.disconnect();
+  }, [socket]);
 
   return (
     <>

@@ -11,7 +11,7 @@ function Login() {
     password: "",
   });
   const history = useHistory();
-  const storageToken = localStorage.getItem("auth-token");
+  const storageToken = sessionStorage.getItem("auth-token");
   const dispatch = useDispatch();
 
   const onInputChange = (e) => {
@@ -22,7 +22,7 @@ function Login() {
     e.preventDefault();
     try {
       let res = await axios.post("http://localhost:8080/login", user);
-      localStorage.setItem("auth-token", res.data);
+      sessionStorage.setItem("auth-token", res.data);
       const parsedToken = JSON.parse(atob(res.data.split(".")[1]));
       dispatch(getUser(parsedToken._id));
       history.push("/");

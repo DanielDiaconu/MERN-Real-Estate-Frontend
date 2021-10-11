@@ -7,6 +7,7 @@ import Pagination from "../../shared/components/Pagination";
 import SmallLoader from "../../shared/components/SmallLoader";
 import PropertyAddQuestions from "./PropertyAddQuestions";
 import PropertyQuestion from "./PropertyQuestion";
+import { socket } from "../../../sockets";
 
 function PropertyQuestionSection({ property }) {
   const [toggleAddQuestion, setToggleAddQuestion] = useState(false);
@@ -49,14 +50,20 @@ function PropertyQuestionSection({ property }) {
   const handlePostQuestion = async (data) => {
     setQuestionLoading(true);
     try {
-      let res = await axios.post("http://localhost:8080/question", {
+      const payload = {
         questionBody: data,
         userId: user._id,
-        propertyId: propertyClone?._id,
-      });
+        propertyId: propertyClone._id,
+      };
+      let res = await axios.post("http://localhost:8080/question", payload);
       setQuestions([...questions, res.data]);
       setToggleAddQuestion(false);
       setQuestionLoading(false);
+      await socket.emit("question-post", {
+        ...payload,
+        ownerId: propertyClone.ownerId._id,
+        username: user.fullName,
+      });
     } catch (error) {
       dispatch(setErrorToast(error.message));
     }
@@ -353,13 +360,17 @@ function PropertyQuestionSection({ property }) {
         <h3 className="h4 pb-3">Questions ({totalPages})</h3>
         <div className="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between">
           {!toggleAddQuestion && (
-            <button
-              className="btn btn-outline-primary mb-sm-0 mb-3"
-              onClick={() => setToggleAddQuestion((prev) => !prev)}
-              disabled={!user}
-            >
-              <i className="fi-edit me-1"></i>Add question
-            </button>
+            <>
+              {property?.ownerId._id !== user._id && (
+                <button
+                  className="btn btn-outline-primary mb-sm-0 mb-3"
+                  onClick={() => setToggleAddQuestion((prev) => !prev)}
+                  disabled={!user}
+                >
+                  <i className="fi-edit me-1"></i>Add question
+                </button>
+              )}{" "}
+            </>
           )}{" "}
           <div className="d-flex align-items-center ms-sm-4">
             <label className="me-2 pe-1 text-nowrap" htmlFor="reviews-sorting">

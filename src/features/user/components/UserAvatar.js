@@ -2,19 +2,20 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { selectUser } from "../../../slices/userSlice";
+import NotificationBell from "../../shared/components/NotificationBell";
 
 function UserAvatar() {
   const user = useSelector(selectUser);
   const history = useHistory();
 
   const handleSignOut = () => {
-    localStorage.removeItem("auth-token");
+    sessionStorage.removeItem("auth-token");
     history.push("/login");
   };
 
   return (
     <>
-      <div className="dropdown d-none d-lg-block  order-lg-3 my-n2 me-3">
+      <div className="dropdown dropdown-with-hover d-none d-lg-block  order-lg-3 my-n2 me-3">
         <div className="align-items-center d-flex">
           <i className="fi-wallet opacity-60 me-2"></i>
           <span className="me-2">{user?.funds}$</span>
@@ -27,7 +28,7 @@ function UserAvatar() {
             />
           </div>
         </div>
-        <div className="dropdown-menu dropdown-menu-end">
+        <div className="dropdown-menu dropdown-menu-with-hover dropdown-menu-end">
           <div
             className="d-flex align-items-start border-bottom px-3 py-1 mb-2"
             style={{ width: "16rem" }}

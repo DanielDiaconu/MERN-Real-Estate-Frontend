@@ -10,8 +10,6 @@ function PropertiesCard({ property }) {
   const [wishlist, setWishlist] = useState([]);
   const location = useLocation();
 
-  console.log(location);
-
   const handleAddtoWishlist = () => {
     let updatedWishlist = [...user.wishlist];
     let removed;

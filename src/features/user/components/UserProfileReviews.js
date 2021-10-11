@@ -1,6 +1,6 @@
-import userEvent from "@testing-library/user-event";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { selectUser } from "../../../slices/userSlice";
 import Pagination from "../../shared/components/Pagination";
 import ReviewsRatingProgressBar from "../../shared/components/ReviewsRatingProgressBar";
@@ -17,7 +17,6 @@ function UserProfileReviews({
   total,
   loading,
   handleSorting,
-  profileUser,
 }) {
   const [toggleAddReview, setToggleAddReview] = useState(false);
   const user = useSelector(selectUser);
@@ -65,14 +64,16 @@ function UserProfileReviews({
               </select>
             </div>
           )}
-          {/* {profileUser?._id !== user?._id && ( */}
-          <a
-            className="btn btn-outline-primary"
-            onClick={() => setToggleAddReview((prev) => !prev)}
-          >
-            <i className="fi-edit me-1"></i>Add review
-          </a>
-          {/* )} */}
+          {!user._id ? (
+            <Link to="/login">Please sign in to leave a review!</Link>
+          ) : (
+            <a
+              className="btn btn-outline-primary"
+              onClick={() => setToggleAddReview((prev) => !prev)}
+            >
+              <i className="fi-edit me-1"></i>Add review
+            </a>
+          )}
         </div>
         {toggleAddReview ? (
           <>

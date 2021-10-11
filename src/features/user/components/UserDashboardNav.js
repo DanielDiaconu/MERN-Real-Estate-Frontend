@@ -8,7 +8,7 @@ function UserDashboardNav() {
   const history = useHistory();
 
   const onSignOut = () => {
-    localStorage.removeItem("auth-token");
+    sessionStorage.removeItem("auth-token");
     history.push("/login");
   };
 

@@ -1,7 +1,6 @@
 import React from "react";
 
 function PropertyImages({ gallery }) {
-  console.log(gallery);
   return (
     <section
       className="container overflow-auto mb-4 pb-3"
@@ -33,6 +32,7 @@ function PropertyImages({ gallery }) {
                     <div className="col-4" key={i}>
                       <a className="gallery-item rounded rounded-md-3 mb-2 mb-md-3">
                         <img
+                          style={{ minHeight: "300px", maxHeight: "300px" }}
                           src={`http://localhost:8080/images/property/${img}`}
                         />
                       </a>

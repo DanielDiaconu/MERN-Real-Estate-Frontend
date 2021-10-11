@@ -1,4 +1,5 @@
 import React from "react";
+import Sockets from "../../shared/components/Sockets";
 import CategoriesRow from "../components/CategoriesRow";
 import CitiesRow from "../components/CitiesRow";
 import PropertiesRow from "../components/PropertiesRow";
@@ -46,6 +47,7 @@ function Home() {
             </p>
           </div>
         </div>
+        {/* <Sockets /> */}
       </section>
     </>
   );
