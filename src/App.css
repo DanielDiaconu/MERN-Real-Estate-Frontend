@@ -356,3 +356,57 @@
   content: "\f005 \f005 \f005 \f005 \f005";
   color: #f8ce0b;
 }
+
+.notification-bell {
+  border: 1px solid #1f1b2d;
+  padding: 5px 10px;
+  border-radius: 50%;
+}
+
+.notification-count {
+  position: absolute;
+  right: -6px;
+  top: -8px;
+  font-weight: bold;
+  color: white;
+  border: 1px solid #fd390e;
+  background: #fd390e;
+  border-radius: 50%;
+  padding: 0px 5px;
+  font-size: 14px;
+}
+
+.fa-bell {
+  font-size: 18px;
+  color: #1f1b2d;
+}
+
+.notification-types {
+  font-size: 18px;
+  padding: 10px;
+}
+
+.fa-thumbs-up.notification-types {
+  color: rgb(17, 189, 17);
+}
+
+.fa-thumbs-down.notification-types {
+  color: red;
+}
+
+.fa-question.notification-types {
+  color: blue;
+}
+
+.fa-star.notification-types {
+  color: #fdbc31;
+}
+
+.notification-container {
+  border-bottom: 1px solid lightgray;
+  padding: 5px 5px;
+}
+
+.notification-container:last-of-type {
+  border: none;
+}

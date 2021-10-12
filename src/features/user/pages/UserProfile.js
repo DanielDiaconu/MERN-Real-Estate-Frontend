@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { setErrorToast, setSuccessToast } from "../../../slices/toastSlice";
 import { selectUser } from "../../../slices/userSlice";
+import { socket } from "../../../sockets";
 import UserProfileAside from "../components/UserProfileAside";
 import UserProfileProperties from "../components/UserProfileProperties";
 import UserProfileReviews from "../components/UserProfileReviews";
@@ -47,6 +48,10 @@ function UserPublic() {
         data,
         profileUser: profileUser._id,
         currentUser: currentUser._id,
+      });
+      await socket.emit("review-post", {
+        ownerId: profileUser._id,
+        username: currentUser.fullName,
       });
 
       const updatedProfileUser = {

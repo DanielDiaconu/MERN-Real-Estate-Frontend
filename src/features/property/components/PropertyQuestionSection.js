@@ -155,6 +155,10 @@ function PropertyQuestionSection({ property }) {
       await axios.patch(`http://localhost:8080/question-like/${question._id}`, {
         userId: user._id,
       });
+      await socket.emit("question-like", {
+        ownerId: question.userId._id,
+        username: user.fullName,
+      });
       if (!question.likes.userIds.includes(user._id)) {
         const updatedQuestions = questions.map((qst) => {
           if (qst._id === question._id) {
@@ -204,6 +208,10 @@ function PropertyQuestionSection({ property }) {
           userId: user?._id,
         }
       );
+      await socket.emit("question-dislike", {
+        ownerId: question.userId._id,
+        username: user.fullName,
+      });
       if (!question.dislikes.userIds.includes(user._id)) {
         const updatedQuestions = questions.map((qst) => {
           if (qst._id === question._id) {
@@ -384,8 +392,8 @@ function PropertyQuestionSection({ property }) {
               <option disabled selected>
                 Select a sorting option
               </option>
-              <option value="createdAt">Newest</option>
-              <option value="-createdAt">Oldest</option>
+              <option value="-createdAt">Newest</option>
+              <option value="createdAt">Oldest</option>
               <option value="likes.count">Popular</option>
               <option value="isAnswered">Answered</option>
             </select>

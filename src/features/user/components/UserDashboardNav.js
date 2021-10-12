@@ -67,15 +67,16 @@ function UserDashboardNav() {
             <i className="fi-wallet opacity-60 me-2"></i>Payment & Funds
           </Link>
 
-          <a className="card-nav-link" href="real-estate-account-reviews.html">
-            <i className="fi-star opacity-60 me-2"></i>Reviews
-          </a>
-          <a
-            className="card-nav-link"
-            href="real-estate-account-notifications.html"
+          <Link
+            className={
+              location.pathname === `${url}/notifications`
+                ? "card-nav-link active"
+                : "card-nav-link"
+            }
+            to={`${url}/notifications`}
           >
             <i className="fi-bell opacity-60 me-2"></i>Notifications
-          </a>
+          </Link>
           <span className="card-nav-link cursor-pointer" onClick={onSignOut}>
             <i className="fi-logout opacity-60 me-2"></i>Sign Out
           </span>

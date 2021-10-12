@@ -2,6 +2,7 @@ import React from "react";
 import { Redirect, Route, Switch, useRouteMatch } from "react-router";
 import UserDashboardHeader from "../components/UserDashboardHeader";
 import UserDashboardNav from "../components/UserDashboardNav";
+import UserNotifications from "../components/UserNotifications";
 import UserPersonalInfo from "../components/UserPersonalInfo";
 import UserProperties from "../components/UserProperties";
 import UserPropertyPromote from "../components/UserPropertyPromote";
@@ -44,6 +45,9 @@ function UserDashboard() {
               </Route>
               <Route path={`${path}/wallet`} exact>
                 <UserWallet />
+              </Route>
+              <Route path={`${path}/notifications`} exact>
+                <UserNotifications />
               </Route>
             </Switch>
           </div>
