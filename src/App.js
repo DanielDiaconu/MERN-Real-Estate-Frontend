@@ -21,7 +21,10 @@ import UserDashboard from "./features/user/pages/UserDashboard";
 import { toast, ToastContainer } from "react-toastify";
 import UserProfile from "./features/user/pages/UserProfile";
 import { socket } from "./sockets";
-import { incrementCount } from "./slices/notificationCountSlice";
+import {
+  getNotifications,
+  incrementCount,
+} from "./slices/notificationCountSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -49,19 +52,29 @@ function App() {
   useEffect(() => {
     socket.on("receive-question", (data) => {
       dispatch(incrementCount());
+      dispatch(getNotifications(user._id));
       toast.info(data);
     });
     socket.on("receive-question-like", (data) => {
       dispatch(incrementCount());
+      dispatch(getNotifications(user._id));
       toast.info(data);
     });
     socket.on("receive-question-dislike", (data) => {
       dispatch(incrementCount());
+      dispatch(getNotifications(user._id));
       toast.info(data);
     });
 
     socket.on("receive-review", (data) => {
       dispatch(incrementCount());
+      dispatch(getNotifications(user._id));
+      toast.info(data);
+    });
+
+    socket.on("receive-question-answered", (data) => {
+      dispatch(incrementCount());
+      dispatch(getNotifications(user._id));
       toast.info(data);
     });
     return () => socket.disconnect();

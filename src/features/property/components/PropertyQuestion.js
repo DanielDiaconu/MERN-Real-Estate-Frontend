@@ -37,7 +37,7 @@ const PropertyQuestion = forwardRef(
     };
 
     const handleQuestionAnsweredStatus = () => {
-      onQuestionAnsweredStatus(question?._id, !question?.isAnswered);
+      onQuestionAnsweredStatus(question, !question?.isAnswered);
     };
 
     const onHovering = () => {

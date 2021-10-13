@@ -53,11 +53,13 @@ function UserNotifications() {
               <span className="me-2">{formatDate(notification.createdAt)}</span>
             </div>
           ))}
-          <Pagination
-            handlePageChange={handlePageChange}
-            count={total}
-            limit={10}
-          />
+          {total > 5 && (
+            <Pagination
+              handlePageChange={handlePageChange}
+              count={total}
+              limit={10}
+            />
+          )}
         </div>
       </div>
     </div>

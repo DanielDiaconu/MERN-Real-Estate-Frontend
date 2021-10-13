@@ -69,21 +69,24 @@ function PropertyQuestionSection({ property }) {
     }
   };
 
-  const handleQuestionAnsweredStatus = async (questionId, answeredState) => {
+  const handleQuestionAnsweredStatus = async (question, answeredState) => {
     try {
       await axios.patch(
-        `http://localhost:8080/question-answered/${questionId}`,
+        `http://localhost:8080/question-answered/${question._id}`,
         {
           answeredState,
         }
       );
       const updatedQuestions = questions.map((qst) => {
-        if (qst._id === questionId) {
+        if (qst._id === question._id) {
           return { ...qst, isAnswered: answeredState };
         }
         return qst;
       });
-
+      await socket.emit("question-answered", {
+        ownerId: propertyClone.ownerId._id,
+        username: user.fullName,
+      });
       setQuestions(updatedQuestions);
       dispatch(
         setSuccessToast(
@@ -155,11 +158,11 @@ function PropertyQuestionSection({ property }) {
       await axios.patch(`http://localhost:8080/question-like/${question._id}`, {
         userId: user._id,
       });
-      await socket.emit("question-like", {
-        ownerId: question.userId._id,
-        username: user.fullName,
-      });
       if (!question.likes.userIds.includes(user._id)) {
+        await socket.emit("question-like", {
+          ownerId: question.userId._id,
+          username: user.fullName,
+        });
         const updatedQuestions = questions.map((qst) => {
           if (qst._id === question._id) {
             const updatedQuestion = {
@@ -208,11 +211,12 @@ function PropertyQuestionSection({ property }) {
           userId: user?._id,
         }
       );
-      await socket.emit("question-dislike", {
-        ownerId: question.userId._id,
-        username: user.fullName,
-      });
+
       if (!question.dislikes.userIds.includes(user._id)) {
+        await socket.emit("question-dislike", {
+          ownerId: question.userId._id,
+          username: user.fullName,
+        });
         const updatedQuestions = questions.map((qst) => {
           if (qst._id === question._id) {
             const updatedQuestion = {
@@ -357,9 +361,7 @@ function PropertyQuestionSection({ property }) {
   }, [property]);
 
   useEffect(() => {
-    if (property) {
-      getQuestions();
-    }
+    getQuestions();
   }, [currentPage]);
 
   return (

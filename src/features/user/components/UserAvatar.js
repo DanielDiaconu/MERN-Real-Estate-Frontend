@@ -75,7 +75,7 @@ function UserAvatar() {
           <Link className="dropdown-item" to="#">
             <i className="fi-star opacity-60 me-2"></i>Reviews
           </Link>
-          <Link className="dropdown-item" to="#">
+          <Link className="dropdown-item" to="/user/dashboard/notifications">
             <i className="fi-bell opacity-60 me-2"></i>Notifications
           </Link>
           <div className="dropdown-divider"></div>

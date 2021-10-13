@@ -69,9 +69,11 @@ export default function Header() {
               </Link>
             </li>
           </ul>
-          <div>
-            <NotificationBell />
-          </div>
+          {user._id && (
+            <div>
+              <NotificationBell />
+            </div>
+          )}
         </div>
       </div>
     </header>

@@ -6,6 +6,7 @@ function UserDashboardNav() {
   let { url } = useRouteMatch();
   const location = useLocation();
   const history = useHistory();
+  console.log(url);
 
   const onSignOut = () => {
     sessionStorage.removeItem("auth-token");

@@ -410,3 +410,7 @@
 .notification-container:last-of-type {
   border: none;
 }
+
+.read-status {
+  background-color: rgb(238, 236, 236);
+}
