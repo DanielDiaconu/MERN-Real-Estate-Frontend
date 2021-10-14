@@ -1,15 +1,18 @@
 import axios from "axios";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import {
   getNotifications,
   selectCount,
   selectNotifications,
+  setCount,
   updateNotifications,
 } from "../../../slices/notificationCountSlice";
 import { selectUser } from "../../../slices/userSlice";
+import useOnClickOutside from "../hooks/ClickOutside";
+import NotificationDropdownItem from "./NotificationDropdownItem";
 
 function NotificationBell() {
   const dispatch = useDispatch();
@@ -17,26 +20,39 @@ function NotificationBell() {
   const count = useSelector(selectCount);
   const user = useSelector(selectUser);
   const notifications = useSelector(selectNotifications);
+  const ref = useRef();
+  const location = useLocation();
+
+  useOnClickOutside(ref, () => {
+    setShowNotifications(false);
+  });
 
   const displayNotifications = async () => {
     setShowNotifications((prev) => !prev);
-    await axios.patch(`http://localhost:8080/notifications/${user._id}`);
-  };
-
-  const formatDate = (time) => {
-    return moment(time).format("DD MMM, H:mm");
   };
 
   useEffect(() => {
     dispatch(getNotifications(user?._id));
   }, [count]);
 
+  useEffect(async () => {
+    if (showNotifications && count > 0) {
+      dispatch(updateNotifications(user._id));
+    }
+  }, [showNotifications]);
+
+  useEffect(() => {
+    setShowNotifications(false);
+  }, [location]);
+
   return (
     <>
-      <div class="dropdown ms-3 notification-bell">
-        {!showNotifications && count === 0 && (
-          <span className="notification-count">{count}</span>
-        )}
+      <div
+        class="dropdown ms-3 notification-bell"
+        ref={ref}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {count !== 0 && <span className="notification-count">{count}</span>}
         <span
           type="button"
           id="dropdownMenu2"
@@ -47,31 +63,25 @@ function NotificationBell() {
           <i class="fas fa-bell"></i>
         </span>
         <ul
-          class="dropdown-menu"
+          class={`dropdown-menu ${showNotifications ? "show" : ""}`}
           aria-labelledby="dropdownMenu2"
           style={{ width: "500px" }}
         >
           {notifications?.map((notification, i) => (
-            <li
-              className={`d-flex align-items-center justify-content-between ${
-                !notification?.readStatus ? "read-status" : ""
-              }`}
-              key={i}
-            >
-              <div className="d-flex align-items-center  notification-container">
-                <i
-                  className={`fas ${notification.notificationType} notification-types`}
-                ></i>
-                <span>{notification.body}</span>
-              </div>
-              <span className="me-2">{formatDate(notification.createdAt)}</span>
-            </li>
+            <NotificationDropdownItem key={i} notification={notification} />
           ))}
+          <div className="text-center">
+            <Link
+              to="/user/dashboard/notifications"
+              className="text-align-center"
+              onClick={() => setShowNotifications(false)}
+            >
+              View all
+            </Link>
+          </div>
           {notifications?.length === 0 && (
             <div className="notification-container">
-              You currently have no new notifications{" "}
-              <Link to="/user/dashboard/notifications">click here</Link> if you
-              wish to see all notifications.
+              You currently have no new notifications.
             </div>
           )}
         </ul>

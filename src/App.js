@@ -29,6 +29,7 @@ import {
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  console.log(user);
 
   const getUserDetails = () => {
     const token = sessionStorage.getItem("auth-token");
@@ -51,32 +52,46 @@ function App() {
 
   useEffect(() => {
     socket.on("receive-question", (data) => {
-      dispatch(incrementCount());
       dispatch(getNotifications(user._id));
+      dispatch(incrementCount());
       toast.info(data);
     });
     socket.on("receive-question-like", (data) => {
-      dispatch(incrementCount());
       dispatch(getNotifications(user._id));
+      dispatch(incrementCount());
       toast.info(data);
     });
     socket.on("receive-question-dislike", (data) => {
-      dispatch(incrementCount());
       dispatch(getNotifications(user._id));
+      dispatch(incrementCount());
       toast.info(data);
     });
 
     socket.on("receive-review", (data) => {
-      dispatch(incrementCount());
       dispatch(getNotifications(user._id));
+      dispatch(incrementCount());
       toast.info(data);
     });
 
     socket.on("receive-question-answered", (data) => {
-      dispatch(incrementCount());
       dispatch(getNotifications(user._id));
+      dispatch(incrementCount());
       toast.info(data);
     });
+
+    socket.on("receive-reply-like", (data) => {
+      console.log("i recived a like");
+      dispatch(getNotifications(user._id));
+      dispatch(incrementCount());
+      toast.info(data);
+    });
+
+    socket.on("receive-reply-dislike", (data) => {
+      dispatch(getNotifications(user._id));
+      dispatch(incrementCount());
+      toast.info(data);
+    });
+
     return () => socket.disconnect();
   }, [socket]);
 

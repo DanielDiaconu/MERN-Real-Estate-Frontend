@@ -63,6 +63,7 @@ function PropertyQuestionSection({ property }) {
         ...payload,
         ownerId: propertyClone.ownerId._id,
         username: user.fullName,
+        targetId: propertyClone._id,
       });
     } catch (error) {
       dispatch(setErrorToast(error.message));
@@ -86,6 +87,7 @@ function PropertyQuestionSection({ property }) {
       await socket.emit("question-answered", {
         ownerId: propertyClone.ownerId._id,
         username: user.fullName,
+        targetId: propertyClone._id,
       });
       setQuestions(updatedQuestions);
       dispatch(
@@ -162,6 +164,7 @@ function PropertyQuestionSection({ property }) {
         await socket.emit("question-like", {
           ownerId: question.userId._id,
           username: user.fullName,
+          targetId: propertyClone._id,
         });
         const updatedQuestions = questions.map((qst) => {
           if (qst._id === question._id) {
@@ -216,6 +219,7 @@ function PropertyQuestionSection({ property }) {
         await socket.emit("question-dislike", {
           ownerId: question.userId._id,
           username: user.fullName,
+          targetId: propertyClone._id,
         });
         const updatedQuestions = questions.map((qst) => {
           if (qst._id === question._id) {
@@ -259,9 +263,15 @@ function PropertyQuestionSection({ property }) {
   };
 
   const handleReplyLike = async (replyId, question) => {
+    console.log(question);
     try {
       await axios.patch(`http://localhost:8080/reply-like/${replyId}`, {
         userId: user._id,
+      });
+      await socket.emit("reply-like", {
+        ownerId: propertyClone.ownerId._id,
+        username: user.fullName,
+        targetId: propertyClone._id,
       });
       const updatedQuestions = questions.map((qst) => {
         if (qst._id === question._id) {
@@ -312,6 +322,11 @@ function PropertyQuestionSection({ property }) {
     try {
       await axios.patch(`http://localhost:8080/reply-dislike/${replyId}`, {
         userId: user._id,
+      });
+      await socket.emit("reply-dislike", {
+        ownerId: propertyClone.ownerId._id,
+        username: user.fullName,
+        targetId: propertyClone._id,
       });
       const updatedQuestions = questions.map((qst) => {
         if (qst._id === question._id) {

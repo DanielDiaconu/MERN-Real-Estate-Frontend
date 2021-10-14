@@ -3,18 +3,19 @@ import axios from "axios";
 
 export const getNotifications = createAsyncThunk(
   "/notificationCount/getNotifications",
-  async (data) => {
-    let res = await axios.get(`http://localhost:8080/notifications/${data}`);
+  async (userId) => {
+    console.log("notifications-log");
+    let res = await axios.get(`http://localhost:8080/notifications/${userId}`);
     return res.data;
   }
 );
 
-// export const updateNotifications = createAsyncThunk(
-//   "/notificationCount/updateNotifications",
-//   async (data) => {
-//     await axios.patch(`http://localhost:8080/notifications/${data}`);
-//   }
-// );
+export const updateNotifications = createAsyncThunk(
+  "/notificationCount/updateNotifications",
+  async (userId) => {
+    await axios.patch(`http://localhost:8080/notifications/${userId}`);
+  }
+);
 
 const initialState = {
   count: 0,
@@ -34,8 +35,15 @@ export const notificationCountSlice = createSlice({
   },
   extraReducers: {
     [getNotifications.fulfilled]: (state, { payload }) => {
+      console.log("extra-reducers");
       state.notifications = payload.results;
       state.count = payload.total;
+    },
+    [getNotifications.rejected]: (state, { payload }) => {
+      state = initialState;
+    },
+    [updateNotifications.fulfilled]: (state) => {
+      state.count = 0;
     },
   },
 });

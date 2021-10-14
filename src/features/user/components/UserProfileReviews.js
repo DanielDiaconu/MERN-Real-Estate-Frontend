@@ -93,7 +93,7 @@ function UserProfileReviews({
                 <SmallLoader />
               </div>
             )}
-            {reviews?.length > 0 && (
+            {total > 4 && (
               <Pagination
                 limit={4}
                 count={count}

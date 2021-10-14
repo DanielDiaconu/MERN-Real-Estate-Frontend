@@ -136,19 +136,20 @@ const PropertyQuestion = forwardRef(
               </div>
             </div>
             <div className="d-flex align-items-center">
-              {question?.userId?._id === user?._id && (
-                <i
-                  className={`fas fa-check ${
-                    question?.isAnswered ? "active" : ""
-                  }  me-3`}
-                  title={` ${
-                    question?.isAnswered
-                      ? "Question marked as answered by user."
-                      : "Mark this question as answered."
-                  }`}
-                  onClick={handleQuestionAnsweredStatus}
-                ></i>
-              )}
+              {question?.userId?._id === user?._id &&
+                question?.replies?.length > 0 && (
+                  <i
+                    className={`fas fa-check ${
+                      question?.isAnswered ? "active" : ""
+                    }  me-3`}
+                    title={` ${
+                      question?.isAnswered
+                        ? "Question marked as answered by user."
+                        : "Mark this question as answered."
+                    }`}
+                    onClick={handleQuestionAnsweredStatus}
+                  ></i>
+                )}
               <span className="text-muted fs-sm">{parseTime()}</span>
             </div>
           </div>
