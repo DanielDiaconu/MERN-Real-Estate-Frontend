@@ -48,7 +48,7 @@ function App() {
       });
       getUserDetails();
     }
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     socket.on("receive-question", (data) => {

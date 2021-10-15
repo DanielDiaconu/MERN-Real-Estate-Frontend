@@ -13,7 +13,9 @@ function NotificationDropdownItem({ notification }) {
     if (notification.notificationType === "star") {
       history.push(`/profile/${notification.targetId}`);
     } else {
-      history.push(`/property/${notification.targetId}`);
+      history.push(
+        `/property/${notification.target.parentEntity}?notification=${notification.target.entity}`
+      );
     }
   };
 

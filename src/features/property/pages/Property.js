@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import React, { useEffect, useRef, useState } from "react";
+import { useHistory, useParams } from "react-router";
 import PropertyDetails from "../components/PropertyDetails";
 import PropertyImages from "../components/PropertyImages";
 import PropertyQuestionSection from "../components/PropertyQuestionSection";
@@ -8,17 +8,26 @@ import PropertyReviews from "../components/PropertyQuestionSection";
 import PropertyUser from "../components/PropertyUser";
 
 function Property() {
-  const [property, SetProperty] = useState(null);
+  const [property, setProperty] = useState(null);
+  const ref = useRef();
+
   let { id } = useParams();
 
   const getProperty = async () => {
     let res = await axios.get(`http://localhost:8080/property/${id}`);
-    SetProperty(res.data);
+
+    setProperty(res.data);
   };
 
   useEffect(() => {
     getProperty();
   }, [id]);
+
+  useEffect(() => {
+    if (ref.current) {
+      window.scrollTo({ top: ref.current.getBoundingClientRect().top + 150 });
+    }
+  }, [ref.current, property]);
 
   return (
     <>
@@ -51,7 +60,9 @@ function Property() {
             <div className="row">
               <div className="col-md-7 mb-md-0 mb-4">
                 <PropertyDetails property={property} />
-                <PropertyQuestionSection property={property} />
+                <div id="targetElement">
+                  <PropertyQuestionSection property={property} propRef={ref} />
+                </div>
               </div>
               <PropertyUser user={property?.ownerId} />
             </div>

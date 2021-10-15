@@ -4,7 +4,6 @@ import axios from "axios";
 export const getNotifications = createAsyncThunk(
   "/notificationCount/getNotifications",
   async (userId) => {
-    console.log("notifications-log");
     let res = await axios.get(`http://localhost:8080/notifications/${userId}`);
     return res.data;
   }
@@ -35,7 +34,6 @@ export const notificationCountSlice = createSlice({
   },
   extraReducers: {
     [getNotifications.fulfilled]: (state, { payload }) => {
-      console.log("extra-reducers");
       state.notifications = payload.results;
       state.count = payload.total;
     },

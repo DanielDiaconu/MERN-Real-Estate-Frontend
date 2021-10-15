@@ -418,3 +418,7 @@
 .notification-item:hover {
   background-color: rgb(236, 234, 234);
 }
+
+html {
+  scroll-behavior: smooth;
+}

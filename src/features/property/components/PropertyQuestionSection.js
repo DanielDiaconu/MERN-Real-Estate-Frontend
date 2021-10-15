@@ -8,8 +8,13 @@ import SmallLoader from "../../shared/components/SmallLoader";
 import PropertyAddQuestions from "./PropertyAddQuestions";
 import PropertyQuestion from "./PropertyQuestion";
 import { socket } from "../../../sockets";
+import { useLocation } from "react-router";
 
-function PropertyQuestionSection({ property }) {
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+function PropertyQuestionSection({ property, propRef }) {
   const [toggleAddQuestion, setToggleAddQuestion] = useState(false);
   const [propertyClone, setPropertyClone] = useState(null);
   const [questions, setQuestions] = useState([]);
@@ -17,16 +22,21 @@ function PropertyQuestionSection({ property }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const questionRef = useRef();
+  let queryParams = useQuery();
 
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
   const getQuestions = async () => {
     setQuestionLoading(true);
+    let endpoint = `http://localhost:8080/questions/${property?._id}?page=${currentPage}`;
+
+    if (queryParams.has("notification")) {
+      endpoint += `&highlight=${queryParams.get("notification")}`;
+    }
+
     try {
-      let res = await axios.get(
-        `http://localhost:8080/questions/${property?._id}?page=${currentPage}`
-      );
+      let res = await axios.get(endpoint);
       setQuestions(res.data.results);
       setTotalPages(res.data.total);
       setQuestionLoading(false);
@@ -63,7 +73,8 @@ function PropertyQuestionSection({ property }) {
         ...payload,
         ownerId: propertyClone.ownerId._id,
         username: user.fullName,
-        targetId: propertyClone._id,
+        propertyId: propertyClone._id,
+        questionId: res.data._id,
       });
     } catch (error) {
       dispatch(setErrorToast(error.message));
@@ -263,7 +274,6 @@ function PropertyQuestionSection({ property }) {
   };
 
   const handleReplyLike = async (replyId, question) => {
-    console.log(question);
     try {
       await axios.patch(`http://localhost:8080/reply-like/${replyId}`, {
         userId: user._id,
@@ -381,7 +391,7 @@ function PropertyQuestionSection({ property }) {
 
   return (
     <>
-      <div className="mb-4 pb-4 border-bottom">
+      <div className="mb-4 pb-4 border-bottom" ref={propRef}>
         <h3 className="h4 pb-3">Questions ({totalPages})</h3>
         <div className="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between">
           {!toggleAddQuestion && (

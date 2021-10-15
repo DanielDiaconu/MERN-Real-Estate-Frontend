@@ -70,15 +70,17 @@ function NotificationBell() {
           {notifications?.map((notification, i) => (
             <NotificationDropdownItem key={i} notification={notification} />
           ))}
-          <div className="text-center">
-            <Link
-              to="/user/dashboard/notifications"
-              className="text-align-center"
-              onClick={() => setShowNotifications(false)}
-            >
-              View all
-            </Link>
-          </div>
+          {!!notifications.length && (
+            <div className="text-center">
+              <Link
+                to="/user/dashboard/notifications"
+                className="text-align-center"
+                onClick={() => setShowNotifications(false)}
+              >
+                View all
+              </Link>
+            </div>
+          )}
           {notifications?.length === 0 && (
             <div className="notification-container">
               You currently have no new notifications.

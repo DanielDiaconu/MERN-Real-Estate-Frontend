@@ -32,9 +32,7 @@ function Sockets() {
     //   console.log(socket.id); // x8WIv7-mJelg7on_ALbx
     // });
 
-    socket.on("new-message", (data) => {
-      console.log(data);
-    });
+    socket.on("new-message", (data) => {});
   }, [socket]);
 
   return (

@@ -17,6 +17,7 @@ function UserProfileReviews({
   total,
   loading,
   handleSorting,
+  profileUser,
 }) {
   const [toggleAddReview, setToggleAddReview] = useState(false);
   const user = useSelector(selectUser);
@@ -67,12 +68,15 @@ function UserProfileReviews({
           {!user._id ? (
             <Link to="/login">Please sign in to leave a review!</Link>
           ) : (
-            <a
-              className="btn btn-outline-primary"
-              onClick={() => setToggleAddReview((prev) => !prev)}
-            >
-              <i className="fi-edit me-1"></i>Add review
-            </a>
+            <>
+              <button
+                disabled={profileUser?._id === user?._id}
+                className="btn btn-outline-primary"
+                onClick={() => setToggleAddReview((prev) => !prev)}
+              >
+                <i className="fi-edit me-1"></i>Add review
+              </button>
+            </>
           )}
         </div>
         {toggleAddReview ? (
@@ -93,7 +97,7 @@ function UserProfileReviews({
                 <SmallLoader />
               </div>
             )}
-            {total > 4 && (
+            {total >= 4 && (
               <Pagination
                 limit={4}
                 count={count}
