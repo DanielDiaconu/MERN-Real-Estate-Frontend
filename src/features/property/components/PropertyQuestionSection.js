@@ -175,7 +175,8 @@ function PropertyQuestionSection({ property, propRef }) {
         await socket.emit("question-like", {
           ownerId: question.userId._id,
           username: user.fullName,
-          targetId: propertyClone._id,
+          propertyId: propertyClone._id,
+          questionId: question._id,
         });
         const updatedQuestions = questions.map((qst) => {
           if (qst._id === question._id) {
@@ -230,7 +231,8 @@ function PropertyQuestionSection({ property, propRef }) {
         await socket.emit("question-dislike", {
           ownerId: question.userId._id,
           username: user.fullName,
-          targetId: propertyClone._id,
+          propertyId: propertyClone._id,
+          questionId: question._id,
         });
         const updatedQuestions = questions.map((qst) => {
           if (qst._id === question._id) {
@@ -281,7 +283,8 @@ function PropertyQuestionSection({ property, propRef }) {
       await socket.emit("reply-like", {
         ownerId: propertyClone.ownerId._id,
         username: user.fullName,
-        targetId: propertyClone._id,
+        propertyId: propertyClone._id,
+        questionId: question._id,
       });
       const updatedQuestions = questions.map((qst) => {
         if (qst._id === question._id) {
@@ -336,7 +339,8 @@ function PropertyQuestionSection({ property, propRef }) {
       await socket.emit("reply-dislike", {
         ownerId: propertyClone.ownerId._id,
         username: user.fullName,
-        targetId: propertyClone._id,
+        propertyId: propertyClone._id,
+        questionId: question._id,
       });
       const updatedQuestions = questions.map((qst) => {
         if (qst._id === question._id) {
