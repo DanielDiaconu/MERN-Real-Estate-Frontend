@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectUser } from "../../../slices/userSlice";
+import displayStarsRating from "../../shared/components/StarsRating";
 
 function UserDashboardHeader() {
   const user = useSelector(selectUser);
@@ -13,16 +14,11 @@ function UserDashboardHeader() {
           className="rounded-circle"
           src={`http://localhost:8080/images/avatars/${user?.avatar}`}
           width="48"
-          alt="Annette Black"
         />
         <div className="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">
           <h2 className="fs-lg mb-0">{user?.fullName}</h2>
           <span className="star-rating">
-            <i className="star-rating-icon fi-star-filled active"></i>
-            <i className="star-rating-icon fi-star-filled active"></i>
-            <i className="star-rating-icon fi-star-filled active"></i>
-            <i className="star-rating-icon fi-star-filled active"></i>
-            <i className="star-rating-icon fi-star-filled active"></i>
+            {displayStarsRating(user?.rating?.average)}
           </span>
           <ul className="list-unstyled fs-sm mt-3 mb-0">
             <li>

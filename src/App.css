@@ -422,3 +422,23 @@
 html {
   scroll-behavior: smooth;
 }
+
+.highlighted-notification {
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: -1px 2px 4px orange;
+}
+
+.pinned-question {
+  border: 1px solid rgb(69, 69, 238);
+  padding: 0px 10px;
+  border-radius: 20px;
+  background-color: rgb(69, 69, 238);
+  color: white;
+}
+.pinned-question-text {
+  font-size: 12px;
+  margin-left: 5px;
+  color: white;
+  font-weight: bold;
+}

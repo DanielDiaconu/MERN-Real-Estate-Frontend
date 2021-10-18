@@ -1,13 +1,10 @@
-import axios from "axios";
-import moment from "moment";
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   getNotifications,
   selectCount,
   selectNotifications,
-  setCount,
   updateNotifications,
 } from "../../../slices/notificationCountSlice";
 import { selectUser } from "../../../slices/userSlice";

@@ -81,7 +81,7 @@ function UserProfileReviews({
         </div>
         {toggleAddReview ? (
           <>
-            <UserProfileAddReview handleReviewPost={handleReviewPost} /> )
+            <UserProfileAddReview handleReviewPost={handleReviewPost} />
           </>
         ) : (
           <>

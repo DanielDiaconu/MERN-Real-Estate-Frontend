@@ -19,6 +19,7 @@ function PropertyQuestionSection({ property, propRef }) {
   const [propertyClone, setPropertyClone] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [questionLoading, setQuestionLoading] = useState(false);
+  const [highlightedQuestion, setHighlightedQuestion] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const questionRef = useRef();
@@ -37,6 +38,14 @@ function PropertyQuestionSection({ property, propRef }) {
 
     try {
       let res = await axios.get(endpoint);
+      if (queryParams.has("notification")) {
+        let highlightRes = await axios.get(
+          `http://localhost:8080/highlighted-question/${queryParams.get(
+            "notification"
+          )}`
+        );
+        setHighlightedQuestion(highlightRes.data[0]);
+      }
       setQuestions(res.data.results);
       setTotalPages(res.data.total);
       setQuestionLoading(false);
@@ -51,6 +60,11 @@ function PropertyQuestionSection({ property, propRef }) {
 
   const onSortChange = async (e) => {
     let sortUrl = `?sort=${encodeURIComponent(e.target.value)}`;
+
+    if (queryParams.has("notification")) {
+      sortUrl += `&highlight=${queryParams.get("notification")}`;
+    }
+
     let res = await axios.get(
       `http://localhost:8080/questions/${property?._id}${sortUrl}`
     );
@@ -443,6 +457,22 @@ function PropertyQuestionSection({ property, propRef }) {
         </div>
       ) : (
         <>
+          {queryParams.has("notification") && (
+            <PropertyQuestion
+              question={highlightedQuestion}
+              property={propertyClone}
+              handlePostReply={postReply}
+              handleQuestionLike={handleQuestionLike}
+              handleQuestionDislike={handleQuestionDislike}
+              handleReplyLike={handleReplyLike}
+              handleReplyDislike={handleReplyDislike}
+              handleQuestionDelete={handleQuestionDelete}
+              ref={questionRef}
+              onReplyDelete={handleReplyDelete}
+              onQuestionAnsweredStatus={handleQuestionAnsweredStatus}
+              isHighlighted={true}
+            />
+          )}
           {questions?.map((question, i) => (
             <PropertyQuestion
               key={i}

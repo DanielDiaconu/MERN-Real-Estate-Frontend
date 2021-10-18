@@ -25,6 +25,7 @@ import {
   getNotifications,
   incrementCount,
 } from "./slices/notificationCountSlice";
+import LiveChat from "./features/shared/components/LiveChat";
 
 function App() {
   const dispatch = useDispatch();
@@ -142,6 +143,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
+      <LiveChat />
     </>
   );
 }

@@ -24,6 +24,7 @@ const PropertyQuestion = forwardRef(
       handleQuestionDelete,
       onReplyDelete,
       onQuestionAnsweredStatus,
+      isHighlighted,
     },
     ref
   ) => {
@@ -86,7 +87,7 @@ const PropertyQuestion = forwardRef(
     };
 
     const hasLiked = () => {
-      return question?.likes.userIds?.includes(user?._id) ? "active" : "";
+      return question?.likes?.userIds?.includes(user?._id) ? "active" : "";
     };
 
     const hasDisliked = () => {
@@ -119,7 +120,9 @@ const PropertyQuestion = forwardRef(
         <div
           className={`mb-4 pb-4 ${
             isFaded ? "faded-question" : ""
-          } border-bottom property-question`}
+          } border-bottom property-question ${
+            isHighlighted ? "highlighted-notification" : ""
+          }`}
           onMouseEnter={onHovering}
           onMouseLeave={onHoveringOut}
         >
@@ -131,8 +134,14 @@ const PropertyQuestion = forwardRef(
                 width="48"
                 alt="Avatar"
               />
-              <div className="ps-2">
+              <div className="ps-2 d-flex align-items-center">
                 <h6 className="fs-base mb-0">{question?.userId?.fullName}</h6>
+                {isHighlighted && (
+                  <div className="pinned-question ms-2">
+                    <i class="fas fa-thumbtack"></i>
+                    <span className="pinned-question-text">Pinned</span>
+                  </div>
+                )}
               </div>
             </div>
             <div className="d-flex align-items-center">

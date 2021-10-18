@@ -52,7 +52,7 @@ function UserPublic() {
       await socket.emit("review-post", {
         ownerId: profileUser._id,
         username: currentUser.fullName,
-        targetId: profileUser._id,
+        reviewId: res.data.populatedReview._id,
       });
 
       const updatedProfileUser = {

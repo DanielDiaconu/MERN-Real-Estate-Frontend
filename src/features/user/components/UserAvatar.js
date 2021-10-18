@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { selectUser } from "../../../slices/userSlice";
 import NotificationBell from "../../shared/components/NotificationBell";
+import displayStarsRating from "../../shared/components/StarsRating";
 
 function UserAvatar() {
   const user = useSelector(selectUser);
@@ -41,11 +42,7 @@ function UserAvatar() {
             <div className="ps-2">
               <h6 className="fs-base mb-0">{user?.fullName}</h6>
               <span className="star-rating star-rating-sm">
-                <i className="star-rating-icon fi-star-filled active"></i>
-                <i className="star-rating-icon fi-star-filled active"></i>
-                <i className="star-rating-icon fi-star-filled active"></i>
-                <i className="star-rating-icon fi-star-filled active"></i>
-                <i className="star-rating-icon fi-star-filled active"></i>
+                {displayStarsRating(user?.rating?.average)}
               </span>
               <div className="fs-xs py-2">
                 {user.phone}

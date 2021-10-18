@@ -1,4 +1,5 @@
 import React from "react";
+import LiveChat from "../../shared/components/LiveChat";
 import Sockets from "../../shared/components/Sockets";
 import CategoriesRow from "../components/CategoriesRow";
 import CitiesRow from "../components/CitiesRow";
@@ -27,6 +28,7 @@ function Home() {
       <CategoriesRow />
       <PropertiesRow />
       <CitiesRow />
+      {/* <LiveChat /> */}
       <section className="container mb-5 pb-2 pb-lg-4">
         <div className="row align-items-center">
           <div className="col-md-5">

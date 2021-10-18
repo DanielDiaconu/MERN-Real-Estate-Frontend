@@ -11,7 +11,9 @@ function NotificationDropdownItem({ notification }) {
 
   const onNavigateToNotification = () => {
     if (notification.notificationType === "star") {
-      history.push(`/profile/${notification.targetId}`);
+      history.push(
+        `/profile/${notification.target.parentEntity}?notification=${notification.target.entity}`
+      );
     } else {
       history.push(
         `/property/${notification.target.parentEntity}?notification=${notification.target.entity}`
