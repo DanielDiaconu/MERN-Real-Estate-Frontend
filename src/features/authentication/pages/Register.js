@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useHistory, Redirect } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { getUser } from "../../../slices/userSlice";
+import { socket } from "../../../sockets";
 
 function Register() {
   const [user, setUser] = useState({
@@ -27,13 +28,14 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (user.password !== confirmPassword) {
-      return toast.error("Passwords do not match !");
+      return toast.error("Passwords do not match!");
     }
     try {
       let res = await axios.post("http://localhost:8080/register", user);
       sessionStorage.setItem("auth-token", res.data);
       const parsedToken = JSON.parse(atob(res.data.split(".")[1]));
-
+      socket.connect();
+      await socket.emit("join-server", parsedToken._id);
       dispatch(getUser(parsedToken._id));
       history.push("/");
     } catch (error) {

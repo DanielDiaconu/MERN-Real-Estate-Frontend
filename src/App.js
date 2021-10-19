@@ -25,18 +25,18 @@ import {
   getNotifications,
   incrementCount,
 } from "./slices/notificationCountSlice";
-import LiveChat from "./features/shared/components/LiveChat";
+import ChatBody from "./features/shared/components/ChatBody";
+import LiveChat from "./features/user/components/LiveChat";
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  console.log(user);
 
-  const getUserDetails = () => {
+  const getUserDetails = async () => {
     const token = sessionStorage.getItem("auth-token");
     const parsedToken = JSON.parse(atob(token.split(".")[1]));
     dispatch(getUser(parsedToken._id));
-    socket.emit("join-server", parsedToken._id);
+    await socket.emit("join-server", parsedToken._id);
   };
 
   useEffect(() => {

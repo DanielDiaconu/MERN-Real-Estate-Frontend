@@ -18,6 +18,7 @@ function UserProfileReviews({
   loading,
   handleSorting,
   profileUser,
+  highlightedReview,
 }) {
   const [toggleAddReview, setToggleAddReview] = useState(false);
   const user = useSelector(selectUser);
@@ -85,6 +86,13 @@ function UserProfileReviews({
           </>
         ) : (
           <>
+            {highlightedReview?._id && (
+              <UserProfileReviewCard
+                review={highlightedReview}
+                handleReviewDelete={handleReviewDelete}
+                isHighlighted={true}
+              />
+            )}
             {reviews?.map((review, i) => (
               <UserProfileReviewCard
                 key={i}

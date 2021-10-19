@@ -442,3 +442,26 @@ html {
   color: white;
   font-weight: bold;
 }
+
+.fa-map-pin {
+  font-size: 32px;
+  color: #fd390e;
+  position: absolute;
+  left: -60px;
+  top: -45px;
+  transform: rotate(0.9turn);
+}
+
+.chat-wrapper {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: 8000;
+}
+
+.chat-avatar-img {
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  object-fit: cover;
+}

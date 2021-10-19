@@ -1,0 +1,139 @@
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(#00c7b1, 0.4);
+  }
+  75%,
+  100% {
+    box-shadow: 0 0 0 2rem rgba(#00c7b1, 0);
+  }
+}
+.chat-icon-wrapper {
+  position: relative;
+
+  .disabled-chat-icon {
+    opacity: 0.3;
+  }
+
+  button {
+    padding: 0 1rem;
+    color: #6376ec;
+    border: 1px solid #6376ec;
+    border-radius: 4px;
+    line-height: 2rem;
+    background-color: transparent;
+    transition: background-color 350ms ease, color 350ms ease;
+
+    &:hover {
+      background-color: #6376ec;
+      color: white;
+    }
+  }
+
+  .chat-widget {
+    // position: fixed;
+    // right: 2rem;
+    // bottom: 2rem;
+    // z-index: 8000;
+
+    &--bubble {
+      display: block;
+      width: 240px;
+      padding: 2rem;
+      position: absolute;
+      right: 0;
+      bottom: 6rem;
+      background-color: #f6f6f6;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(black, 0.3);
+
+      transform-origin: 90% 100%;
+
+      transition: opacity 400ms ease, transform 400ms ease;
+
+      opacity: 1;
+      transform: translateY(0rem) scale(1, 1) skew(0deg, 0deg);
+
+      &.-hide {
+        opacity: 0;
+        transform: translateY(3rem) scale(0, 0) skew(0deg, 50deg);
+      }
+
+      > * + * {
+        margin-top: 1rem;
+      }
+
+      &::after {
+        content: "";
+        display: block;
+        width: 1.4rem;
+        height: 1.4rem;
+        position: absolute;
+        right: 1.5rem;
+        bottom: -0.7rem;
+        background-color: #f6f6f6;
+        box-shadow: 2px 2px 2px rgba(black, 0.2);
+        transform: rotate(45deg);
+      }
+    }
+
+    &--header {
+      font: {
+        size: 1.4rem;
+        weight: normal;
+      }
+      color: mix(#00c7b1, black, 90%);
+    }
+
+    &--text {
+      font-size: 0.875rem;
+      color: #666;
+    }
+
+    &--button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 4.5rem;
+      height: 4.5rem;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      border-radius: 50%;
+      background-color: #00c7b1;
+      box-shadow: 0 0 0 -2px rgba(black, 1), 0 2px 4px 0 rgba(black, 0.3);
+      transition: box-shadow 250ms ease;
+
+      &:hover {
+        box-shadow: 0 16px 10px -8px rgba(black, 0.3),
+          0 4px 10px 0 rgba(black, 0.2);
+      }
+
+      &::before,
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        border-radius: 50%;
+        animation: pulse 2s ease-in-out 5;
+      }
+      &::after {
+        animation-delay: 0.5s;
+      }
+    }
+
+    &--icon {
+      width: 2.5rem;
+      height: auto;
+
+      path {
+        fill: white;
+      }
+    }
+  }
+}

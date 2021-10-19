@@ -1,15 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { useHistory, useParams } from "react-router";
+import { useHistory, useLocation, useParams } from "react-router";
 import PropertyDetails from "../components/PropertyDetails";
 import PropertyImages from "../components/PropertyImages";
 import PropertyQuestionSection from "../components/PropertyQuestionSection";
 import PropertyReviews from "../components/PropertyQuestionSection";
 import PropertyUser from "../components/PropertyUser";
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 function Property() {
   const [property, setProperty] = useState(null);
   const ref = useRef();
+  let queryParams = useQuery();
 
   let { id } = useParams();
 
@@ -24,7 +29,7 @@ function Property() {
   }, [id]);
 
   useEffect(() => {
-    if (ref.current) {
+    if (ref.current && queryParams.has("notification")) {
       window.scrollTo({ top: ref.current.getBoundingClientRect().top + 150 });
     }
   }, [ref.current, property]);

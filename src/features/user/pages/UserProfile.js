@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import { setErrorToast, setSuccessToast } from "../../../slices/toastSlice";
 import { selectUser } from "../../../slices/userSlice";
 import { socket } from "../../../sockets";
@@ -9,23 +9,44 @@ import UserProfileAside from "../components/UserProfileAside";
 import UserProfileProperties from "../components/UserProfileProperties";
 import UserProfileReviews from "../components/UserProfileReviews";
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 function UserPublic() {
   let { id } = useParams();
+  let queryParams = useQuery();
+
   const [profileUser, setProfileUser] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const currentUser = useSelector(selectUser);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [highlightedReview, setHighlightedReview] = useState({});
   const dispatch = useDispatch();
 
   const getUserInfo = async () => {
-    let res = await axios.get(
-      `http://localhost:8080/users/profile-user/${id}?page=${currentPage}`
-    );
-
-    setProfileUser({ ...res.data.user, reviews: res.data.reviews });
-    setTotalPages(res.data.total);
+    let endpoint = `http://localhost:8080/users/profile-user/${id}?page=${currentPage}`;
+    if (queryParams.has("notification")) {
+      endpoint += `&highlight=${queryParams.get("notification")}`;
+    }
+    try {
+      if (queryParams.has("notification")) {
+        let highlightRes = await axios.get(
+          `http://localhost:8080/reviews/highlighted-review/${queryParams.get(
+            "notification"
+          )}`
+        );
+        setHighlightedReview(highlightRes.data[0]);
+      }
+      let res = await axios.get(endpoint);
+      setProfileUser({ ...res.data.user, reviews: res.data.reviews });
+      setTotalPages(res.data.total);
+    } catch (error) {
+      dispatch(
+        setErrorToast("There has been a error proccessing your request!")
+      );
+    }
   };
 
   const handleSorting = async (data) => {
@@ -112,6 +133,7 @@ function UserPublic() {
               total={totalPages}
               loading={isLoading}
               profileUser={profileUser}
+              highlightedReview={highlightedReview}
             />
             <div className="d-sm-flex align-items-center justify-content-between pb-4 mb-sm-2">
               <div className="d-flex flex-column justify-content-center mt-3">

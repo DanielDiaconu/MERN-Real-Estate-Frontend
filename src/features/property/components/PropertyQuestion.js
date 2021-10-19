@@ -139,7 +139,7 @@ const PropertyQuestion = forwardRef(
                 {isHighlighted && (
                   <div className="pinned-question ms-2">
                     <i class="fas fa-thumbtack"></i>
-                    <span className="pinned-question-text">Pinned</span>
+                    <span className="pinned-question-text">Highlighted</span>
                   </div>
                 )}
               </div>

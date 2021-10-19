@@ -5,7 +5,7 @@ import { selectUser } from "../../../slices/userSlice";
 import displayStarsRating from "../../shared/components/StarsRating";
 import StarsRating from "../../shared/components/StarsRating";
 
-function UserProfileReviewCard({ review, handleReviewDelete }) {
+function UserProfileReviewCard({ review, handleReviewDelete, isHighlighted }) {
   const user = useSelector(selectUser);
   const parseTime = () => {
     return moment(review?.createdAt).format(" DD MMM, YYYY");
@@ -27,7 +27,10 @@ function UserProfileReviewCard({ review, handleReviewDelete }) {
               alt="Avatar"
             />
             <div className="ps-2">
-              <h6 className="fs-base mb-0">{review?.userId?.fullName}</h6>
+              <div className="d-flex position-relative">
+                <h6 className="fs-base mb-0">{review?.userId?.fullName}</h6>
+                {isHighlighted && <i class="fas fa-map-pin"></i>}
+              </div>
               <span className="star-rating">
                 {displayStarsRating(review?.rating)}
               </span>

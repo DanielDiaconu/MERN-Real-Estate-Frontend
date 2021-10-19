@@ -28,9 +28,9 @@ function PropertyQuestionSection({ property, propRef }) {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
-  const getQuestions = async () => {
+  const getQuestions = async (page = 1) => {
     setQuestionLoading(true);
-    let endpoint = `http://localhost:8080/questions/${property?._id}?page=${currentPage}`;
+    let endpoint = `http://localhost:8080/questions/${property?._id}?page=${page}`;
 
     if (queryParams.has("notification")) {
       endpoint += `&highlight=${queryParams.get("notification")}`;
@@ -56,6 +56,7 @@ function PropertyQuestionSection({ property, propRef }) {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+    getQuestions(page);
   };
 
   const onSortChange = async (e) => {
@@ -401,11 +402,11 @@ function PropertyQuestionSection({ property, propRef }) {
 
   useEffect(() => {
     setPropertyClone(property);
+    if (property?._id) {
+      setCurrentPage(1);
+      getQuestions();
+    }
   }, [property]);
-
-  useEffect(() => {
-    getQuestions();
-  }, [currentPage]);
 
   return (
     <>

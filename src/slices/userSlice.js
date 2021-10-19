@@ -13,6 +13,7 @@ const initialState = {
 };
 
 export const getUser = createAsyncThunk("user/getUser", async (id) => {
+  console.log("dispatch");
   let res = await axios.get(`http://localhost:8080/users/${id}`);
   return res.data;
 });

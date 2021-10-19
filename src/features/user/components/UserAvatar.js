@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { selectUser } from "../../../slices/userSlice";
-import NotificationBell from "../../shared/components/NotificationBell";
+import { socket } from "../../../sockets";
 import displayStarsRating from "../../shared/components/StarsRating";
 
 function UserAvatar() {
@@ -11,6 +11,7 @@ function UserAvatar() {
 
   const handleSignOut = () => {
     sessionStorage.removeItem("auth-token");
+    socket.disconnect();
     history.push("/login");
   };
 
