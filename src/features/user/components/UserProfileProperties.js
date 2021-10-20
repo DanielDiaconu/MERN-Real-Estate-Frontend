@@ -34,6 +34,9 @@ function UserProfileProperties({ user }) {
 
   return (
     <div className="d-flex flex-column col-9 mt-3">
+      <div className="d-flex flex-column justify-content-center my-4">
+        <h1 className="h3 mb-sm-0 me-sm-3">User properties</h1>
+      </div>
       {properties?.map((property, i) => (
         <UserPropertyCard key={i} property={property} />
       ))}
@@ -42,7 +45,7 @@ function UserProfileProperties({ user }) {
           <SmallLoader />
         </div>
       )}
-      <Pagination count={total} handlePageChange={onPageChange} limit={3} />
+      <Pagination count={total} handlePageChange={onPageChange} limit={4} />
     </div>
   );
 }

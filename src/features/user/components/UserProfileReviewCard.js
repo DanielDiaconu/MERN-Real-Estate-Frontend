@@ -29,7 +29,12 @@ function UserProfileReviewCard({ review, handleReviewDelete, isHighlighted }) {
             <div className="ps-2">
               <div className="d-flex position-relative">
                 <h6 className="fs-base mb-0">{review?.userId?.fullName}</h6>
-                {isHighlighted && <i class="fas fa-map-pin"></i>}
+                {isHighlighted && (
+                  <div className="pinned-question ms-2">
+                    <i class="fas fa-thumbtack"></i>
+                    <span className="pinned-question-text">Highlighted</span>
+                  </div>
+                )}
               </div>
               <span className="star-rating">
                 {displayStarsRating(review?.rating)}

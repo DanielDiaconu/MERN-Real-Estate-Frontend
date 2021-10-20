@@ -1,11 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useLocation,
+  useParams,
+  useRouteMatch,
+} from "react-router";
 import { setErrorToast, setSuccessToast } from "../../../slices/toastSlice";
 import { selectUser } from "../../../slices/userSlice";
 import { socket } from "../../../sockets";
 import UserProfileAside from "../components/UserProfileAside";
+import UserProfileNav from "../components/UserProfileNav";
 import UserProfileProperties from "../components/UserProfileProperties";
 import UserProfileReviews from "../components/UserProfileReviews";
 
@@ -24,6 +32,7 @@ function UserPublic() {
   const [isLoading, setIsLoading] = useState(false);
   const [highlightedReview, setHighlightedReview] = useState({});
   const dispatch = useDispatch();
+  let { url, path } = useRouteMatch();
 
   const getUserInfo = async () => {
     let endpoint = `http://localhost:8080/users/profile-user/${id}?page=${currentPage}`;
@@ -123,24 +132,31 @@ function UserPublic() {
       <div className="container mt-5 mb-md-2 pt-5 pb-3">
         <div className="row">
           <div className="col-lg-8 order-lg-2 mb-5">
-            <UserProfileReviews
-              onReviewPost={handleReviewPost}
-              reviews={profileUser?.reviews}
-              count={totalPages}
-              onPageChange={onPageChange}
-              handleReviewDelete={handleReviewDelete}
-              handleSorting={handleSorting}
-              total={totalPages}
-              loading={isLoading}
-              profileUser={profileUser}
-              highlightedReview={highlightedReview}
-            />
-            <div className="d-sm-flex align-items-center justify-content-between pb-4 mb-sm-2">
-              <div className="d-flex flex-column justify-content-center mt-3">
-                <h1 className="h3 mb-sm-0 me-sm-3">User properties</h1>
+            <UserProfileNav />
+            <Switch>
+              <Route exact path={path}>
+                <Redirect to={`${url}/reviews`}></Redirect>
+              </Route>
+              <Route path={`${url}/reviews`}>
+                <UserProfileReviews
+                  onReviewPost={handleReviewPost}
+                  reviews={profileUser?.reviews}
+                  count={totalPages}
+                  onPageChange={onPageChange}
+                  handleReviewDelete={handleReviewDelete}
+                  handleSorting={handleSorting}
+                  total={totalPages}
+                  loading={isLoading}
+                  profileUser={profileUser}
+                  highlightedReview={highlightedReview}
+                />
+              </Route>
+              <Route exact path={`${url}/properties`}>
                 <UserProfileProperties user={profileUser} />
-              </div>
-            </div>
+              </Route>
+            </Switch>
+
+            <div className="d-sm-flex align-items-center justify-content-between pb-4 mb-sm-2"></div>
           </div>
           <UserProfileAside user={profileUser} total={totalPages} />
         </div>

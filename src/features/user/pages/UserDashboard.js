@@ -12,6 +12,7 @@ import UserWishlist from "../components/UserWishlist";
 
 function UserDashboard() {
   let { path } = useRouteMatch();
+  console.log(path);
 
   return (
     <>
