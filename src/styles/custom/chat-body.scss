@@ -9,6 +9,33 @@
   //   left: calc(50% + 12rem);
   // }
 
+  .reaction-icons {
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 2px solid grey;
+    background-color: #333;
+    width: 170px;
+    display: flex;
+    justify-content: space-evenly;
+
+    .fa-heart {
+      color: red;
+      font-size: 24px;
+    }
+    .fa-sad-cry {
+      color: #fac552;
+      font-size: 24px;
+    }
+    .fa-laugh-squint {
+      color: #fac552;
+      font-size: 24px;
+    }
+    .fa-angry {
+      color: #fac552;
+      font-size: 24px;
+    }
+  }
+
   .pic {
     width: 4rem;
     height: 4rem;
@@ -17,49 +44,49 @@
     border-radius: 50%;
   }
 
-  .contact {
-    position: relative;
-    padding-left: 8.5rem;
-    height: 4.5rem;
+  // .contact {
+  //   position: relative;
+  //   padding-left: 8.5rem;
+  //   height: 4.5rem;
 
-    padding-top: 10px;
+  //   padding-top: 10px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: center;
 
-    .pic {
-      position: absolute;
-      left: 0;
-    }
+  //   .pic {
+  //     position: absolute;
+  //     left: 0;
+  //   }
 
-    .name {
-      font-weight: 500;
-      margin-bottom: 0.125rem;
-    }
+  //   .name {
+  //     font-weight: 500;
+  //     margin-bottom: 0.125rem;
+  //   }
 
-    .message,
-    .seen {
-      font-size: 0.9rem;
-      color: #999;
-    }
+  //   .message,
+  //   .seen {
+  //     font-size: 0.9rem;
+  //     color: #999;
+  //   }
 
-    .badge {
-      box-sizing: border-box;
-      position: absolute;
-      width: 1.5rem;
-      height: 1.5rem;
-      text-align: center;
-      font-size: 0.9rem;
-      padding-top: 0.125rem;
-      border-radius: 1rem;
+  //   .badge {
+  //     box-sizing: border-box;
+  //     position: absolute;
+  //     width: 1.5rem;
+  //     height: 1.5rem;
+  //     text-align: center;
+  //     font-size: 0.9rem;
+  //     padding-top: 0.125rem;
+  //     border-radius: 1rem;
 
-      top: 0;
-      left: 2.5rem;
-      background: #333;
-      color: white;
-    }
-  }
+  //     top: 0;
+  //     left: 2.5rem;
+  //     background: #333;
+  //     color: white;
+  //   }
+  // }
 
   .contacts {
     position: absolute;
@@ -127,7 +154,7 @@
       flex-basis: 3.5rem;
       flex-shrink: 0;
       box-sizing: border-box;
-      background-color: #00c7b1;
+      background-color: #fd5631;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
     }
@@ -154,7 +181,7 @@
 
       .message-time {
         position: absolute;
-        top: 57px;
+        bottom: -20px;
         left: 12px;
         right: unset;
         font-size: 12px;

@@ -31,6 +31,7 @@ import LiveChat from "./features/user/components/LiveChat";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const token = sessionStorage.getItem("auth-token");
 
   const getUserDetails = async () => {
     const token = sessionStorage.getItem("auth-token");
@@ -137,13 +138,13 @@ function App() {
             <Header />
             <UserDashboard />
           </Route>
-          <Route path="/profile/:id" exact>
+          <Route path="/profile/:id">
             <Header />
             <UserProfile />
           </Route>
         </Switch>
+        <LiveChat />
       </Router>
-      <LiveChat />
     </>
   );
 }

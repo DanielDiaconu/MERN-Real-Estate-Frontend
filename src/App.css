@@ -465,3 +465,38 @@ html {
   border-radius: 100%;
   object-fit: cover;
 }
+
+.disconnected-user {
+  color: white;
+  background-color: #333;
+  text-align: center;
+  border-radius: 20px;
+  font-size: 14px;
+  margin: 0 auto;
+  width: 230px;
+  padding: 5px 2px;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-name-text {
+  color: white;
+  font-weight: bold;
+  margin: 0px 10px;
+}
+
+.message-reaction-icons {
+  top: -20px;
+  right: 30px;
+}
+.message-reaction {
+  position: absolute;
+  bottom: 0px;
+  right: 10px;
+  border: 1px solid grey;
+  padding: 0px 10px;
+  border-radius: 20px;
+  background-color: #333;
+}

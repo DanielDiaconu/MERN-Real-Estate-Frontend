@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { socket } from "../../../sockets";
+import ChatMessageReaction from "./ChatMessageReaction";
 
 const initMessage = {
   body: "",
@@ -6,12 +8,20 @@ const initMessage = {
   authorId: "",
   authorAvatar: "",
   authorName: "",
+  isInformationalBanner: false,
 };
 
 function ChatMessage({ user, message }) {
+  const [reaction, setReaction] = useState(false);
+  const [messageReactions, setMessageReactions] = useState([]);
+
+  const toggleReaction = () => {
+    setReaction((prev) => !prev);
+  };
   const isSameAuthor = () => {
     return message?.authorId === user?._id;
   };
+
   return (
     <>
       <div
@@ -22,9 +32,16 @@ function ChatMessage({ user, message }) {
         <div className="d-flex w-100 flex-column position-relative">
           <div className={`message ${isSameAuthor() ? "from-myself" : ""} `}>
             {message?.body}
+
+            {reaction && (
+              <div className="position-absolute message-reaction-icons">
+                <ChatMessageReaction message={message} />
+              </div>
+            )}
           </div>
+          <i class="far fa-laugh reaction-button" onClick={toggleReaction}></i>
           <span
-            className={`text-muted message-time   ${
+            className={`text-muted message-time ${
               isSameAuthor() ? "from-myself" : ""
             }`}
           >

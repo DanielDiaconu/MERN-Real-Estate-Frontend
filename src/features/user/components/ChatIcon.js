@@ -31,7 +31,11 @@ function ChatIcon() {
           </a>
         </div>
         {toggleChat && (
-          <ChatBody messages={messages} usersCount={connectedUsers} />
+          <ChatBody
+            messages={messages}
+            usersCount={connectedUsers}
+            hideChatWidget={() => setToggleChat(false)}
+          />
         )}
       </div>
     </>

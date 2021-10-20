@@ -28,7 +28,12 @@ function ChatSendMessage({ user }) {
     <>
       <div class="input">
         <input
-          placeholder="Type your message here!"
+          placeholder={
+            !user._id
+              ? "Sign in to leave a message!"
+              : "Type your message here!"
+          }
+          disabled={!user._id}
           value={currentMessage}
           type="text"
           onChange={(e) => setCurrentMessage(e.target.value)}
