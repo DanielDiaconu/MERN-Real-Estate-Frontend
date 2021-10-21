@@ -2,6 +2,7 @@ import userEvent from "@testing-library/user-event";
 import moment from "moment";
 import React, { useState } from "react";
 import { socket } from "../../../sockets";
+import { v4 as uuidv4 } from "uuid";
 
 function ChatSendMessage({ user }) {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -14,6 +15,8 @@ function ChatSendMessage({ user }) {
       authorName: user.fullName,
       authorAvatar: user.avatar,
       time: moment().format("HH:mm"),
+      id: uuidv4(),
+      reactions: {},
     });
     setCurrentMessage("");
   };

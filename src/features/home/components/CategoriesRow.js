@@ -16,7 +16,7 @@ function CategoriesRow() {
 
   return (
     <section className="container mb-5">
-      <div className="row row-cols-lg-4 row-cols-sm-3 row-cols-2 g-3 g-xl-4">
+      <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-2 g-3 g-xl-4">
         {categories?.map((category, i) => (
           <CategoriesCard
             category={category}

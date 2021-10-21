@@ -1,11 +1,35 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../slices/userSlice";
 import { socket } from "../../../sockets";
-import ChatBody from "../../shared/components/ChatBody";
+import ChatBody from "./ChatBody";
 
 function ChatIcon() {
   const [toggleChat, setToggleChat] = useState(false);
   const [messages, setMessages] = useState([]);
   const [connectedUsers, setConnectedUsers] = useState(0);
+
+  const onMessageReact = (userId, reactkey, messageId) => {
+    console.log(userId, reactkey, messageId);
+    setMessages((list) => {
+      return list.map((message) => {
+        if (message.id === messageId) {
+          return {
+            ...message,
+            reactions: {
+              ...message.reactions,
+              [reactkey]: !message?.reactions[reactkey]?.includes(userId)
+                ? [...message.reactions[reactkey], userId]
+                : message?.reactions[reactkey]?.filter(
+                    (item) => item !== userId
+                  ),
+            },
+          };
+        }
+        return message;
+      });
+    });
+  };
 
   useEffect(() => {
     socket.on("receive-chat-message", (data) => {
@@ -13,9 +37,39 @@ function ChatIcon() {
     });
     socket.on("live-chat-count", (data) => {
       setConnectedUsers(data);
-      console.log(data);
+    });
+    socket.on("receive-chat-reaction", (data) => {
+      setMessages((list) => {
+        return list.map((message) => {
+          if (message.id === data.messageId) {
+            return {
+              ...message,
+              reactions: {
+                ...message.reactions,
+                [data.type]: message.reactions[data.type]
+                  ? !message.reactions[data.type].includes(data.userId)
+                    ? [...message.reactions[data.type], data.userId]
+                    : message.reactions[data.type].filter(
+                        (item) => item !== data.userId
+                      )
+                  : [data.userId],
+              },
+            };
+          }
+          return message;
+        });
+      });
     });
   }, []);
+
+  // [data.type]: message.reactions[data.type]
+  //                 ? [
+  //                     ...message.reactions[data.type],
+  //                     !message.reactions[data.type].includes(data.userId)
+  //                       ? data.userId
+  //                       : "",
+  //                   ]
+  //                 : [data.userId],
 
   return (
     <>
@@ -32,6 +86,7 @@ function ChatIcon() {
         </div>
         {toggleChat && (
           <ChatBody
+            onMessageReact={onMessageReact}
             messages={messages}
             usersCount={connectedUsers}
             hideChatWidget={() => setToggleChat(false)}

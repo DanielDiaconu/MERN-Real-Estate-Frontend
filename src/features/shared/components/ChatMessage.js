@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { socket } from "../../../sockets";
 import ChatMessageReaction from "./ChatMessageReaction";
+import ChatMessageReactionList from "./ChatMessageReactionList";
 
 const initMessage = {
   body: "",
@@ -9,44 +9,47 @@ const initMessage = {
   authorAvatar: "",
   authorName: "",
   isInformationalBanner: false,
+  id: "",
+  reactions: {},
 };
 
-function ChatMessage({ user, message }) {
-  const [reaction, setReaction] = useState(false);
-  const [messageReactions, setMessageReactions] = useState([]);
-
-  const toggleReaction = () => {
-    setReaction((prev) => !prev);
-  };
+function ChatMessage({ user, message, onMessageReact }) {
   const isSameAuthor = () => {
     return message?.authorId === user?._id;
+  };
+
+  const handleChatMessageReact = (userId, reactKey) => {
+    onMessageReact(userId, reactKey, message.id);
   };
 
   return (
     <>
       <div
-        className={`d-flex align-items-end ${
+        className={`d-flex align-items-end my-4 ${
           !isSameAuthor() ? "flex-row-reverse justify-content-end" : ""
-        } mb-3`}
+        }`}
       >
-        <div className="d-flex w-100 flex-column position-relative">
+        <div
+          className={`d-flex w-100 align-items-center ${
+            isSameAuthor() ? "flex-row-reverse" : ""
+          }  position-relative`}
+        >
           <div className={`message ${isSameAuthor() ? "from-myself" : ""} `}>
             {message?.body}
-
-            {reaction && (
-              <div className="position-absolute message-reaction-icons">
-                <ChatMessageReaction message={message} />
-              </div>
-            )}
           </div>
-          <i class="far fa-laugh reaction-button" onClick={toggleReaction}></i>
-          <span
+          <ChatMessageReactionList
+            isSameAuthor={isSameAuthor()}
+            reactions={message?.reactions}
+            handleChatMessageReact={handleChatMessageReact}
+          />
+          <ChatMessageReaction user={user} message={message} />
+          {/* <span
             className={`text-muted message-time ${
               isSameAuthor() ? "from-myself" : ""
             }`}
           >
             {message?.time}
-          </span>
+          </span> */}
         </div>
         <img
           title={message?.authorName}

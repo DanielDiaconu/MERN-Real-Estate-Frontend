@@ -1,10 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../slices/userSlice";
-import ChatMessage from "../../user/components/ChatMessage";
+import ChatMessage from "./ChatMessage";
 import ChatSendMessage from "./ChatSendMessage";
 
-function ChatBody({ messages, usersCount, hideChatWidget }) {
+function ChatBody({ messages, usersCount, hideChatWidget, onMessageReact }) {
   const user = useSelector(selectUser);
 
   return (
@@ -22,7 +22,7 @@ function ChatBody({ messages, usersCount, hideChatWidget }) {
                   />
                   <span className="user-name-text">{user?.fullName}</span>
                 </div>
-                <i class="fas fa-times me-1" style={{ fontSize: "18px" }}></i>
+                <i class="far fa-times-circle"></i>
               </div>
             </div>
             <div class="messages" id="chat">
@@ -33,7 +33,12 @@ function ChatBody({ messages, usersCount, hideChatWidget }) {
               )}
               {messages?.map((message, i) =>
                 !message.isInformationalBanner ? (
-                  <ChatMessage user={user} message={message} key={i} />
+                  <ChatMessage
+                    user={user}
+                    message={message}
+                    key={i}
+                    onMessageReact={onMessageReact}
+                  />
                 ) : (
                   <div className="time mt-4 mb-2" key={i}>
                     {message.body}

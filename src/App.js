@@ -25,8 +25,7 @@ import {
   getNotifications,
   incrementCount,
 } from "./slices/notificationCountSlice";
-import ChatBody from "./features/shared/components/ChatBody";
-import LiveChat from "./features/user/components/LiveChat";
+import LiveChat from "./features/shared/components/LiveChat";
 
 function App() {
   const dispatch = useDispatch();

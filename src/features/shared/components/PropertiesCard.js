@@ -124,10 +124,10 @@ function PropertiesCard({ property }) {
           </span>
         </div>
         {location.pathname === "/properties" && (
-          <div className="row text-center align-content-end justify-content-between  ms-lg-5 ">
+          <div className="row text-center align-content-end justify-content-end">
             <Link
               to={`/profile/${property?.ownerId?._id}`}
-              className="d-flex justfiy-content-evenly align-items-center text-decoration-none ms-lg-5"
+              className="d-flex justify-content-end align-items-center text-decoration-none "
             >
               <img
                 className="rounded-circle me-2"
