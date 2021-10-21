@@ -2,6 +2,7 @@ import { isEmpty } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../slices/userSlice";
+import { v4 as uuidv4 } from "uuid";
 
 const initObject = {
   heart: [],
@@ -22,6 +23,7 @@ function ChatMessageReactionList({
       emojis.push(
         value?.length >= 1 && (
           <div
+            key={uuidv4()}
             className="chat-react-message-icon"
             onClick={() => handleChatMessageReact(user._id, key)}
           >

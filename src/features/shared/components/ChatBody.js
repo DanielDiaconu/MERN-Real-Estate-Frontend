@@ -13,7 +13,7 @@ function ChatBody({ messages, usersCount, hideChatWidget, onMessageReact }) {
         <div class="center">
           <div class="chat">
             <div class="contact bar cursor-pointer" onClick={hideChatWidget}>
-              <div className="d-flex flex-row p-1 align-items-center mt-1 ms-2">
+              <div className="d-flex flex-row p-1 align-items-center justify-content-between mt-1 ms-2">
                 <div>
                   <img
                     className="rounded-circle"
@@ -22,7 +22,7 @@ function ChatBody({ messages, usersCount, hideChatWidget, onMessageReact }) {
                   />
                   <span className="user-name-text">{user?.fullName}</span>
                 </div>
-                <i class="far fa-times-circle"></i>
+                <i class="far fa-times-circle chat-close-button"></i>
               </div>
             </div>
             <div class="messages" id="chat">
@@ -46,11 +46,11 @@ function ChatBody({ messages, usersCount, hideChatWidget, onMessageReact }) {
                 )
               )}
 
-              {/* <div class="message stark">
+              <div class="message stark">
                 <div class="typing typing-1"></div>
                 <div class="typing typing-2"></div>
                 <div class="typing typing-3"></div>
-              </div> */}
+              </div>
             </div>
             <ChatSendMessage user={user} />
           </div>

@@ -9,25 +9,11 @@ function ChatIcon() {
   const [messages, setMessages] = useState([]);
   const [connectedUsers, setConnectedUsers] = useState(0);
 
-  const onMessageReact = (userId, reactkey, messageId) => {
-    console.log(userId, reactkey, messageId);
-    setMessages((list) => {
-      return list.map((message) => {
-        if (message.id === messageId) {
-          return {
-            ...message,
-            reactions: {
-              ...message.reactions,
-              [reactkey]: !message?.reactions[reactkey]?.includes(userId)
-                ? [...message.reactions[reactkey], userId]
-                : message?.reactions[reactkey]?.filter(
-                    (item) => item !== userId
-                  ),
-            },
-          };
-        }
-        return message;
-      });
+  const onMessageReact = async (userId, reactkey, messageId) => {
+    await socket.emit("react-message-count", {
+      userId: userId,
+      reactkey: reactkey,
+      messageId: messageId,
     });
   };
 
@@ -60,16 +46,27 @@ function ChatIcon() {
         });
       });
     });
+    socket.on("receive-react-count", ({ userId, reactkey, messageId }) => {
+      setMessages((list) => {
+        return list.map((message) => {
+          if (message.id === messageId) {
+            return {
+              ...message,
+              reactions: {
+                ...message.reactions,
+                [reactkey]: !message?.reactions[reactkey]?.includes(userId)
+                  ? [...message.reactions[reactkey], userId]
+                  : message?.reactions[reactkey]?.filter(
+                      (item) => item !== userId
+                    ),
+              },
+            };
+          }
+          return message;
+        });
+      });
+    });
   }, []);
-
-  // [data.type]: message.reactions[data.type]
-  //                 ? [
-  //                     ...message.reactions[data.type],
-  //                     !message.reactions[data.type].includes(data.userId)
-  //                       ? data.userId
-  //                       : "",
-  //                   ]
-  //                 : [data.userId],
 
   return (
     <>
