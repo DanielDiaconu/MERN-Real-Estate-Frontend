@@ -16,6 +16,10 @@ function ChatMessageReactionList({
   const [reacts, setReacts] = useState(initObject);
   const user = useSelector(selectUser);
 
+  const reactedByMe = (value) => {
+    return value.includes(user._id);
+  };
+
   const renderEmoji = () => {
     if (isEmpty(reacts)) return;
     const emojis = [];
@@ -24,7 +28,9 @@ function ChatMessageReactionList({
         value?.length >= 1 && (
           <div
             key={uuidv4()}
-            className="chat-react-message-icon"
+            className={`chat-react-message-icon ${
+              reactedByMe(value) ? "reacted-by-me" : ""
+            }`}
             onClick={() => handleChatMessageReact(user._id, key)}
           >
             <i class={`fas fa-${key} cursor-pointer`} data-name={key}></i>

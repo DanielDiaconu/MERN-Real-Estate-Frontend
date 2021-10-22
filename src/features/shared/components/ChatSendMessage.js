@@ -14,17 +14,45 @@ function ChatSendMessage({ user }) {
       authorId: user._id,
       authorName: user.fullName,
       authorAvatar: user.avatar,
-      time: moment().format("HH:mm"),
+      time: moment().format("D MMM, HH:mm"),
       id: uuidv4(),
       reactions: {},
     });
     setCurrentMessage("");
   };
 
-  const handleEnterPress = (e) => {
+  const onInputChange = async (e) => {
+    setCurrentMessage(e.target.value);
+  };
+
+  const handleEnterPress = async (e) => {
+    let timeout;
     if (e.key === "Enter") {
       sendMessage();
     }
+
+    if (e.key !== "Enter") {
+      await socket.emit("chat-currently-typing", {
+        typing: true,
+        user: {
+          avatar: user.avatar,
+          id: user._id,
+          name: user.fullName,
+        },
+      });
+      clearTimeout(timeout);
+      timeout = setTimeout(typingTimeOut, 2000);
+    } else {
+      clearTimeout(timeout);
+      typingTimeOut();
+    }
+  };
+
+  const typingTimeOut = async () => {
+    await socket.emit("chat-currently-typing", {
+      typing: false,
+      userAvatar: user.avatar,
+    });
   };
 
   return (
@@ -39,7 +67,7 @@ function ChatSendMessage({ user }) {
           disabled={!user._id}
           value={currentMessage}
           type="text"
-          onChange={(e) => setCurrentMessage(e.target.value)}
+          onChange={onInputChange}
           onKeyPress={handleEnterPress}
         />
         <i

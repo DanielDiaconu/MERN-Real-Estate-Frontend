@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { selectUser } from "../../../slices/userSlice";
+import ChatCurrentlyTyping from "./ChatCurrentlyTyping";
 import ChatMessage from "./ChatMessage";
 import ChatSendMessage from "./ChatSendMessage";
 
@@ -14,14 +16,25 @@ function ChatBody({ messages, usersCount, hideChatWidget, onMessageReact }) {
           <div class="chat">
             <div class="contact bar cursor-pointer" onClick={hideChatWidget}>
               <div className="d-flex flex-row p-1 align-items-center justify-content-between mt-1 ms-2">
-                <div>
-                  <img
-                    className="rounded-circle"
-                    src={`http://localhost:8080/images/avatars/${user?.avatar}`}
-                    style={{ width: "35px", height: "35px" }}
-                  />
-                  <span className="user-name-text">{user?.fullName}</span>
-                </div>
+                {user._id ? (
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="rounded-circle"
+                      src={`http://localhost:8080/images/avatars/${user?.avatar}`}
+                      style={{ width: "35px", height: "35px" }}
+                    />
+                    <div className="d-flex flex-column ms-3">
+                      <span className="chatting-as">
+                        Currently chatting as:
+                      </span>
+                      <span className="user-name-text">{user?.fullName}</span>
+                    </div>
+                  </div>
+                ) : (
+                  <Link className="sign-in-chat" to="/login">
+                    Sign in to start chatting!
+                  </Link>
+                )}
                 <i class="far fa-times-circle chat-close-button"></i>
               </div>
             </div>
@@ -46,11 +59,7 @@ function ChatBody({ messages, usersCount, hideChatWidget, onMessageReact }) {
                 )
               )}
 
-              <div class="message stark">
-                <div class="typing typing-1"></div>
-                <div class="typing typing-2"></div>
-                <div class="typing typing-3"></div>
-              </div>
+              <ChatCurrentlyTyping user={user} />
             </div>
             <ChatSendMessage user={user} />
           </div>

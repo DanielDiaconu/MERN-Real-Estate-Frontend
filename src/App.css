@@ -484,7 +484,6 @@ html {
 .user-name-text {
   color: white;
   font-weight: bold;
-  margin: 0px 10px;
 }
 
 .message-reaction-icons {
@@ -505,4 +504,14 @@ html {
   color: white;
   margin-right: 10px;
   font-size: 25px;
+}
+
+.chatting-as {
+  font-size: 13px;
+  color: #fff;
+}
+
+.fas.fa-directions {
+  font-size: 30px;
+  padding: 15px;
 }

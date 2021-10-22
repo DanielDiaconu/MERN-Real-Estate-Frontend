@@ -1,12 +1,13 @@
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(#00c7b1, 0.4);
+    box-shadow: 0 0 0 0 rgba(#fd5631, 0.4);
   }
   75%,
   100% {
-    box-shadow: 0 0 0 2rem rgba(#00c7b1, 0);
+    box-shadow: 0 0 0 2rem rgba(#fd5631, 0);
   }
 }
+
 .chat-icon-wrapper {
   position: relative;
 
@@ -100,7 +101,7 @@
       bottom: 0;
       z-index: 1;
       border-radius: 50%;
-      background-color: #00c7b1;
+      background-color: #fd5631;
       box-shadow: 0 0 0 -2px rgba(black, 1), 0 2px 4px 0 rgba(black, 0.3);
       transition: box-shadow 250ms ease;
 

@@ -25,7 +25,7 @@ function ChatMessage({ user, message, onMessageReact }) {
   return (
     <>
       <div
-        className={`d-flex align-items-end my-4 ${
+        className={`d-flex align-items-end chat-message-wrapper-spacing  ${
           !isSameAuthor() ? "flex-row-reverse justify-content-end" : ""
         }`}
       >
@@ -34,7 +34,10 @@ function ChatMessage({ user, message, onMessageReact }) {
             isSameAuthor() ? "flex-row-reverse" : ""
           }  position-relative`}
         >
-          <div className={`message ${isSameAuthor() ? "from-myself" : ""} `}>
+          <div
+            title={message?.time}
+            className={`message ${isSameAuthor() ? "from-myself" : ""} `}
+          >
             {message?.body}
           </div>
           <ChatMessageReactionList
