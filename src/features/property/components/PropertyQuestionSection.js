@@ -434,8 +434,9 @@ function PropertyQuestionSection({ property, propRef }) {
               className="form-select"
               id="reviews-sorting"
               onChange={onSortChange}
+              defaultValue=""
             >
-              <option disabled selected>
+              <option disabled value="">
                 Select a sorting option
               </option>
               <option value="-createdAt">Newest</option>

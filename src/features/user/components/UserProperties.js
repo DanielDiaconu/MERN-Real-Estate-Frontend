@@ -4,30 +4,38 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectUser } from "../../../slices/userSlice";
 import Loader from "../../shared/components/Loader";
+import Pagination from "../../shared/components/Pagination";
 import UserPropertyCard from "../../shared/components/UserPropertyCard";
 
 function UserProperties() {
   const [properties, setProperties] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const user = useSelector(selectUser);
 
   const getUserProperties = async () => {
     try {
       let res = await axios.get(
-        `http://localhost:8080/users/my-properties/${user._id}`
+        `http://localhost:8080/users/my-properties/${user._id}?page=${currentPage}`
       );
       setProperties(res.data.properties);
+      setTotal(res.data.total);
       setLoading(false);
     } catch (error) {
       setLoading(false);
     }
   };
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
   useEffect(() => {
     if (user._id) {
       getUserProperties();
     }
-  }, [user]);
+  }, [user, currentPage]);
 
   return (
     <>
@@ -49,7 +57,7 @@ function UserProperties() {
                   key={i}
                   canPromote={true}
                 />
-              ))}{" "}
+              ))}
             </>
           ) : (
             <div>
@@ -61,7 +69,8 @@ function UserProperties() {
                 </Link>
               </h4>
             </div>
-          )}{" "}
+          )}
+          <Pagination handlePageChange={handlePageChange} count={total} />
         </>
       )}
     </>

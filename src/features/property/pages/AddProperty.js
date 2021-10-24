@@ -16,7 +16,7 @@ const initPropertyObject = {
   overview: "",
   address: "",
   area: 0,
-  price: 0,
+  price: null,
   bedrooms: 0,
   bathrooms: 0,
   built: 0,

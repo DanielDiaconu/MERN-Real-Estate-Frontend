@@ -81,7 +81,6 @@ function App() {
     });
 
     socket.on("receive-reply-like", (data) => {
-      console.log("i recived a like");
       dispatch(getNotifications(user._id));
       dispatch(incrementCount());
       toast.info(data);

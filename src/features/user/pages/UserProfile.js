@@ -35,6 +35,7 @@ function UserPublic() {
   let { url, path } = useRouteMatch();
 
   const getUserInfo = async () => {
+    console.log("here");
     let endpoint = `http://localhost:8080/users/profile-user/${id}?page=${currentPage}`;
     if (queryParams.has("notification")) {
       endpoint += `&highlight=${queryParams.get("notification")}`;

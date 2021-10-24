@@ -1,5 +1,13 @@
 import React from "react";
-import { Redirect, Route, Switch, useRouteMatch } from "react-router";
+import { useSelector } from "react-redux";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useRouteMatch,
+} from "react-router";
+import { selectUser } from "../../../slices/userSlice";
 import UserDashboardHeader from "../components/UserDashboardHeader";
 import UserDashboardNav from "../components/UserDashboardNav";
 import UserNotifications from "../components/UserNotifications";
@@ -12,7 +20,12 @@ import UserWishlist from "../components/UserWishlist";
 
 function UserDashboard() {
   let { path } = useRouteMatch();
-  console.log(path);
+  const user = useSelector(selectUser);
+  const history = useHistory();
+
+  if (!user._id) {
+    history.push("/");
+  }
 
   return (
     <>

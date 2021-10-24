@@ -55,10 +55,9 @@ function UserProfileReviews({
                 id="review-sorting"
                 name="sort"
                 onChange={onSortChange}
+                defaultValue=""
               >
-                <option selected disabled>
-                  Select a sorting option
-                </option>
+                <option value="">Select a sorting option</option>
                 <option value="-createdAt">Newest</option>
                 <option value="createdAt">Oldest</option>
                 <option value="-rating">High rating</option>

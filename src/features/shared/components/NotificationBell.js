@@ -45,7 +45,7 @@ function NotificationBell() {
   return (
     <>
       <div
-        class="dropdown ms-3 notification-bell"
+        className="dropdown ms-3 notification-bell"
         ref={ref}
         onClick={(e) => e.stopPropagation()}
       >
@@ -57,10 +57,10 @@ function NotificationBell() {
           aria-expanded="false"
           onClick={displayNotifications}
         >
-          <i class="fas fa-bell"></i>
+          <i className="fas fa-bell"></i>
         </span>
         <ul
-          class={`dropdown-menu ${showNotifications ? "show" : ""}`}
+          className={`dropdown-menu ${showNotifications ? "show" : ""}`}
           aria-labelledby="dropdownMenu2"
           style={{ width: "500px" }}
         >

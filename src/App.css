@@ -288,10 +288,11 @@
 .paggination a {
   margin: 0px 10px;
   font-size: 20px;
+  color: #fd390e !important;
 }
 
-.pagination-active {
-  color: #fd390e;
+.paggination a.pagination-active {
+  color: #333 !important;
   text-decoration: none;
 }
 
@@ -511,7 +512,19 @@ html {
   color: #fff;
 }
 
-.fas.fa-directions {
-  font-size: 30px;
-  padding: 15px;
+.fas.fa-link {
+  font-size: 24px;
+  padding: 5px 10px;
+}
+
+.redirect-text:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #fd390e;
+}
+.text-decoration-hover {
+  text-decoration: none;
+}
+.text-decoration-hover:hover {
+  text-decoration: underline;
 }

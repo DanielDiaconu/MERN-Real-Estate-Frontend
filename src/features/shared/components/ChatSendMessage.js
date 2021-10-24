@@ -57,7 +57,7 @@ function ChatSendMessage({ user }) {
 
   return (
     <>
-      <div class="input">
+      <div className="input">
         <input
           placeholder={
             !user._id
@@ -71,7 +71,7 @@ function ChatSendMessage({ user }) {
           onKeyPress={handleEnterPress}
         />
         <i
-          class={`fas fa-paper-plane ${
+          className={`fas fa-paper-plane ${
             !currentMessage ? "disabled-chat-icon" : ""
           }`}
           onClick={sendMessage}

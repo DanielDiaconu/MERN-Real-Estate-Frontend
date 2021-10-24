@@ -33,7 +33,7 @@ function ChatMessageReactionList({
             }`}
             onClick={() => handleChatMessageReact(user._id, key)}
           >
-            <i class={`fas fa-${key} cursor-pointer`} data-name={key}></i>
+            <i className={`fas fa-${key} cursor-pointer`} data-name={key}></i>
             <span>{value?.length}</span>
           </div>
         )
@@ -55,19 +55,19 @@ function ChatMessageReactionList({
     >
       {renderEmoji()}
       {/* <div className="chat-react-message-icon">
-        <i class="fas fa-heart cursor-pointer" data-name="heart"></i>
+        <i className="fas fa-heart cursor-pointer" data-name="heart"></i>
         <span>1</span>
       </div>
       <div className="chat-react-message-icon">
-        <i class="fas fa-sad-cry cursor-pointer" data-name="heart"></i>
+        <i className="fas fa-sad-cry cursor-pointer" data-name="heart"></i>
         <span>2</span>
       </div>
       <div className="chat-react-message-icon">
-        <i class="fas fa-laugh-squint cursor-pointer" data-name="heart"></i>
+        <i className="fas fa-laugh-squint cursor-pointer" data-name="heart"></i>
         <span>3</span>
       </div>
       <div className="chat-react-message-icon">
-        <i class="far fa-angry cursor-pointer" data-name="heart"></i>
+        <i className="far fa-angry cursor-pointer" data-name="heart"></i>
         <span>4</span>
       </div> */}
     </div>

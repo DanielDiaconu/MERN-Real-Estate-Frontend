@@ -4,24 +4,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { setErrorToast } from "../../../slices/toastSlice";
 import { selectUser, updateUserWishlist } from "../../../slices/userSlice";
 import Loader from "../../shared/components/Loader";
+import Pagination from "../../shared/components/Pagination";
 import UserPropertyCard from "../../shared/components/UserPropertyCard";
 
 function UserWishlist() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [total, setTotal] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
   const getWishlist = async () => {
     try {
       let res = await axios.get(
-        `http://localhost:8080/users/wishlist/${user._id}`
+        `http://localhost:8080/users/wishlist/${user._id}?page=${currentPage}`
       );
-      setProperties(res.data);
+      setProperties(res.data.wishlist);
+      setTotal(res.data.total);
       setLoading(false);
     } catch (error) {
       dispatch(setErrorToast(error.message));
     }
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   const clearWishlist = () => {
@@ -32,7 +40,7 @@ function UserWishlist() {
     if (user._id) {
       getWishlist();
     }
-  }, [user]);
+  }, [user, currentPage]);
 
   return (
     <>
@@ -63,6 +71,13 @@ function UserWishlist() {
             </div>
           )}
         </>
+      )}
+      {total > 0 && (
+        <Pagination
+          handlePageChange={handlePageChange}
+          count={total}
+          limit={4}
+        />
       )}
     </>
   );

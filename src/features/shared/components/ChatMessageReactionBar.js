@@ -15,22 +15,22 @@ function ChatMessageReactionBar({ message, user, handleShowReactionBar }) {
     <div className="message-reaction-icons">
       <div className="reaction-icons">
         <i
-          class="fas fa-heart cursor-pointer"
+          className="fas fa-heart cursor-pointer"
           data-name="heart"
           onClick={selectEmoji}
         ></i>
         <i
-          class="fas fa-sad-cry cursor-pointer"
+          className="fas fa-sad-cry cursor-pointer"
           data-name="sad-cry"
           onClick={selectEmoji}
         ></i>
         <i
-          class="fas fa-laugh-squint cursor-pointer"
+          className="fas fa-laugh-squint cursor-pointer"
           data-name="laugh-squint"
           onClick={selectEmoji}
         ></i>
         <i
-          class="fas fa-angry cursor-pointer"
+          className="fas fa-angry cursor-pointer"
           data-name="angry"
           onClick={selectEmoji}
         ></i>

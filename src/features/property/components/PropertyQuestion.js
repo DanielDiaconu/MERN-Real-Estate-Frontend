@@ -10,6 +10,7 @@ import { selectUser } from "../../../slices/userSlice";
 import PropertyAddAnswer from "./PropertyAddAnswer";
 import PropertyAnswer from "./PropertyAnswer";
 import SmallLoader from "../../shared/components/SmallLoader";
+import { Link } from "react-router-dom";
 
 const PropertyQuestion = forwardRef(
   (
@@ -128,17 +129,24 @@ const PropertyQuestion = forwardRef(
         >
           <div className="d-flex justify-content-between align-items-center mb-3">
             <div className="d-flex align-items-center pe-2">
-              <img
-                className="rounded-circle me-1"
-                src={`http://localhost:8080/images/avatars/${question?.userId?.avatar}`}
-                width="48"
-                alt="Avatar"
-              />
+              <Link to={`/profile/${question?.userId?._id}`}>
+                <img
+                  className="rounded-circle me-1"
+                  src={`http://localhost:8080/images/avatars/${question?.userId?.avatar}`}
+                  width="48"
+                  alt="Avatar"
+                />
+              </Link>
               <div className="ps-2 d-flex align-items-center">
-                <h6 className="fs-base mb-0">{question?.userId?.fullName}</h6>
+                <Link
+                  className="text-decoration-hover"
+                  to={`/profile/${question?.userId?._id}`}
+                >
+                  <h6 className="fs-base mb-0">{question?.userId?.fullName}</h6>
+                </Link>
                 {isHighlighted && (
                   <div className="pinned-question ms-2">
-                    <i class="fas fa-thumbtack"></i>
+                    <i className="fas fa-thumbtack"></i>
                     <span className="pinned-question-text">Highlighted</span>
                   </div>
                 )}

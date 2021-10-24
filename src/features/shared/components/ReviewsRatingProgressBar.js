@@ -29,7 +29,7 @@ function ReviewsRatingProgressBar({ rating, reviews }) {
           className="flex-shrink-0 flex-grow-1 fs-sm text-end ps-2"
           style={{ width: "3rem" }}
         >
-          {Math.round(calculateProggres())}%
+          {reviews?.length !== 0 ? Math.round(calculateProggres()) : 0}%
         </div>
       </div>
     </>

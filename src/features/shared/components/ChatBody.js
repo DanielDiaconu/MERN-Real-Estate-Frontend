@@ -12,9 +12,12 @@ function ChatBody({ messages, usersCount, hideChatWidget, onMessageReact }) {
   return (
     <>
       <div className="chat-body-wrapper">
-        <div class="center">
-          <div class="chat">
-            <div class="contact bar cursor-pointer" onClick={hideChatWidget}>
+        <div className="center">
+          <div className="chat">
+            <div
+              className="contact bar cursor-pointer"
+              onClick={hideChatWidget}
+            >
               <div className="d-flex flex-row p-1 align-items-center justify-content-between mt-1 ms-2">
                 {user._id ? (
                   <div className="d-flex align-items-center">
@@ -35,10 +38,10 @@ function ChatBody({ messages, usersCount, hideChatWidget, onMessageReact }) {
                     Sign in to start chatting!
                   </Link>
                 )}
-                <i class="far fa-times-circle chat-close-button"></i>
+                <i className="far fa-times-circle chat-close-button"></i>
               </div>
             </div>
-            <div class="messages" id="chat">
+            <div className="messages" id="chat">
               {usersCount <= 1 && (
                 <div className="time">
                   You are the only one connected in the global chat.

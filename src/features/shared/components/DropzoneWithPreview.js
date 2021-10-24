@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Dropzone, { useDropzone } from "react-dropzone";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../slices/userSlice";
 
 const thumbsContainer = {
   display: "flex",
@@ -37,25 +39,31 @@ function DropzoneWithPreview({
   multiple = true,
   title,
   maxFiles,
+  files = [],
 }) {
-  const [files, setFiles] = useState([]);
+  const [localFiles, setLocalFiles] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     multiple,
     maxFiles,
     onDrop: (acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
-      );
+      createPreview(acceptedFiles);
+
       onFilesDrop(acceptedFiles);
     },
   });
 
-  const thumbs = files.map((file) => (
+  const createPreview = (acceptedFiles) => {
+    setLocalFiles(
+      acceptedFiles.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      )
+    );
+  };
+
+  const thumbs = localFiles.map((file) => (
     <div style={thumb} key={file.name}>
       <div style={thumbInner}>
         <img src={file.preview} style={img} />
@@ -63,12 +71,14 @@ function DropzoneWithPreview({
     </div>
   ));
 
-  useEffect(
-    () => () => {
-      files.forEach((file) => URL.revokeObjectURL(file.preview));
-    },
-    [files]
-  );
+  useEffect(() => {
+    if (!!files.length) {
+      createPreview(files);
+    }
+    return () => {
+      localFiles.forEach((file) => URL.revokeObjectURL(file.preview));
+    };
+  }, [files]);
 
   return (
     <div className="card card-body border-0 shadow-sm p-4 mb-4" id="photos">

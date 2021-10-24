@@ -30,11 +30,13 @@ function ChatCurrentlyTyping({ user }) {
             src={`http://localhost:8080/images/avatars/${typingUser?.avatar}`}
           />
           <div
-            class={`message ${userCurrentlyTyping() ? "typing-myself" : ""}`}
+            className={`message ${
+              userCurrentlyTyping() ? "typing-myself" : ""
+            }`}
           >
-            <div class="typing typing-1"></div>
-            <div class="typing typing-2"></div>
-            <div class="typing typing-3"></div>
+            <div className="typing typing-1"></div>
+            <div className="typing typing-2"></div>
+            <div className="typing typing-3"></div>
           </div>
         </div>
       )}

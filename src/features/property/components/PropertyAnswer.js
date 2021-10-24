@@ -1,5 +1,6 @@
 import moment from "moment";
 import React from "react";
+import { Link } from "react-router-dom";
 
 function PropertyAnswer({
   reply,
@@ -43,14 +44,21 @@ function PropertyAnswer({
       >
         <div className="d-flex justify-content-between mb-3">
           <div className="d-flex align-items-center pe-2">
-            <img
-              className="rounded-circle me-1"
-              src={`http://localhost:8080/images/avatars/${reply?.userId?.avatar}`}
-              width="48"
-              alt="Avatar"
-            />
+            <Link to={`/profile/${reply?.userId?._id}`}>
+              <img
+                className="rounded-circle me-1"
+                src={`http://localhost:8080/images/avatars/${reply?.userId?.avatar}`}
+                width="48"
+                alt="Avatar"
+              />
+            </Link>
             <div className="ps-2 d-flex align-items-center">
-              <h6 className="fs-base mb-0">{reply?.userId?.fullName} </h6>
+              <Link
+                className="text-decoration-hover"
+                to={`/profile/${reply?.userId?._id}`}
+              >
+                <h6 className="fs-base mb-0">{reply?.userId?.fullName} </h6>
+              </Link>
               <span className="owner-reply-pill">owner</span>
             </div>
           </div>

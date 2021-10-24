@@ -24,7 +24,7 @@ function ChatMessageReaction({ user, message }) {
         />
       )}
       <i
-        class="far fa-laugh reaction-button cursor-pointer"
+        className="far fa-laugh reaction-button cursor-pointer"
         title="Add your reaction"
         onClick={() => setShowBar((prev) => !prev)}
       ></i>
