@@ -29,7 +29,7 @@ function PropertyImages({ gallery }) {
                   lg-uid="lg0"
                 >
                   {gallery?.map((img, i) => (
-                    <div className="col-4" key={i}>
+                    <div className="col-lg-4 col-sm-6" key={i}>
                       <a className="gallery-item rounded rounded-md-3 mb-2 mb-md-3">
                         <img
                           style={{ minHeight: "300px", maxHeight: "300px" }}

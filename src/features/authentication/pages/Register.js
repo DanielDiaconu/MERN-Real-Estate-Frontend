@@ -37,9 +37,9 @@ function Register() {
       );
       sessionStorage.setItem("auth-token", res.data);
       const parsedToken = JSON.parse(atob(res.data.split(".")[1]));
+      dispatch(getUser(parsedToken._id));
       socket.connect();
       await socket.emit("join-server", parsedToken._id);
-      dispatch(getUser(parsedToken._id));
       history.push("/");
     } catch (error) {
       toast.error(error.response.data.message);

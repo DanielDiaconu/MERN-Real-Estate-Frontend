@@ -56,6 +56,7 @@ function UserProperties() {
                   property={property}
                   key={i}
                   canPromote={true}
+                  isPromoted={true}
                 />
               ))}
             </>

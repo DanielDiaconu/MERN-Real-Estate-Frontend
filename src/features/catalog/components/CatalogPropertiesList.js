@@ -58,7 +58,7 @@ function CatalogPropertiesList({
               <>
                 {properties?.map((property, i) => (
                   <div className="col-sm-6 col-xl-4" key={i}>
-                    <PropertiesCard property={property} />
+                    <PropertiesCard property={property} isPromoted={true} />
                   </div>
                 ))}
                 {hasNext && (

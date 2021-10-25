@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { selectUser, updateUserWishlist } from "../../../slices/userSlice";
 
-function PropertiesCard({ property }) {
+function PropertiesCard({ property, isPromoted }) {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const [wishlist, setWishlist] = useState([]);
@@ -46,7 +46,7 @@ function PropertiesCard({ property }) {
   return (
     <div
       className={`card shadow-sm  border-0 h-100 property-card p-0 ${
-        property.pro ? "golden-border" : ""
+        property.pro && isPromoted ? "golden-border" : ""
       }`}
       style={{ maxHeight: "500px" }}
     >

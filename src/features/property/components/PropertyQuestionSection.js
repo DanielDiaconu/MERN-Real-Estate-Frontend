@@ -100,6 +100,7 @@ function PropertyQuestionSection({ property, propRef }) {
   };
 
   const handleQuestionAnsweredStatus = async (question, answeredState) => {
+    if (!user._id) return;
     try {
       await axios.patch(
         `https://mern-online-properties.herokuapp.com/question-answered/${question._id}`,
@@ -193,6 +194,10 @@ function PropertyQuestionSection({ property, propRef }) {
   };
 
   const handleQuestionLike = async (question) => {
+    if (!user._id) {
+      dispatch(setErrorToast("Login to interact!"));
+      return;
+    }
     try {
       await axios.patch(
         `https://mern-online-properties.herokuapp.com/question-like/${question._id}`,
@@ -248,6 +253,10 @@ function PropertyQuestionSection({ property, propRef }) {
   };
 
   const handleQuestionDislike = async (question) => {
+    if (!user._id) {
+      dispatch(setErrorToast("Login to interact!"));
+      return;
+    }
     try {
       await axios.patch(
         `https://mern-online-properties.herokuapp.com/question-dislikes/${question._id}`,
@@ -305,6 +314,10 @@ function PropertyQuestionSection({ property, propRef }) {
   };
 
   const handleReplyLike = async (replyId, question) => {
+    if (!user._id) {
+      dispatch(setErrorToast("Login to interact!"));
+      return;
+    }
     try {
       await axios.patch(
         `https://mern-online-properties.herokuapp.com/reply-like/${replyId}`,
@@ -364,6 +377,10 @@ function PropertyQuestionSection({ property, propRef }) {
   };
 
   const handleReplyDislike = async (replyId, question) => {
+    if (!user._id) {
+      dispatch(setErrorToast("Login to interact!"));
+      return;
+    }
     try {
       await axios.patch(
         `https://mern-online-properties.herokuapp.com/reply-dislike/${replyId}`,

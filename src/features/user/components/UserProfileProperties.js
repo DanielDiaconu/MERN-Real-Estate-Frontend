@@ -38,7 +38,7 @@ function UserProfileProperties({ user }) {
         <h1 className="h3 mb-sm-0 me-sm-3">User properties</h1>
       </div>
       {properties?.map((property, i) => (
-        <UserPropertyCard key={i} property={property} />
+        <UserPropertyCard key={i} property={property} isPromoted={false} />
       ))}
       {loading && (
         <div className="d-flex align-items-center justify-content-center mb-2 mt-2">

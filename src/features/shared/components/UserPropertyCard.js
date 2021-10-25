@@ -1,14 +1,14 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-function UserPropertyCard({ property, canPromote }) {
+function UserPropertyCard({ property, canPromote, isPromoted }) {
   let location = useLocation();
   return (
     <>
       {property && (
         <div
           className={`card  card-horizontal border-0 ${
-            property?.pro ? "golden-border" : ""
+            property?.pro && isPromoted ? "golden-border" : ""
           } shadow-sm mb-4 p-0`}
         >
           <img

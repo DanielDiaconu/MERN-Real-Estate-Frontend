@@ -21,7 +21,7 @@ function PropertiesRow() {
       <div className="row my-5 justify-content-evenly g-4">
         {properties.map((property, i) => (
           <div key={i} className=" col-lg-3 col-md-6 col-sm-6 mt-4">
-            <PropertiesCard property={property} />
+            <PropertiesCard property={property} isPromoted={false} />
           </div>
         ))}
       </div>
