@@ -45,14 +45,15 @@ export default function Header() {
         ) : (
           <UserAvatar />
         )}
-
-        <Link
-          className="btn btn-primary btn-sm ms-2 order-lg-3"
-          to="/addproperty"
-        >
-          <i className="fi-plus me-2"></i>Add
-          <span className="d-none d-sm-inline"> property</span>
-        </Link>
+        {user._id && (
+          <Link
+            className="btn btn-primary btn-sm ms-2 order-lg-3"
+            to="/addproperty"
+          >
+            <i className="fi-plus me-2"></i>Add
+            <span className="d-none d-sm-inline"> property</span>
+          </Link>
+        )}
         <div className="collapse navbar-collapse order-lg-2" id="navbarNav">
           <ul
             className="navbar-nav navbar-nav-scroll"
