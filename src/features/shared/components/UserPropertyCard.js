@@ -16,14 +16,16 @@ function UserPropertyCard({ property, canPromote, isPromoted }) {
             style={{ objectFit: "cover" }}
             src={`https://mern-online-properties.herokuapp.com/images/property/${property?.thumbnail}`}
           />
-          <div className="position-absolute  top-0 pt-3 ps-3">
-            {property?.premium && (
-              <span className="d-table badge bg-success mb-1">Sticky</span>
-            )}
-            {property?.standard && (
-              <span className="d-table badge bg-danger">Featured</span>
-            )}
-          </div>
+          {isPromoted && (
+            <div className="position-absolute  top-0 pt-3 ps-3">
+              {property?.premium && (
+                <span className="d-table badge bg-success mb-1">Sticky</span>
+              )}
+              {property?.standard && (
+                <span className="d-table badge bg-danger">Featured</span>
+              )}
+            </div>
+          )}
 
           <div className="card-body position-relative pb-3">
             <div className="dropdown position-absolute zindex-5 top-0 end-0 mt-3 me-3">

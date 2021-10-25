@@ -147,6 +147,19 @@ function PropertyQuestionSection({ property, propRef }) {
     }
   };
 
+  const handleHighlightedQuestionDelete = async (question) => {
+    try {
+      await axios.delete(
+        `https://mern-online-properties.herokuapp.com/question/${question._id}`
+      );
+
+      setHighlightedQuestion("");
+      dispatch(setSuccessToast("Question successfully deleted!"));
+    } catch (error) {
+      dispatch(setErrorToast("An error occured, please try again!"));
+    }
+  };
+
   const postReply = async (data, question) => {
     try {
       questionRef.current.enableLoading();
@@ -169,7 +182,7 @@ function PropertyQuestionSection({ property, propRef }) {
     } catch (error) {}
   };
 
-  const postHighlightedReply = (data, question) => {
+  const postHighlightedReply = async (data, question) => {
     try {
       questionRef.current.enableLoading();
       let res = await axios.post(
@@ -182,12 +195,33 @@ function PropertyQuestionSection({ property, propRef }) {
       );
 
       const updatedHighlightedQuestion = {
-        ...qst,
-        replies: [...qst.replies, res.data],
+        ...highlightedQuestion,
+        replies: [...highlightedQuestion.replies, res.data],
       };
       setHighlightedQuestion(updatedHighlightedQuestion);
       questionRef.current.disableLoading();
     } catch (error) {}
+  };
+
+  const handleHighlightedReplyDelete = async (replyId, questionId) => {
+    try {
+      await axios.delete(
+        `https://mern-online-properties.herokuapp.com/replies/${replyId}`,
+        {
+          questionId,
+        }
+      );
+
+      setHighlightedQuestion({
+        ...highlightedQuestion,
+        replies: highlightedQuestion.replies.filter(
+          (item) => item._id !== replyId
+        ),
+      });
+      dispatch(setSuccessToast("Reply deleted successfully!"));
+    } catch (error) {
+      dispatch(setErrorToast("An error occured, please try again!"));
+    }
   };
 
   const handleReplyDelete = async (replyId, questionId) => {
@@ -214,7 +248,8 @@ function PropertyQuestionSection({ property, propRef }) {
     }
   };
 
-  const handleHighlightedQuestionLike = (question) => {
+  const handleHighlightedQuestionLike = async (question) => {
+    console.log();
     if (!user._id) {
       dispatch(setErrorToast("Login to interact!"));
       return;
@@ -227,6 +262,7 @@ function PropertyQuestionSection({ property, propRef }) {
         }
       );
       if (!question.likes.userIds.includes(user._id)) {
+        if (question?.userId._id === user._id) return;
         await socket.emit("question-like", {
           ownerId: question.userId._id,
           username: user.fullName,
@@ -278,6 +314,7 @@ function PropertyQuestionSection({ property, propRef }) {
         }
       );
       if (!question.likes.userIds.includes(user._id)) {
+        if (question?.userId._id === user._id) return;
         await socket.emit("question-like", {
           ownerId: question.userId._id,
           username: user.fullName,
@@ -324,6 +361,58 @@ function PropertyQuestionSection({ property, propRef }) {
     } catch (error) {}
   };
 
+  const handleHighlitedQuestionDislike = async (question) => {
+    if (!user._id) {
+      dispatch(setErrorToast("Login to interact!"));
+      return;
+    }
+    try {
+      await axios.patch(
+        `https://mern-online-properties.herokuapp.com/question-dislikes/${question._id}`,
+        {
+          userId: user?._id,
+        }
+      );
+
+      if (!question.dislikes.userIds.includes(user._id)) {
+        if (question?.userId._id === user._id) return;
+        await socket.emit("question-dislike", {
+          ownerId: question.userId._id,
+          username: user.fullName,
+          propertyId: propertyClone._id,
+          questionId: question._id,
+        });
+
+        const updatedQuestion = {
+          ...highlightedQuestion,
+          dislikes: {
+            count: highlightedQuestion.dislikes.count + 1,
+            userIds: [...highlightedQuestion.dislikes.userIds, user._id],
+          },
+        };
+        if (highlightedQuestion.likes.userIds.includes(user._id)) {
+          updatedQuestion.likes.count = highlightedQuestion.likes.count - 1;
+          updatedQuestion.likes.userIds =
+            highlightedQuestion.dislikes.userIds.filter(
+              (item) => item !== user._id
+            );
+        }
+        setHighlightedQuestion(updatedQuestion);
+      } else {
+        setHighlightedQuestion({
+          ...highlightedQuestion,
+          dislikes: {
+            count: highlightedQuestion.dislikes.count - 1,
+            userIds: highlightedQuestion.dislikes.userIds.filter(
+              (item) => item !== user._id
+            ),
+          },
+        });
+      }
+      dispatch(setSuccessToast("Succesfully reacted to question !"));
+    } catch (error) {}
+  };
+
   const handleQuestionDislike = async (question) => {
     if (!user._id) {
       dispatch(setErrorToast("Login to interact!"));
@@ -338,6 +427,7 @@ function PropertyQuestionSection({ property, propRef }) {
       );
 
       if (!question.dislikes.userIds.includes(user._id)) {
+        if (question?.userId._id === user._id) return;
         await socket.emit("question-dislike", {
           ownerId: question.userId._id,
           username: user.fullName,
@@ -575,12 +665,11 @@ function PropertyQuestionSection({ property, propRef }) {
               handlePostReply={postHighlightedReply}
               handleQuestionLike={handleHighlightedQuestionLike}
               handleQuestionDislike={handleHighlitedQuestionDislike}
-              handleReplyLike={handleHighlightedReplyLike}
-              handleReplyDislike={handleHighlightedReplyDislike}
+              // handleReplyLike={handleHighlightedReplyLike}
+              // handleReplyDislike={handleHighlightedReplyDislike}
               handleQuestionDelete={handleHighlightedQuestionDelete}
               ref={questionRef}
               onReplyDelete={handleHighlightedReplyDelete}
-              onQuestionAnsweredStatus={handleHighlightedQuestionAnsweredStatus}
               isHighlighted={true}
             />
           )}

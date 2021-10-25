@@ -56,11 +56,17 @@ function PropertiesCard({ property, isPromoted }) {
       >
         <Link to={`property/${property?._id}`} className="img-overlay">
           <div className="position-absolute  top-0 pt-3 ps-3">
-            {property?.standard && (
-              <span className="d-table badge bg-success mb-1">Featured</span>
-            )}
-            {property?.premium && (
-              <span className="d-table badge bg-danger mb-1">Sticky</span>
+            {isPromoted && (
+              <>
+                {property?.standard && (
+                  <span className="d-table badge bg-success mb-1">
+                    Featured
+                  </span>
+                )}
+                {property?.premium && (
+                  <span className="d-table badge bg-danger mb-1">Sticky</span>
+                )}
+              </>
             )}
             {handlePropertyAge() < 10 && (
               <span className="d-table badge bg-info">New</span>
