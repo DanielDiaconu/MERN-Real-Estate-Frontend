@@ -169,6 +169,27 @@ function PropertyQuestionSection({ property, propRef }) {
     } catch (error) {}
   };
 
+  const postHighlightedReply = (data, question) => {
+    try {
+      questionRef.current.enableLoading();
+      let res = await axios.post(
+        "https://mern-online-properties.herokuapp.com/replies",
+        {
+          replyBody: data,
+          userId: user._id,
+          questionId: question._id,
+        }
+      );
+
+      const updatedHighlightedQuestion = {
+        ...qst,
+        replies: [...qst.replies, res.data],
+      };
+      setHighlightedQuestion(updatedHighlightedQuestion);
+      questionRef.current.disableLoading();
+    } catch (error) {}
+  };
+
   const handleReplyDelete = async (replyId, questionId) => {
     try {
       await axios.delete(
@@ -191,6 +212,57 @@ function PropertyQuestionSection({ property, propRef }) {
     } catch (error) {
       dispatch(setErrorToast("An error occured, please try again!"));
     }
+  };
+
+  const handleHighlightedQuestionLike = (question) => {
+    if (!user._id) {
+      dispatch(setErrorToast("Login to interact!"));
+      return;
+    }
+    try {
+      await axios.patch(
+        `https://mern-online-properties.herokuapp.com/question-like/${question._id}`,
+        {
+          userId: user._id,
+        }
+      );
+      if (!question.likes.userIds.includes(user._id)) {
+        await socket.emit("question-like", {
+          ownerId: question.userId._id,
+          username: user.fullName,
+          propertyId: propertyClone._id,
+          questionId: question._id,
+        });
+
+        const updatedQuestion = {
+          ...highlightedQuestion,
+          likes: {
+            count: highlightedQuestion.likes.count + 1,
+            userIds: [...highlightedQuestion.likes.userIds, user._id],
+          },
+        };
+        if (highlightedQuestion.dislikes.userIds.includes(user._id)) {
+          updatedQuestion.dislikes.count =
+            highlightedQuestion.dislikes.count - 1;
+          updatedQuestion.dislikes.userIds =
+            highlightedQuestion.dislikes.userIds.filter(
+              (item) => item !== user._id
+            );
+        }
+        setHighlightedQuestion(updatedQuestion);
+      } else {
+        setHighlightedQuestion({
+          ...highlightedQuestion,
+          likes: {
+            count: highlightedQuestion.likes.count - 1,
+            userIds: highlightedQuestion.likes.userIds.filter(
+              (item) => item !== user._id
+            ),
+          },
+        });
+      }
+      dispatch(setSuccessToast("Successfully reacted to question!"));
+    } catch (error) {}
   };
 
   const handleQuestionLike = async (question) => {
@@ -500,15 +572,15 @@ function PropertyQuestionSection({ property, propRef }) {
             <PropertyQuestion
               question={highlightedQuestion}
               property={propertyClone}
-              handlePostReply={postReply}
-              handleQuestionLike={handleQuestionLike}
-              handleQuestionDislike={handleQuestionDislike}
-              handleReplyLike={handleReplyLike}
-              handleReplyDislike={handleReplyDislike}
-              handleQuestionDelete={handleQuestionDelete}
+              handlePostReply={postHighlightedReply}
+              handleQuestionLike={handleHighlightedQuestionLike}
+              handleQuestionDislike={handleHighlitedQuestionDislike}
+              handleReplyLike={handleHighlightedReplyLike}
+              handleReplyDislike={handleHighlightedReplyDislike}
+              handleQuestionDelete={handleHighlightedQuestionDelete}
               ref={questionRef}
-              onReplyDelete={handleReplyDelete}
-              onQuestionAnsweredStatus={handleQuestionAnsweredStatus}
+              onReplyDelete={handleHighlightedReplyDelete}
+              onQuestionAnsweredStatus={handleHighlightedQuestionAnsweredStatus}
               isHighlighted={true}
             />
           )}
