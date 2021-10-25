@@ -6,7 +6,9 @@ function AddPropertyAmenities({ onAmenitiesChange }) {
   const [selectedAmenities, setSelectedAmenities] = useState([]);
 
   const getAmenities = async () => {
-    let res = await axios.get("http://localhost:8080/ameneties");
+    let res = await axios.get(
+      "https://mern-online-properties.herokuapp.com/ameneties"
+    );
     setAmenities(res.data);
   };
 

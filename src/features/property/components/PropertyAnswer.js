@@ -47,7 +47,7 @@ function PropertyAnswer({
             <Link to={`/profile/${reply?.userId?._id}`}>
               <img
                 className="rounded-circle me-1"
-                src={`http://localhost:8080/images/avatars/${reply?.userId?.avatar}`}
+                src={`https://mern-online-properties.herokuapp.com/images/avatars/${reply?.userId?.avatar}`}
                 width="48"
                 alt="Avatar"
               />

@@ -36,14 +36,14 @@ function UserPublic() {
 
   const getUserInfo = async () => {
     console.log("here");
-    let endpoint = `http://localhost:8080/users/profile-user/${id}?page=${currentPage}`;
+    let endpoint = `https://mern-online-properties.herokuapp.com/users/profile-user/${id}?page=${currentPage}`;
     if (queryParams.has("notification")) {
       endpoint += `&highlight=${queryParams.get("notification")}`;
     }
     try {
       if (queryParams.has("notification")) {
         let highlightRes = await axios.get(
-          `http://localhost:8080/reviews/highlighted-review/${queryParams.get(
+          `https://mern-online-properties.herokuapp.com/reviews/highlighted-review/${queryParams.get(
             "notification"
           )}`
         );
@@ -62,7 +62,7 @@ function UserPublic() {
   const handleSorting = async (data) => {
     let sortUrl = `?sort=${encodeURIComponent(data)}`;
     let res = await axios.get(
-      `http://localhost:8080/users/profile-user/${id}${sortUrl}`
+      `https://mern-online-properties.herokuapp.com/users/profile-user/${id}${sortUrl}`
     );
     setProfileUser({ ...res.data.user, reviews: res.data.reviews });
     setTotalPages(res.data.total);
@@ -75,11 +75,14 @@ function UserPublic() {
   const handleReviewPost = async (data) => {
     setIsLoading(true);
     try {
-      let res = await axios.post("http://localhost:8080/reviews", {
-        data,
-        profileUser: profileUser._id,
-        currentUser: currentUser._id,
-      });
+      let res = await axios.post(
+        "https://mern-online-properties.herokuapp.com/reviews",
+        {
+          data,
+          profileUser: profileUser._id,
+          currentUser: currentUser._id,
+        }
+      );
       await socket.emit("review-post", {
         ownerId: profileUser._id,
         username: currentUser.fullName,
@@ -105,9 +108,12 @@ function UserPublic() {
 
   const handleReviewDelete = async (id) => {
     try {
-      let res = await axios.delete(`http://localhost:8080/reviews/${id}`, {
-        data: { profileUser: profileUser._id },
-      });
+      let res = await axios.delete(
+        `https://mern-online-properties.herokuapp.com/reviews/${id}`,
+        {
+          data: { profileUser: profileUser._id },
+        }
+      );
       const updatedReview = {
         ...profileUser,
         reviews: profileUser.reviews.filter((item) => item._id !== id),

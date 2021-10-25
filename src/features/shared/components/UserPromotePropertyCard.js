@@ -12,7 +12,7 @@ function UserPromotePropertyCard({ property, preview }) {
           <img
             className="card-img-top"
             style={{ objectFit: "cover" }}
-            src={`http://localhost:8080/images/property/${property?.thumbnail}`}
+            src={`https://mern-online-properties.herokuapp.com/images/property/${property?.thumbnail}`}
           />
           <div className="position-absolute  top-0 pt-3 ps-3">
             {preview?.premium && (

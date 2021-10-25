@@ -57,7 +57,7 @@ function ChatMessage({ user, message, onMessageReact }) {
         <img
           title={message?.authorName}
           className="rounded-circle chat-avatar-img"
-          src={`http://localhost:8080/images/avatars/${message?.authorAvatar}`}
+          src={`https://mern-online-properties.herokuapp.com/images/avatars/${message?.authorAvatar}`}
         />
       </div>
     </>

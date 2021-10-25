@@ -29,7 +29,7 @@ function UserProfileReviewCard({ review, handleReviewDelete, isHighlighted }) {
             <Link to={`/profile/${review?.userId?._id}`}>
               <img
                 className="rounded-circle me-1"
-                src={`http://localhost:8080/images/avatars/${review?.userId?.avatar}`}
+                src={`https://mern-online-properties.herokuapp.com/images/avatars/${review?.userId?.avatar}`}
                 width="48"
                 alt="Avatar"
               />

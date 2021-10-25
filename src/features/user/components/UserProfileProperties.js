@@ -14,7 +14,7 @@ function UserProfileProperties({ user }) {
     setLoading(true);
     try {
       let res = await axios.get(
-        `http://localhost:8080/users/my-properties/${user._id}?page=${currentPage}`
+        `https://mern-online-properties.herokuapp.com/users/my-properties/${user._id}?page=${currentPage}`
       );
       setProperties(res.data.properties);
       setTotal(res.data.total);

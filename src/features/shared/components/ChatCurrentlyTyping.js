@@ -27,7 +27,7 @@ function ChatCurrentlyTyping({ user }) {
           <img
             title={typingUser?.fullName}
             className="rounded-circle chat-avatar-img"
-            src={`http://localhost:8080/images/avatars/${typingUser?.avatar}`}
+            src={`https://mern-online-properties.herokuapp.com/images/avatars/${typingUser?.avatar}`}
           />
           <div
             className={`message ${

@@ -8,7 +8,7 @@ function UserProfileAside({ user, total }) {
         <div className="pe-lg-3">
           <img
             className="d-block rounded-circle mx-auto mx-md-0 mb-3"
-            src={`http://localhost:8080/images/avatars/${user?.avatar}`}
+            src={`https://mern-online-properties.herokuapp.com/images/avatars/${user?.avatar}`}
             width="120"
             alt="Floyd Miles"
           />

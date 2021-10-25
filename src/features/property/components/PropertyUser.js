@@ -10,7 +10,7 @@ function PropertyUser({ user }) {
             <a className="text-decoration-none">
               <img
                 className="rounded-circle mb-2"
-                src={`http://localhost:8080/images/avatars/${user?.avatar}`}
+                src={`https://mern-online-properties.herokuapp.com/images/avatars/${user?.avatar}`}
                 width="60"
                 alt="Avatar"
               />

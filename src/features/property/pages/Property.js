@@ -19,7 +19,9 @@ function Property() {
   let { id } = useParams();
 
   const getProperty = async () => {
-    let res = await axios.get(`http://localhost:8080/property/${id}`);
+    let res = await axios.get(
+      `https://mern-online-properties.herokuapp.com/property/${id}`
+    );
 
     setProperty(res.data);
   };

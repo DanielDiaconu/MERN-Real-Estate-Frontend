@@ -81,9 +81,13 @@ function AddProperty() {
     data.append("ownerId", user._id);
 
     try {
-      await axios.post("http://localhost:8080/properties", data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      await axios.post(
+        "https://mern-online-properties.herokuapp.com/properties",
+        data,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
       history.push("/user/dashboard/my-properties");
     } catch (error) {
       dispatch(

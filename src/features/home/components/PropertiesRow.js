@@ -6,7 +6,9 @@ function PropertiesRow() {
   const [properties, setProperties] = useState([]);
 
   const getProperties = async () => {
-    let res = await axios.get("http://localhost:8080/properties");
+    let res = await axios.get(
+      "https://mern-online-properties.herokuapp.com/properties"
+    );
     setProperties(res.data);
   };
 

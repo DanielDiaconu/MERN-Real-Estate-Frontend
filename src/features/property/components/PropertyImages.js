@@ -33,7 +33,7 @@ function PropertyImages({ gallery }) {
                       <a className="gallery-item rounded rounded-md-3 mb-2 mb-md-3">
                         <img
                           style={{ minHeight: "300px", maxHeight: "300px" }}
-                          src={`http://localhost:8080/images/property/${img}`}
+                          src={`https://mern-online-properties.herokuapp.com/images/property/${img}`}
                         />
                       </a>
                     </div>

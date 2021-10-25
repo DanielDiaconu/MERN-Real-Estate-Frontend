@@ -30,7 +30,7 @@ function PropertyQuestionSection({ property, propRef }) {
 
   const getQuestions = async (page = 1) => {
     setQuestionLoading(true);
-    let endpoint = `http://localhost:8080/questions/${property?._id}?page=${page}`;
+    let endpoint = `https://mern-online-properties.herokuapp.com/questions/${property?._id}?page=${page}`;
 
     if (queryParams.has("notification")) {
       endpoint += `&highlight=${queryParams.get("notification")}`;
@@ -40,7 +40,7 @@ function PropertyQuestionSection({ property, propRef }) {
       let res = await axios.get(endpoint);
       if (queryParams.has("notification")) {
         let highlightRes = await axios.get(
-          `http://localhost:8080/highlighted-question/${queryParams.get(
+          `https://mern-online-properties.herokuapp.com/highlighted-question/${queryParams.get(
             "notification"
           )}`
         );
@@ -67,7 +67,7 @@ function PropertyQuestionSection({ property, propRef }) {
     }
 
     let res = await axios.get(
-      `http://localhost:8080/questions/${property?._id}${sortUrl}`
+      `https://mern-online-properties.herokuapp.com/questions/${property?._id}${sortUrl}`
     );
     setQuestions(res.data.results);
   };
@@ -80,7 +80,10 @@ function PropertyQuestionSection({ property, propRef }) {
         userId: user._id,
         propertyId: propertyClone._id,
       };
-      let res = await axios.post("http://localhost:8080/question", payload);
+      let res = await axios.post(
+        "https://mern-online-properties.herokuapp.com/question",
+        payload
+      );
       setQuestions([...questions, res.data]);
       setToggleAddQuestion(false);
       setQuestionLoading(false);
@@ -99,7 +102,7 @@ function PropertyQuestionSection({ property, propRef }) {
   const handleQuestionAnsweredStatus = async (question, answeredState) => {
     try {
       await axios.patch(
-        `http://localhost:8080/question-answered/${question._id}`,
+        `https://mern-online-properties.herokuapp.com/question-answered/${question._id}`,
         {
           answeredState,
         }
@@ -130,7 +133,9 @@ function PropertyQuestionSection({ property, propRef }) {
 
   const handleQuestionDelete = async (question) => {
     try {
-      await axios.delete(`http://localhost:8080/question/${question._id}`);
+      await axios.delete(
+        `https://mern-online-properties.herokuapp.com/question/${question._id}`
+      );
       const filteredQuestions = questions.filter(
         (qst) => qst._id !== question._id
       );
@@ -144,11 +149,14 @@ function PropertyQuestionSection({ property, propRef }) {
   const postReply = async (data, question) => {
     try {
       questionRef.current.enableLoading();
-      let res = await axios.post("http://localhost:8080/replies", {
-        replyBody: data,
-        userId: user._id,
-        questionId: question._id,
-      });
+      let res = await axios.post(
+        "https://mern-online-properties.herokuapp.com/replies",
+        {
+          replyBody: data,
+          userId: user._id,
+          questionId: question._id,
+        }
+      );
       const updatedQuestions = questions.map((qst) => {
         if (qst._id === question._id) {
           return { ...qst, replies: [...qst.replies, res.data] };
@@ -162,9 +170,12 @@ function PropertyQuestionSection({ property, propRef }) {
 
   const handleReplyDelete = async (replyId, questionId) => {
     try {
-      await axios.delete(`http://localhost:8080/replies/${replyId}`, {
-        questionId,
-      });
+      await axios.delete(
+        `https://mern-online-properties.herokuapp.com/replies/${replyId}`,
+        {
+          questionId,
+        }
+      );
       const updatedQuestions = questions.map((qst) => {
         if (qst._id === questionId) {
           return {
@@ -183,9 +194,12 @@ function PropertyQuestionSection({ property, propRef }) {
 
   const handleQuestionLike = async (question) => {
     try {
-      await axios.patch(`http://localhost:8080/question-like/${question._id}`, {
-        userId: user._id,
-      });
+      await axios.patch(
+        `https://mern-online-properties.herokuapp.com/question-like/${question._id}`,
+        {
+          userId: user._id,
+        }
+      );
       if (!question.likes.userIds.includes(user._id)) {
         await socket.emit("question-like", {
           ownerId: question.userId._id,
@@ -236,7 +250,7 @@ function PropertyQuestionSection({ property, propRef }) {
   const handleQuestionDislike = async (question) => {
     try {
       await axios.patch(
-        `http://localhost:8080/question-dislikes/${question._id}`,
+        `https://mern-online-properties.herokuapp.com/question-dislikes/${question._id}`,
         {
           userId: user?._id,
         }
@@ -292,9 +306,12 @@ function PropertyQuestionSection({ property, propRef }) {
 
   const handleReplyLike = async (replyId, question) => {
     try {
-      await axios.patch(`http://localhost:8080/reply-like/${replyId}`, {
-        userId: user._id,
-      });
+      await axios.patch(
+        `https://mern-online-properties.herokuapp.com/reply-like/${replyId}`,
+        {
+          userId: user._id,
+        }
+      );
       await socket.emit("reply-like", {
         ownerId: propertyClone.ownerId._id,
         username: user.fullName,
@@ -348,9 +365,12 @@ function PropertyQuestionSection({ property, propRef }) {
 
   const handleReplyDislike = async (replyId, question) => {
     try {
-      await axios.patch(`http://localhost:8080/reply-dislike/${replyId}`, {
-        userId: user._id,
-      });
+      await axios.patch(
+        `https://mern-online-properties.herokuapp.com/reply-dislike/${replyId}`,
+        {
+          userId: user._id,
+        }
+      );
       await socket.emit("reply-dislike", {
         ownerId: propertyClone.ownerId._id,
         username: user.fullName,

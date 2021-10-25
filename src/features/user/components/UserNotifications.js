@@ -19,7 +19,7 @@ function UserNotifications() {
   const getNotifications = async () => {
     SetLoading(true);
     let res = await axios.get(
-      `http://localhost:8080/notifications/user/${user?._id}?page=${page}`
+      `https://mern-online-properties.herokuapp.com/notifications/user/${user?._id}?page=${page}`
     );
     setNotifications(res.data.results);
     setTotal(res.data.total);

@@ -23,7 +23,7 @@ function ChatBody({ messages, usersCount, hideChatWidget, onMessageReact }) {
                   <div className="d-flex align-items-center">
                     <img
                       className="rounded-circle"
-                      src={`http://localhost:8080/images/avatars/${user?.avatar}`}
+                      src={`https://mern-online-properties.herokuapp.com/images/avatars/${user?.avatar}`}
                       style={{ width: "35px", height: "35px" }}
                     />
                     <div className="d-flex flex-column ms-3">

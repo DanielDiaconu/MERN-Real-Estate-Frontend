@@ -46,17 +46,23 @@ function CatalogFilters({ onFiltersChange }) {
   };
 
   const getCategories = async () => {
-    let res = await axios.get("http://localhost:8080/categories");
+    let res = await axios.get(
+      "https://mern-online-properties.herokuapp.com/categories"
+    );
     setCategories(res.data);
   };
 
   const getCities = async () => {
-    let res = await axios.get("http://localhost:8080/cities");
+    let res = await axios.get(
+      "https://mern-online-properties.herokuapp.com/cities"
+    );
     setCities(res.data);
   };
 
   const getAmenities = async () => {
-    let res = await axios.get("http://localhost:8080/ameneties");
+    let res = await axios.get(
+      "https://mern-online-properties.herokuapp.com/ameneties"
+    );
     setAmenities(res.data);
   };
 

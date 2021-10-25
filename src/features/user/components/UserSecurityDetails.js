@@ -24,7 +24,7 @@ function UserSecurityDetails() {
 
     try {
       let res = await axios.patch(
-        `http://localhost:8080/users/security/${user?._id}`,
+        `https://mern-online-properties.herokuapp.com/users/security/${user?._id}`,
         {
           password: info.password,
         }

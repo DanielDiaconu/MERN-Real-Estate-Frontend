@@ -4,7 +4,9 @@ import axios from "axios";
 export const getNotifications = createAsyncThunk(
   "/notificationCount/getNotifications",
   async (userId) => {
-    let res = await axios.get(`http://localhost:8080/notifications/${userId}`);
+    let res = await axios.get(
+      `https://mern-online-properties.herokuapp.com/notifications/${userId}`
+    );
     return res.data;
   }
 );
@@ -12,7 +14,9 @@ export const getNotifications = createAsyncThunk(
 export const updateNotifications = createAsyncThunk(
   "/notificationCount/updateNotifications",
   async (userId) => {
-    await axios.patch(`http://localhost:8080/notifications/${userId}`);
+    await axios.patch(
+      `https://mern-online-properties.herokuapp.com/notifications/${userId}`
+    );
   }
 );
 

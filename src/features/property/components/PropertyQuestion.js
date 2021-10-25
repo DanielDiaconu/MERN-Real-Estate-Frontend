@@ -132,7 +132,7 @@ const PropertyQuestion = forwardRef(
               <Link to={`/profile/${question?.userId?._id}`}>
                 <img
                   className="rounded-circle me-1"
-                  src={`http://localhost:8080/images/avatars/${question?.userId?.avatar}`}
+                  src={`https://mern-online-properties.herokuapp.com/images/avatars/${question?.userId?.avatar}`}
                   width="48"
                   alt="Avatar"
                 />

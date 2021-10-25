@@ -23,7 +23,9 @@ function UserPropertyPromote() {
   let { id } = useParams();
 
   const getProperty = async () => {
-    let res = await axios.get(`http://localhost:8080/users/promote/${id}`);
+    let res = await axios.get(
+      `https://mern-online-properties.herokuapp.com/users/promote/${id}`
+    );
     setProperty(res.data);
     setPreviewProperty(res.data);
   };
@@ -60,11 +62,14 @@ function UserPropertyPromote() {
       if (user.funds < total) {
         return dispatch(setErrorToast("Payment failed. Insufficient funds!"));
       }
-      await axios.patch(`http://localhost:8080/property/promote/${id}`, {
-        data: adPlan,
-        userId: user._id,
-        funds: total,
-      });
+      await axios.patch(
+        `https://mern-online-properties.herokuapp.com/property/promote/${id}`,
+        {
+          data: adPlan,
+          userId: user._id,
+          funds: total,
+        }
+      );
       dispatch(extractUserFunds(total));
       history.push("/user/dashboard/my-properties");
     } catch (error) {

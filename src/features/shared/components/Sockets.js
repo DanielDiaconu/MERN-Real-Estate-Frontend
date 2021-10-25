@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import io from "socket.io-client";
 import { selectUser } from "../../../slices/userSlice";
 
-const socket = io.connect("http://localhost:8080");
+const socket = io.connect("https://mern-online-properties.herokuapp.com");
 
 function Sockets() {
   // const [username, setUsername] = useState("");

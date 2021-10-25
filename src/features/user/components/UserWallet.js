@@ -16,7 +16,9 @@ function UserWallet() {
   const dispatch = useDispatch();
 
   const getCreditCards = async () => {
-    let res = await axios.get(`http://localhost:8080/credit-cards/${user._id}`);
+    let res = await axios.get(
+      `https://mern-online-properties.herokuapp.com/credit-cards/${user._id}`
+    );
     setCreditCards(res.data);
   };
 
@@ -33,7 +35,7 @@ function UserWallet() {
   const postPaymentMethod = async (payload) => {
     try {
       let res = await axios.post(
-        `http://localhost:8080/credit-cards/${user._id}`,
+        `https://mern-online-properties.herokuapp.com/credit-cards/${user._id}`,
         payload
       );
       setView("list");
@@ -46,7 +48,7 @@ function UserWallet() {
   const deletePaymentMethod = async (id) => {
     try {
       let response = await axios.delete(
-        `http://localhost:8080/credit-cards/${id}`
+        `https://mern-online-properties.herokuapp.com/credit-cards/${id}`
       );
       dispatch(setSuccessToast(response.data.message));
       setCreditCards(creditCards.filter((card) => card._id !== id));

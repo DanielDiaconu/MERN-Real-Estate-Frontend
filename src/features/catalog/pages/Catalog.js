@@ -56,7 +56,9 @@ function Catalog() {
 
   const handleFiltersChange = async (filters) => {
     let res = await axios.get(
-      `http://localhost:8080/catalog/properties?${buildQueryParams(filters)}`
+      `https://mern-online-properties.herokuapp.com/catalog/properties?${buildQueryParams(
+        filters
+      )}`
     );
     setProperties(res.data.data);
     setTotalProperties(res.data.totalCount);
@@ -85,7 +87,7 @@ function Catalog() {
     }
 
     let res = await axios.get(
-      `http://localhost:8080/catalog/properties?${sortUrl}`
+      `https://mern-online-properties.herokuapp.com/catalog/properties?${sortUrl}`
     );
     history.push({
       search: sortUrl,
@@ -108,7 +110,7 @@ function Catalog() {
     }
 
     let res = await axios.get(
-      `http://localhost:8080/catalog/properties?${loadUrl}`
+      `https://mern-online-properties.herokuapp.com/catalog/properties?${loadUrl}`
     );
     history.push({
       search: loadUrl,

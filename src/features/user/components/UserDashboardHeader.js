@@ -12,7 +12,7 @@ function UserDashboardHeader() {
       <div className="d-flex d-md-block d-lg-flex align-items-start pt-lg-2 mb-4">
         <img
           className="rounded-circle"
-          src={`http://localhost:8080/images/avatars/${user?.avatar}`}
+          src={`https://mern-online-properties.herokuapp.com/images/avatars/${user?.avatar}`}
           width="48"
         />
         <div className="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">

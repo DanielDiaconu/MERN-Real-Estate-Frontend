@@ -88,7 +88,7 @@ function PropertiesCard({ property }) {
           </button>
         </div>
         <img
-          src={`http://localhost:8080/images/property/${property?.thumbnail}`}
+          src={`https://mern-online-properties.herokuapp.com/images/property/${property?.thumbnail}`}
           alt="Image"
         />
       </div>
@@ -132,7 +132,7 @@ function PropertiesCard({ property }) {
               <img
                 className="rounded-circle me-2"
                 style={{ width: "20%" }}
-                src={`http://localhost:8080/images/avatars/${property?.ownerId?.avatar}`}
+                src={`https://mern-online-properties.herokuapp.com/images/avatars/${property?.ownerId?.avatar}`}
               />
               {property?.ownerId?.fullName}
             </Link>

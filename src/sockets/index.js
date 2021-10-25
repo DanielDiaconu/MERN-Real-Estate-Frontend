@@ -1,6 +1,9 @@
 import io from "socket.io-client";
 
-export const socket = io.connect("http://localhost:8080", {
-  transports: ["websocket"],
-  upgrade: false,
-});
+export const socket = io.connect(
+  "https://mern-online-properties.herokuapp.com",
+  {
+    transports: ["websocket"],
+    upgrade: false,
+  }
+);

@@ -22,7 +22,10 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let res = await axios.post("http://localhost:8080/login", user);
+      let res = await axios.post(
+        "https://mern-online-properties.herokuapp.com/login",
+        user
+      );
       sessionStorage.setItem("auth-token", res.data);
       const parsedToken = JSON.parse(atob(res.data.split(".")[1]));
       dispatch(getUser(parsedToken._id));

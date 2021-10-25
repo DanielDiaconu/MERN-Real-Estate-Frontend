@@ -31,7 +31,10 @@ function Register() {
       return toast.error("Passwords do not match!");
     }
     try {
-      let res = await axios.post("http://localhost:8080/register", user);
+      let res = await axios.post(
+        "https://mern-online-properties.herokuapp.com/register",
+        user
+      );
       sessionStorage.setItem("auth-token", res.data);
       const parsedToken = JSON.parse(atob(res.data.split(".")[1]));
       socket.connect();

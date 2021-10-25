@@ -13,7 +13,9 @@ const initialState = {
 };
 
 export const getUser = createAsyncThunk("user/getUser", async (id) => {
-  let res = await axios.get(`http://localhost:8080/users/${id}`);
+  let res = await axios.get(
+    `https://mern-online-properties.herokuapp.com/users/${id}`
+  );
   return res.data;
 });
 
@@ -22,7 +24,7 @@ export const updateUserWishlist = createAsyncThunk(
   async ({ id, data, removed = true }) => {
     try {
       let res = await axios.patch(
-        `http://localhost:8080/users/update-wishlist/${id}`,
+        `https://mern-online-properties.herokuapp.com/users/update-wishlist/${id}`,
         data
       );
       return { data: res.data, removed };
@@ -35,7 +37,7 @@ export const updateUserFunds = createAsyncThunk(
   async ({ amount, id, cardId }, { dispatch }) => {
     try {
       let response = await axios.patch(
-        `http://localhost:8080/users/deposit-funds/${id}`,
+        `https://mern-online-properties.herokuapp.com/users/deposit-funds/${id}`,
         { funds: amount, cardId }
       );
       dispatch(setSuccessToast(response.data.message));
@@ -50,7 +52,10 @@ export const updateUser = createAsyncThunk(
   "user/updateUser",
   async ({ id, data }, { dispatch }) => {
     try {
-      let res = await axios.put(`http://localhost:8080/users/${id}`, data);
+      let res = await axios.put(
+        `https://mern-online-properties.herokuapp.com/users/${id}`,
+        data
+      );
       dispatch(setSuccessToast("User has been updated successfully!"));
       return res.data;
     } catch (error) {

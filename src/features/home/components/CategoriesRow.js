@@ -6,7 +6,9 @@ function CategoriesRow() {
   const [categories, setCategories] = useState([]);
 
   const getCategories = async () => {
-    let res = await axios.get("http://localhost:8080/categories");
+    let res = await axios.get(
+      "https://mern-online-properties.herokuapp.com/categories"
+    );
     setCategories(res.data);
   };
 

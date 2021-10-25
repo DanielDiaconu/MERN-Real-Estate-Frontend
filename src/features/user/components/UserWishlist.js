@@ -18,7 +18,7 @@ function UserWishlist() {
   const getWishlist = async () => {
     try {
       let res = await axios.get(
-        `http://localhost:8080/users/wishlist/${user._id}?page=${currentPage}`
+        `https://mern-online-properties.herokuapp.com/users/wishlist/${user._id}?page=${currentPage}`
       );
       setProperties(res.data.wishlist);
       setTotal(res.data.total);
