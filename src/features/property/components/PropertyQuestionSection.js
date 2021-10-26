@@ -475,6 +475,131 @@ function PropertyQuestionSection({ property, propRef }) {
     } catch (error) {}
   };
 
+  const handleHighlightedReplyLike = async (replyId, question) => {
+    if (!user._id) {
+      dispatch(setErrorToast("Login to interact!"));
+      return;
+    }
+    try {
+      await axios.patch(
+        `https://mern-online-properties.herokuapp.com/reply-like/${replyId}`,
+        {
+          userId: user._id,
+        }
+      );
+      await socket.emit("reply-like", {
+        ownerId: propertyClone.ownerId._id,
+        username: user.fullName,
+        propertyId: propertyClone._id,
+        questionId: question._id,
+      });
+      const updatedHighlightedReplies = highlightedQuestion.replies.map(
+        (reply) => {
+          if (reply._id === replyId) {
+            if (!reply.likes.userIds.includes(user._id)) {
+              const updateReply = {
+                ...reply,
+                likes: {
+                  count: reply.likes.count + 1,
+                  userIds: [...reply.likes.userIds, user._id],
+                },
+              };
+              if (reply.dislikes.userIds.includes(user._id)) {
+                updateReply.dislikes.count = reply.dislikes.count - 1;
+                updateReply.dislikes.userIds = reply.dislikes.userIds.filter(
+                  (item) => item !== user._id
+                );
+              }
+
+              return updateReply;
+            } else {
+              const updateReply = {
+                ...reply,
+                likes: {
+                  count: reply.likes.count - 1,
+                  userIds: reply.likes.userIds.filter(
+                    (item) => item !== user._id
+                  ),
+                },
+              };
+              return updateReply;
+            }
+          }
+          return reply;
+        }
+      );
+      setHighlightedQuestion({
+        ...highlightedQuestion,
+        replies: updatedHighlightedReplies,
+      });
+      dispatch(setSuccessToast("Successfully reacted to reply!"));
+    } catch (error) {
+      dispatch(setErrorToast("Something went wrong while reacting!"));
+    }
+  };
+
+  const handleHighlightedReplyDislike = async (replyId, question) => {
+    if (!user._id) {
+      dispatch(setErrorToast("Login to interact!"));
+      return;
+    }
+    try {
+      await axios.patch(
+        `https://mern-online-properties.herokuapp.com/reply-dislike/${replyId}`,
+        {
+          userId: user._id,
+        }
+      );
+      await socket.emit("reply-dislike", {
+        ownerId: propertyClone.ownerId._id,
+        username: user.fullName,
+        propertyId: propertyClone._id,
+        questionId: question._id,
+      });
+
+      const updatedHighlightedReplies = highlightedQuestion.replies.map(
+        (reply) => {
+          if (reply._id === replyId) {
+            if (!reply.dislikes.userIds.includes(user._id)) {
+              const updatedReply = {
+                ...reply,
+                dislikes: {
+                  count: reply.dislikes.count + 1,
+                  userIds: [...reply.dislikes.userIds, user._id],
+                },
+              };
+              if (reply.likes.userIds.includes(user._id)) {
+                updatedReply.likes.count = reply.likes.count - 1;
+                updatedReply.likes.userIds = reply.likes.userIds.filter(
+                  (item) => item !== user._id
+                );
+              }
+              return updatedReply;
+            }
+            return {
+              ...reply,
+              dislikes: {
+                count: reply.dislikes.count - 1,
+                userIds: reply.dislikes.userIds.filter(
+                  (item) => item !== user._id
+                ),
+              },
+            };
+          }
+          return reply;
+        }
+      );
+
+      setHighlightedQuestion({
+        ...highlightedQuestion,
+        replies: updatedHighlightedReplies,
+      });
+      dispatch(setSuccessToast("Successfully reacted to reply!"));
+    } catch (error) {
+      dispatch(setErrorToast("Something went wrong while reacting!"));
+    }
+  };
+
   const handleReplyLike = async (replyId, question) => {
     if (!user._id) {
       dispatch(setErrorToast("Login to interact!"));
@@ -665,8 +790,8 @@ function PropertyQuestionSection({ property, propRef }) {
               handlePostReply={postHighlightedReply}
               handleQuestionLike={handleHighlightedQuestionLike}
               handleQuestionDislike={handleHighlitedQuestionDislike}
-              // handleReplyLike={handleHighlightedReplyLike}
-              // handleReplyDislike={handleHighlightedReplyDislike}
+              handleReplyLike={handleHighlightedReplyLike}
+              handleReplyDislike={handleHighlightedReplyDislike}
               handleQuestionDelete={handleHighlightedQuestionDelete}
               ref={questionRef}
               onReplyDelete={handleHighlightedReplyDelete}
