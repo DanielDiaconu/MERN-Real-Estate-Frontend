@@ -3,6 +3,18 @@
   right: 75px;
   bottom: 0px;
 
+  @media screen and (max-width: 500px) {
+    position: absolute;
+    right: 0px;
+    bottom: 75px;
+  }
+
+  @media screen and(max-width: 430px) {
+    position: absolute;
+    right: -16px;
+    bottom: 75px;
+  }
+
   // .center {
   //   position: absolute;
   //   top: 50%;

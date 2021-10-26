@@ -19,13 +19,19 @@ function PropertyUser({ user }) {
           </div>
           <ul className="list-unstyled border-bottom mb-4 pb-4">
             <li>
-              <a className="nav-link fw-normal p-0">
+              <a
+                href={`tel:${user?.phone}`}
+                className="nav-link fw-normal p-0 cursor-pointer"
+              >
                 <i className="fi-phone mt-n1 me-2 align-middle opacity-60"></i>
                 {user?.phone}
               </a>
             </li>
             <li>
-              <a className="nav-link fw-normal p-0">
+              <a
+                href={`mailto: ${user?.email}`}
+                className="nav-link fw-normal p-0 cursor-pointer"
+              >
                 <i className="fi-mail mt-n1 me-2 align-middle opacity-60"></i>
                 {user?.email}
               </a>

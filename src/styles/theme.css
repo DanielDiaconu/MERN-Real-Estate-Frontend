@@ -15528,7 +15528,7 @@ h6 .dropdown-toggle::after,
   height: 100%;
   transition: opacity 0.3s ease-in-out;
   background-color: rgba(31, 27, 45, 0.5);
-  content: "";
+  /* content: ""; */
   opacity: 0;
   z-index: 1;
 }
@@ -15547,7 +15547,7 @@ h6 .dropdown-toggle::after,
   font-size: 1.75rem;
   text-align: center;
   line-height: 2.875rem;
-  content: "";
+  /* content: ""; */
   z-index: 5;
 }
 .gallery-item .gallery-item-caption {

@@ -71,7 +71,9 @@ function UserProperties() {
               </h4>
             </div>
           )}
-          <Pagination handlePageChange={handlePageChange} count={total} />
+          {total > 0 && (
+            <Pagination handlePageChange={handlePageChange} count={total} />
+          )}
         </>
       )}
     </>

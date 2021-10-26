@@ -79,7 +79,11 @@ function NotificationBell() {
             </div>
           )}
           {notifications?.length === 0 && (
-            <div className="notification-container">
+            <div
+              className={`notification-container ${
+                !notifications.length ? "text-center" : ""
+              }`}
+            >
               You currently have no new notifications.
             </div>
           )}

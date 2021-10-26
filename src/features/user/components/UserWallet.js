@@ -100,17 +100,22 @@ function UserWallet() {
     <div className="container">
       <div className="d-flex flex-column mt-5 justify-content-between">
         <div className=" border-bottom pb-3 d-flex mb-2 align-items-center justify-content-between">
-          <div className="d-flex">
-            <input
-              className="form-control"
-              name="amount"
-              type="number"
-              value={depositAmount}
-              id="ap-title"
-              placeholder="Amount you want to deposit"
-              onChange={(e) => setDepositAmount(parseInt(e.target.value))}
-              style={{ width: "250px" }}
-            />
+          <div className="d-flex align-items-center">
+            <div>
+              <input
+                className="form-control mt-4"
+                name="amount"
+                type="number"
+                value={depositAmount}
+                id="ap-title"
+                placeholder="Amount you want to deposit"
+                onChange={(e) => setDepositAmount(parseInt(e.target.value))}
+                style={{ width: "250px" }}
+              />
+              <span className="text-muted" style={{ fontSize: "12px" }}>
+                Please select a payment method from below!
+              </span>
+            </div>
             <button
               className="btn btn-primary px-3 px-sm-4"
               type="button"
@@ -121,6 +126,7 @@ function UserWallet() {
               Deposit
             </button>
           </div>
+
           <div>
             <i className="fi-wallet opacity-60 me-2 mb-1"></i>
             <span className="ml-5" style={{ fontSize: "22px" }}>
@@ -128,6 +134,7 @@ function UserWallet() {
             </span>
           </div>
         </div>
+
         <div>
           <div className="d-flex justify-content-end mb-3">
             {view === "list" && (
