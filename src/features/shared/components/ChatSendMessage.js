@@ -63,6 +63,7 @@ function ChatSendMessage({ user }) {
           type="text"
           onChange={onInputChange}
           onKeyPress={handleEnterPress}
+          autoFocus
         />
         <i
           className={`fas fa-paper-plane ${

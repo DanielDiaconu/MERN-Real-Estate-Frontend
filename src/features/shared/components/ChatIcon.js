@@ -32,8 +32,6 @@ function ChatIcon() {
     []
   );
 
-  console.log(showNewMessage);
-
   const hideChatWidget = () => {
     setToggleChat(false);
     setMessageCount(0);
