@@ -7,7 +7,7 @@ function ChatCurrentlyTyping({ user, onUserCurrentlyTyping }) {
 
   useEffect(() => {
     socket.on("receive-chat-typing", (data) => {
-      onUserCurrentlyTyping(data.typing);
+      // onUserCurrentlyTyping(data.typing);
       setIsTyping(data.typing);
       setTypingUser(data.user);
     });

@@ -29,6 +29,31 @@
     }
   }
 
+  .chat-message-preview {
+    padding: 10px;
+    background-color: #dee2e6;
+    position: absolute;
+    right: 76px;
+    bottom: 44px;
+    max-height: 70px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-end-start-radius: 10px;
+    min-width: 120px;
+    max-width: 200px;
+
+    & p {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      max-width: 200px;
+    }
+    & span {
+      color: #000;
+      font-weight: 600;
+    }
+  }
+
   button {
     padding: 0 1rem;
     color: #6376ec;

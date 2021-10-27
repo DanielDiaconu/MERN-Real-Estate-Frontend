@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from "react";
+import debounce from "lodash.debounce";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../slices/userSlice";
 import { socket } from "../../../sockets";
 import ChatBody from "./ChatBody";
+import ChatMessagePreview from "./ChatMessagePreview";
 
 function ChatIcon() {
   const [toggleChat, setToggleChat] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState(null);
+  const [showNewMessage, setShowNewMessage] = useState(false);
   const [connectedUsers, setConnectedUsers] = useState(0);
   const [messageCount, setMessageCount] = useState(0);
+  const chatBodyRef = useRef();
 
   const onMessageReact = async (userId, reactkey, messageId) => {
     await socket.emit("react-message-count", {
@@ -22,12 +27,30 @@ function ChatIcon() {
     setMessageCount(0);
   };
 
+  const debouncedHandler = useMemo(
+    () => debounce(() => setShowNewMessage(false), 3000),
+    []
+  );
+
+  console.log(showNewMessage);
+
+  const hideChatWidget = () => {
+    setToggleChat(false);
+    setMessageCount(0);
+  };
+
   useEffect(() => {
     socket.on("receive-chat-message", (data) => {
       if (!data.isInformationalBanner) {
         setMessageCount((prev) => prev + 1);
+        setNewMessage(data);
+        setShowNewMessage(true);
+        debouncedHandler();
       }
       setMessages((list) => [...list, data]);
+      if (chatBodyRef.current) {
+        chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+      }
     });
     socket.on("live-chat-count", (data) => {
       setConnectedUsers(data);
@@ -96,9 +119,11 @@ function ChatIcon() {
             onMessageReact={onMessageReact}
             messages={messages}
             usersCount={connectedUsers}
-            hideChatWidget={() => setToggleChat(false)}
+            hideChatWidget={hideChatWidget}
+            childRef={chatBodyRef}
           />
         )}
+        {showNewMessage && <ChatMessagePreview message={newMessage} />}
       </div>
     </>
   );
