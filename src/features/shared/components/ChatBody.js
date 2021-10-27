@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectUser } from "../../../slices/userSlice";
@@ -8,6 +8,17 @@ import ChatSendMessage from "./ChatSendMessage";
 
 function ChatBody({ messages, usersCount, hideChatWidget, onMessageReact }) {
   const user = useSelector(selectUser);
+  const ref = useRef();
+
+  const onUserCurrentlyTyping = (isTyping) => {
+    if (isTyping) {
+      ref.current.scrollTop = ref.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    ref.current.scrollTop = ref.current.scrollHeight;
+  }, [messages]);
 
   return (
     <>
@@ -41,7 +52,7 @@ function ChatBody({ messages, usersCount, hideChatWidget, onMessageReact }) {
                 <i className="far fa-times-circle chat-close-button"></i>
               </div>
             </div>
-            <div className="messages" id="chat">
+            <div className="messages" id="chat" ref={ref}>
               {usersCount <= 1 && (
                 <div className="time">
                   You are the only one connected in the global chat.
@@ -62,7 +73,10 @@ function ChatBody({ messages, usersCount, hideChatWidget, onMessageReact }) {
                 )
               )}
 
-              <ChatCurrentlyTyping user={user} />
+              <ChatCurrentlyTyping
+                user={user}
+                onUserCurrentlyTyping={onUserCurrentlyTyping}
+              />
             </div>
             <ChatSendMessage user={user} />
           </div>

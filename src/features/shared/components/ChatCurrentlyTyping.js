@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { socket } from "../../../sockets";
 
-function ChatCurrentlyTyping({ user }) {
+function ChatCurrentlyTyping({ user, onUserCurrentlyTyping }) {
   const [isTyping, setIsTyping] = useState(false);
   const [typingUser, setTypingUser] = useState({});
 
   useEffect(() => {
     socket.on("receive-chat-typing", (data) => {
+      onUserCurrentlyTyping(data.typing);
       setIsTyping(data.typing);
       setTypingUser(data.user);
     });

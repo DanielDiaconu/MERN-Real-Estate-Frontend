@@ -1,8 +1,8 @@
-import userEvent from "@testing-library/user-event";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { socket } from "../../../sockets";
 import { v4 as uuidv4 } from "uuid";
+import debounce from "lodash.debounce";
 
 function ChatSendMessage({ user }) {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -23,28 +23,20 @@ function ChatSendMessage({ user }) {
 
   const onInputChange = async (e) => {
     setCurrentMessage(e.target.value);
+    await socket.emit("chat-currently-typing", {
+      typing: true,
+      user: {
+        avatar: user.avatar,
+        id: user._id,
+        name: user.fullName,
+      },
+    });
+    debouncedEventHandler();
   };
 
   const handleEnterPress = async (e) => {
-    let timeout;
     if (e.key === "Enter") {
       sendMessage();
-    }
-
-    if (e.key !== "Enter") {
-      await socket.emit("chat-currently-typing", {
-        typing: true,
-        user: {
-          avatar: user.avatar,
-          id: user._id,
-          name: user.fullName,
-        },
-      });
-      clearTimeout(timeout);
-      timeout = setTimeout(typingTimeOut, 2000);
-    } else {
-      clearTimeout(timeout);
-      typingTimeOut();
     }
   };
 
@@ -54,6 +46,8 @@ function ChatSendMessage({ user }) {
       userAvatar: user.avatar,
     });
   };
+
+  const debouncedEventHandler = useMemo(() => debounce(typingTimeOut, 500), []);
 
   return (
     <>

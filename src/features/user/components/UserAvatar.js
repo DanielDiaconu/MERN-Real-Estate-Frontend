@@ -27,6 +27,7 @@ function UserAvatar() {
               className="rounded-circle"
               src={`https://mern-online-properties.herokuapp.com/images/avatars/${user?.avatar}`}
               width="40"
+              height="40"
             />
           </div>
         </div>

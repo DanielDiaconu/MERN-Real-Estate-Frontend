@@ -24,7 +24,6 @@ function ChatIcon() {
 
   useEffect(() => {
     socket.on("receive-chat-message", (data) => {
-      console.log(data);
       if (!data.isInformationalBanner) {
         setMessageCount((prev) => prev + 1);
       }

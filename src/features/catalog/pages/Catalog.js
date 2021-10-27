@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import CatalogFilters from "../components/CatalogFilters";
 import CatalogPropertiesList from "../components/CatalogPropertiesList";
 import { useHistory, useLocation } from "react-router-dom";
+import CatalogFiltersButton from "../components/CatalogFiltersButton";
 
 const defaultFilters = {
   cityId: "",
@@ -124,19 +125,22 @@ function Catalog() {
   }, []);
 
   return (
-    <div className="container-fluid mt-5 pt-5 p-0">
-      <div className="row g-0 mt-n3 ">
-        <CatalogFilters onFiltersChange={handleFiltersChange} />
-        <CatalogPropertiesList
-          onSortChange={handleSortChange}
-          properties={properties}
-          handleViewMore={loadMoreProperties}
-          hasNext={properties?.length < totalProperties}
-          loading={loading}
-          isLoadingViewMore={isLoadingViewMore}
-        />
+    <>
+      <div className="container-fluid mt-5 pt-5 p-0">
+        <div className="row g-0 mt-n3 ">
+          <CatalogFilters onFiltersChange={handleFiltersChange} />
+          <CatalogPropertiesList
+            onSortChange={handleSortChange}
+            properties={properties}
+            handleViewMore={loadMoreProperties}
+            hasNext={properties?.length < totalProperties}
+            loading={loading}
+            isLoadingViewMore={isLoadingViewMore}
+          />
+        </div>
       </div>
-    </div>
+      <CatalogFiltersButton />
+    </>
   );
 }
 

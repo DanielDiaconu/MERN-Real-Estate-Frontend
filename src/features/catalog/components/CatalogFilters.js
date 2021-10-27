@@ -164,15 +164,7 @@ function CatalogFilters({ onFiltersChange }) {
   }, [filters]);
 
   return (
-    <aside
-      className="col-lg-4 col-xl-3 border-top-lg border-end-lg shadow-sm px-3 px-xl-4 px-xxl-5 pt-lg-2"
-      style={{
-        overflowY: "auto",
-        height: "calc(100vh - 80px)",
-        position: "sticky",
-        top: "80px",
-      }}
-    >
+    <aside className="col-lg-4 col-xl-3 border-top-lg border-end-lg shadow-sm px-3 px-xl-4 px-xxl-5 pt-lg-2 catalog-filters-wrapper">
       <div
         className="offcanvas offcanvas-start offcanvas-collapse"
         id="filters-sidebar"

@@ -8,7 +8,6 @@ import StarsRating from "../../shared/components/StarsRating";
 
 function UserProfileReviewCard({ review, handleReviewDelete, isHighlighted }) {
   const user = useSelector(selectUser);
-  console.log(review);
   const parseTime = () => {
     return moment(review?.createdAt).format(" DD MMM, YYYY");
   };

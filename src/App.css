@@ -528,3 +528,12 @@ html {
 .text-decoration-hover:hover {
   text-decoration: underline;
 }
+
+@media screen and (min-width: 992px) {
+  .catalog-filters-wrapper {
+    overflow-y: auto;
+    height: calc(100vh - 80px);
+    position: sticky;
+    top: 80px;
+  }
+}

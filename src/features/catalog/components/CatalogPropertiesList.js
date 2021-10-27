@@ -16,7 +16,11 @@ function CatalogPropertiesList({
   };
 
   return (
-    <div className="col-lg-8 col-xl-9 position-relative overflow-hidden pb-5 pt-4 px-3 px-xl-4 px-xxl-5">
+    <div
+      className={`col-lg-8 col-xl-9 position-relative overflow-hidden pb-5 pt-4 px-3 px-xl-4 px-xxl-5 ${
+        hasNext ? "" : "pb-7"
+      }`}
+    >
       <div className="d-sm-flex align-items-center justify-content-between pb-3 pb-sm-4">
         <h1 className="h2 mb-sm-0">Property for sale</h1>
       </div>

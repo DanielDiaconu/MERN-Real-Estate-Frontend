@@ -45,7 +45,6 @@ function PropertyQuestionSection({ property, propRef }) {
             "notification"
           )}`
         );
-        console.log(highlightRes);
         setHighlightedQuestion(highlightRes.data);
       }
       setQuestions(res.data.results);
@@ -278,7 +277,6 @@ function PropertyQuestionSection({ property, propRef }) {
               (item) => item !== user._id
             );
         }
-        console.log(updatedQuestion);
         setHighlightedQuestion(updatedQuestion);
         if (question.userId._id === user._id) return;
         await socket.emit("question-like", {

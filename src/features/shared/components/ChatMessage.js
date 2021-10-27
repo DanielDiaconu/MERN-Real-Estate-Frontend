@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ChatMessageReaction from "./ChatMessageReaction";
 import ChatMessageReactionList from "./ChatMessageReactionList";
 
@@ -46,13 +46,6 @@ function ChatMessage({ user, message, onMessageReact }) {
             handleChatMessageReact={handleChatMessageReact}
           />
           <ChatMessageReaction user={user} message={message} />
-          {/* <span
-            className={`text-muted message-time ${
-              isSameAuthor() ? "from-myself" : ""
-            }`}
-          >
-            {message?.time}
-          </span> */}
         </div>
         <img
           title={message?.authorName}
