@@ -45,7 +45,9 @@ function UserProfileProperties({ user }) {
           <SmallLoader />
         </div>
       )}
-      <Pagination count={total} handlePageChange={onPageChange} limit={4} />
+      {total > 0 && (
+        <Pagination count={total} handlePageChange={onPageChange} limit={4} />
+      )}
     </div>
   );
 }

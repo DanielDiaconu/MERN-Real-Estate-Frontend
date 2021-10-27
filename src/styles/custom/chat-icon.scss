@@ -15,6 +15,20 @@
     opacity: 0.3;
   }
 
+  .chat-icon-message-count {
+    padding: 2px 10px;
+    border-radius: 100%;
+    background-color: red;
+    position: absolute;
+    top: -75px;
+    left: -26px;
+    z-index: 2;
+
+    & span {
+      color: white;
+    }
+  }
+
   button {
     padding: 0 1rem;
     color: #6376ec;

@@ -9,6 +9,7 @@ import PropertyAddQuestions from "./PropertyAddQuestions";
 import PropertyQuestion from "./PropertyQuestion";
 import { socket } from "../../../sockets";
 import { useLocation } from "react-router";
+import { isEmpty } from "lodash";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -44,7 +45,8 @@ function PropertyQuestionSection({ property, propRef }) {
             "notification"
           )}`
         );
-        setHighlightedQuestion(highlightRes.data[0]);
+        console.log(highlightRes);
+        setHighlightedQuestion(highlightRes.data);
       }
       setQuestions(res.data.results);
       setTotalPages(res.data.total);
@@ -153,7 +155,7 @@ function PropertyQuestionSection({ property, propRef }) {
         `https://mern-online-properties.herokuapp.com/question/${question._id}`
       );
 
-      setHighlightedQuestion("");
+      setHighlightedQuestion({});
       dispatch(setSuccessToast("Question successfully deleted!"));
     } catch (error) {
       dispatch(setErrorToast("An error occured, please try again!"));
@@ -249,7 +251,6 @@ function PropertyQuestionSection({ property, propRef }) {
   };
 
   const handleHighlightedQuestionLike = async (question) => {
-    console.log();
     if (!user._id) {
       dispatch(setErrorToast("Login to interact!"));
       return;
@@ -262,14 +263,6 @@ function PropertyQuestionSection({ property, propRef }) {
         }
       );
       if (!question.likes.userIds.includes(user._id)) {
-        if (question?.userId._id === user._id) return;
-        await socket.emit("question-like", {
-          ownerId: question.userId._id,
-          username: user.fullName,
-          propertyId: propertyClone._id,
-          questionId: question._id,
-        });
-
         const updatedQuestion = {
           ...highlightedQuestion,
           likes: {
@@ -285,7 +278,15 @@ function PropertyQuestionSection({ property, propRef }) {
               (item) => item !== user._id
             );
         }
+        console.log(updatedQuestion);
         setHighlightedQuestion(updatedQuestion);
+        if (question.userId._id === user._id) return;
+        await socket.emit("question-like", {
+          ownerId: question.userId._id,
+          username: user.fullName,
+          propertyId: propertyClone._id,
+          questionId: question._id,
+        });
       } else {
         setHighlightedQuestion({
           ...highlightedQuestion,
@@ -314,13 +315,6 @@ function PropertyQuestionSection({ property, propRef }) {
         }
       );
       if (!question.likes.userIds.includes(user._id)) {
-        if (question?.userId._id === user._id) return;
-        await socket.emit("question-like", {
-          ownerId: question.userId._id,
-          username: user.fullName,
-          propertyId: propertyClone._id,
-          questionId: question._id,
-        });
         const updatedQuestions = questions.map((qst) => {
           if (qst._id === question._id) {
             const updatedQuestion = {
@@ -342,6 +336,13 @@ function PropertyQuestionSection({ property, propRef }) {
           return qst;
         });
         setQuestions(updatedQuestions);
+        if (question?.userId._id === user._id) return;
+        await socket.emit("question-like", {
+          ownerId: question.userId._id,
+          username: user.fullName,
+          propertyId: propertyClone._id,
+          questionId: question._id,
+        });
       } else {
         const updatedQuestions = questions.map((qst) => {
           if (qst._id === question._id) {
@@ -375,14 +376,6 @@ function PropertyQuestionSection({ property, propRef }) {
       );
 
       if (!question.dislikes.userIds.includes(user._id)) {
-        if (question?.userId._id === user._id) return;
-        await socket.emit("question-dislike", {
-          ownerId: question.userId._id,
-          username: user.fullName,
-          propertyId: propertyClone._id,
-          questionId: question._id,
-        });
-
         const updatedQuestion = {
           ...highlightedQuestion,
           dislikes: {
@@ -398,6 +391,13 @@ function PropertyQuestionSection({ property, propRef }) {
             );
         }
         setHighlightedQuestion(updatedQuestion);
+        if (question?.userId._id === user._id) return;
+        await socket.emit("question-dislike", {
+          ownerId: question.userId._id,
+          username: user.fullName,
+          propertyId: propertyClone._id,
+          questionId: question._id,
+        });
       } else {
         setHighlightedQuestion({
           ...highlightedQuestion,
@@ -427,13 +427,6 @@ function PropertyQuestionSection({ property, propRef }) {
       );
 
       if (!question.dislikes.userIds.includes(user._id)) {
-        if (question?.userId._id === user._id) return;
-        await socket.emit("question-dislike", {
-          ownerId: question.userId._id,
-          username: user.fullName,
-          propertyId: propertyClone._id,
-          questionId: question._id,
-        });
         const updatedQuestions = questions.map((qst) => {
           if (qst._id === question._id) {
             const updatedQuestion = {
@@ -454,6 +447,13 @@ function PropertyQuestionSection({ property, propRef }) {
           return qst;
         });
         setQuestions(updatedQuestions);
+        if (question?.userId._id === user._id) return;
+        await socket.emit("question-dislike", {
+          ownerId: question.userId._id,
+          username: user.fullName,
+          propertyId: propertyClone._id,
+          questionId: question._id,
+        });
       } else {
         const updatedQuestions = questions.map((qst) => {
           if (qst._id === question._id) {
@@ -783,7 +783,7 @@ function PropertyQuestionSection({ property, propRef }) {
         </div>
       ) : (
         <>
-          {queryParams.has("notification") && (
+          {queryParams.has("notification") && !isEmpty(highlightedQuestion) && (
             <PropertyQuestion
               question={highlightedQuestion}
               property={propertyClone}
