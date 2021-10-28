@@ -26,6 +26,7 @@ function ChatIcon() {
       messageId: messageId,
     });
   };
+
   const toggleChatBody = () => {
     setToggleChat((prev) => !prev);
     setMessageCount(0);
@@ -44,11 +45,7 @@ function ChatIcon() {
 
   useEffect(() => {
     socket.on("receive-chat-message", (data) => {
-      debugger;
       if (!data.isInformationalBanner) {
-        if (!toggleChat) {
-          play();
-        }
         setMessageCount((prev) => prev + 1);
         setPreviewMessage(data);
         setShowPreviewMessage(true);
@@ -109,9 +106,21 @@ function ChatIcon() {
 
   useEffect(() => {
     if (!isEmpty(previewMessage) && !toggleChat) {
-      document.title = `${previewMessage.authorName} ${previewMessage.body}`;
+      document.title = `${previewMessage.authorName} has sent a message...`;
     }
   }, [previewMessage]);
+
+  useEffect(() => {
+    if (toggleChat && chatBodyRef.current) {
+      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+    }
+  }, [toggleChat, chatBodyRef.current]);
+
+  useEffect(() => {
+    if (showPreviewMessage && !toggleChat) {
+      play();
+    }
+  }, [showPreviewMessage, messages]);
 
   return (
     <>
