@@ -11,7 +11,7 @@ import { selectUser } from "../../../slices/userSlice";
 import useOnClickOutside from "../hooks/ClickOutside";
 import NotificationDropdownItem from "./NotificationDropdownItem";
 
-function NotificationBell() {
+function NotificationBell({ small }) {
   const dispatch = useDispatch();
   const [showNotifications, setShowNotifications] = useState(false);
   const count = useSelector(selectCount);

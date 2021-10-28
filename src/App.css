@@ -359,7 +359,7 @@
 }
 
 .notification-bell {
-  border: 1px solid #1f1b2d;
+  /* border: 1px solid #1f1b2d; */
   padding: 5px 10px;
   border-radius: 50%;
 }
@@ -535,5 +535,11 @@ html {
     height: calc(100vh - 80px);
     position: sticky;
     top: 80px;
+  }
+
+  .notification-bell {
+    border: 1px solid #1f1b2d;
+    padding: 5px 10px;
+    border-radius: 50%;
   }
 }

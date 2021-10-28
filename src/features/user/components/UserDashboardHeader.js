@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectUser } from "../../../slices/userSlice";
 import displayStarsRating from "../../shared/components/StarsRating";
+import UserDashboardMenuNav from "./UserDashboardMenuNav";
 
 function UserDashboardHeader() {
   const user = useSelector(selectUser);
@@ -42,6 +43,7 @@ function UserDashboardHeader() {
       <Link className="btn btn-primary btn-lg w-100 mb-3" to="/addproperty">
         <i className="fi-plus me-2"></i>Add property
       </Link>
+      <UserDashboardMenuNav />
     </>
   );
 }

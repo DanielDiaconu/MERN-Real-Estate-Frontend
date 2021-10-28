@@ -1,13 +1,15 @@
 import { isEmpty } from "lodash";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectUser } from "../../../slices/userSlice";
 import UserAvatar from "../../user/components/UserAvatar";
+import useOnClickOutside from "../hooks/ClickOutside";
 import NotificationBell from "./NotificationBell";
 
 export default function Header() {
   const user = useSelector(selectUser);
+  const [showDropDown, setShowDropdown] = useState(false);
 
   return (
     <header
@@ -31,6 +33,7 @@ export default function Header() {
           aria-controls="navbarNav"
           aria-expanded="false"
           aria-label="Toggle navigation"
+          onClick={() => setShowDropdown((prev) => !prev)}
         >
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -69,6 +72,20 @@ export default function Header() {
                 Catalog
               </Link>
             </li>
+            {showDropDown && (
+              <>
+                <li className="nav-item active">
+                  <Link to="/user/dashboard" className="nav-link">
+                    Acount
+                  </Link>
+                </li>
+                <li className="nav-item active">
+                  <Link to="/login" className="nav-link">
+                    Sign In
+                  </Link>
+                </li>{" "}
+              </>
+            )}
           </ul>
           {user._id && (
             <div>
