@@ -42,14 +42,15 @@ function ChatIcon() {
 
   useEffect(() => {
     socket.on("receive-chat-message", (data) => {
+      debugger;
       if (!data.isInformationalBanner) {
+        if (!toggleChat) {
+          play();
+        }
         setMessageCount((prev) => prev + 1);
         setPreviewMessage(data);
         setShowPreviewMessage(true);
         debouncedHandler();
-        if (showPreviewMessage) {
-          play();
-        }
       }
 
       setMessages((list) => [...list, data]);
@@ -128,7 +129,9 @@ function ChatIcon() {
             childRef={chatBodyRef}
           />
         )}
-        {showPreviewMessage && <ChatMessagePreview message={previewMessage} />}
+        {showPreviewMessage && !toggleChat && (
+          <ChatMessagePreview message={previewMessage} />
+        )}
       </div>
     </>
   );
