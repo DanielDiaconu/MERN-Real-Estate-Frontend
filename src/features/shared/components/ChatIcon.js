@@ -5,6 +5,7 @@ import ChatBody from "./ChatBody";
 import ChatMessagePreview from "./ChatMessagePreview";
 import useSound from "use-sound";
 import messageNotif from "../../../sounds/chatMessage.mp3";
+import { isEmpty } from "lodash";
 
 function ChatIcon() {
   const [toggleChat, setToggleChat] = useState(false);
@@ -28,6 +29,7 @@ function ChatIcon() {
   const toggleChatBody = () => {
     setToggleChat((prev) => !prev);
     setMessageCount(0);
+    document.title = "MERN-Online Properties";
   };
 
   const debouncedHandler = useMemo(
@@ -104,6 +106,12 @@ function ChatIcon() {
       });
     });
   }, []);
+
+  useEffect(() => {
+    if (!isEmpty(previewMessage) && !toggleChat) {
+      document.title = `${previewMessage.authorName} ${previewMessage.body}`;
+    }
+  }, [previewMessage]);
 
   return (
     <>
