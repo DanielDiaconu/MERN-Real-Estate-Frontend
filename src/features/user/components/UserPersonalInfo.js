@@ -88,20 +88,6 @@ function UserPersonalInfo() {
 
   return (
     <>
-      {/* <Prompt
-        when={
-          progress > 99
-            ? info.fullName === user?.fullName &&
-              info.email === user?.email &&
-              info.phone === user?.phone &&
-              info.address === user?.address &&
-              info.bio === user?.bio &&
-              info.avatar === user?.avatar
-            : true
-        }
-        message="You have unsaved changes! Are you sure you want to leave this page?"
-      /> */}
-
       <h1 className="h2">Personal Info</h1>
 
       <div className="progress mb-3">
@@ -172,6 +158,7 @@ function UserPersonalInfo() {
           type="button"
           onClick={onUserUpdate}
           disabled={isSaveButtonDisabled()}
+          title={"Complete all the fields above for time!"}
         >
           Save changes
         </button>

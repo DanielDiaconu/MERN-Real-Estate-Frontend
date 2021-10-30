@@ -45,10 +45,13 @@ function NotificationBell({ small }) {
   return (
     <>
       <div
-        className="dropdown ms-3 notification-bell"
+        className="dropdown  notification-bell"
         ref={ref}
         onClick={(e) => e.stopPropagation()}
       >
+        <Link to="/user/dashboard/notifications" className="device-display">
+          Notifications
+        </Link>
         {count !== 0 && <span className="notification-count">{count}</span>}
         <span
           type="button"

@@ -359,15 +359,22 @@
 }
 
 .notification-bell {
-  /* border: 1px solid #1f1b2d; */
-  padding: 5px 10px;
-  border-radius: 50%;
+  border: 1px solid #efecf3;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  margin-left: 0px !important;
+}
+
+.device-display {
+  color: #fd5631;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .notification-count {
   position: absolute;
-  right: -6px;
-  top: -8px;
+  left: 126px;
+  top: 10px;
   font-weight: bold;
   color: white;
   border: 1px solid #fd390e;
@@ -380,6 +387,7 @@
 .fa-bell {
   font-size: 18px;
   color: #1f1b2d;
+  display: none;
 }
 
 .notification-types {
@@ -541,5 +549,27 @@ html {
     border: 1px solid #1f1b2d;
     padding: 5px 10px;
     border-radius: 50%;
+  }
+
+  .notification-count {
+    position: absolute;
+    left: unset;
+    right: -6px;
+    top: -8px;
+    font-weight: bold;
+    color: white;
+    border: 1px solid #fd390e;
+    background: #fd390e;
+    border-radius: 50%;
+    padding: 0px 5px;
+    font-size: 14px;
+  }
+
+  .device-display {
+    display: none;
+  }
+
+  .fa-bell {
+    display: block;
   }
 }

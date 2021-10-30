@@ -61,7 +61,7 @@ function CatalogPropertiesList({
             {properties?.length > 0 ? (
               <>
                 {properties?.map((property, i) => (
-                  <div className="col-sm-6 col-xl-4" key={i}>
+                  <div className="col-sm-6 col-md-6 col-xl-4" key={i}>
                     <PropertiesCard property={property} isPromoted={true} />
                   </div>
                 ))}

@@ -1,15 +1,19 @@
-import { isEmpty } from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { selectUser } from "../../../slices/userSlice";
 import UserAvatar from "../../user/components/UserAvatar";
-import useOnClickOutside from "../hooks/ClickOutside";
 import NotificationBell from "./NotificationBell";
 
 export default function Header() {
   const user = useSelector(selectUser);
+  const history = useHistory();
   const [showDropDown, setShowDropdown] = useState(false);
+
+  const onSignOut = () => {
+    sessionStorage.removeItem("auth-token");
+    history.push("/login");
+  };
 
   return (
     <header
@@ -72,6 +76,11 @@ export default function Header() {
                 Catalog
               </Link>
             </li>
+            {user._id && (
+              <div className="my-2">
+                <NotificationBell />
+              </div>
+            )}
             {showDropDown && (
               <>
                 <li className="nav-item active">
@@ -80,18 +89,24 @@ export default function Header() {
                   </Link>
                 </li>
                 <li className="nav-item active">
-                  <Link to="/login" className="nav-link">
-                    Sign In
-                  </Link>
-                </li>{" "}
+                  <span
+                    to="/login"
+                    className="nav-link cursor-pointer"
+                    onClick={onSignOut}
+                  >
+                    Sign Out
+                  </span>
+                </li>
+                {!user._id && (
+                  <li className="nav-item active">
+                    <Link to="/login" className="nav-link">
+                      Sign In
+                    </Link>
+                  </li>
+                )}
               </>
             )}
           </ul>
-          {user._id && (
-            <div>
-              <NotificationBell />
-            </div>
-          )}
         </div>
       </div>
     </header>
