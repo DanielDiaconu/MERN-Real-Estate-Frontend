@@ -1,3 +1,4 @@
+import { isEqual } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -51,18 +52,26 @@ function UserPersonalInfo() {
   };
 
   const isSaveButtonDisabled = () => {
-    if (progress > 99) {
-      return (
-        info.fullName === user.fullName &&
-        info.email === user.email &&
-        info.phone === user.phone &&
-        info.address === user.address &&
-        info.bio === user.bio &&
-        info.avatar === user.avatar
-      );
-    } else {
-      return true;
-    }
+    // if (progress > 99) {
+    //   return (
+    //     info.fullName === user.fullName &&
+    //     info.email === user.email &&
+    //     info.phone === user.phone &&
+    //     info.address === user.address &&
+    //     info.bio === user.bio &&
+    //     info.avatar === user.avatar
+    //   );
+    // } else {
+    //   return true;
+    // }
+    return (
+      info.fullName === user.fullName &&
+      info.email === user.email &&
+      info.phone === user.phone &&
+      info.address === user.address &&
+      info.bio === user.bio &&
+      info.avatar === user.avatar
+    );
   };
 
   useEffect(() => {
