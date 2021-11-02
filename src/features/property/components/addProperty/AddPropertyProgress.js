@@ -122,7 +122,7 @@ function AddPropertyProgress({ property, onProgressChange, progress }) {
                 data-scroll=""
                 data-scroll-offset="20"
               >
-                Photos / video
+                Photos
               </a>
             </li>
           </ul>

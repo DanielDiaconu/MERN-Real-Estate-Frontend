@@ -9,9 +9,8 @@ function PropertyUser({ user }) {
           <div className="d-flex align-items-start justify-content-between">
             <a className="text-decoration-none">
               <img
-                className="rounded-circle mb-2"
+                className="rounded-circle mb-2 user-avatar-thumbnail"
                 src={`https://mern-online-properties.herokuapp.com/images/avatars/${user?.avatar}`}
-                width="60"
                 alt="Avatar"
               />
               <h5 className="mb-1">{user?.fullName}</h5>

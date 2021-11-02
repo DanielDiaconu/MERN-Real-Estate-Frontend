@@ -69,7 +69,7 @@ function AddPropertyBasicInfo({ onBasicInfoChange }) {
             placeholder="Title for your property"
             required=""
           />
-          <span className="form-text">48 characters left</span>
+          <span className="form-text">{50 - info?.name?.length}</span>
         </div>
         <label className="form-label" htmlFor="ap-description">
           Description{" "}

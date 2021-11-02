@@ -24,10 +24,8 @@ function UserAvatar() {
 
           <div className="d-block py-2">
             <img
-              className="rounded-circle"
+              className="rounded-circle user-avatar-thumbnail"
               src={`https://mern-online-properties.herokuapp.com/images/avatars/${user?.avatar}`}
-              width="40"
-              height="40"
             />
           </div>
         </div>
@@ -37,7 +35,7 @@ function UserAvatar() {
             style={{ width: "16rem" }}
           >
             <img
-              className="rounded-circle"
+              className="rounded-circle user-avatar-thumbnail"
               src={`https://mern-online-properties.herokuapp.com/images/avatars/${user?.avatar}`}
               width="48"
             />

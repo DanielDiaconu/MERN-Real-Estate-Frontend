@@ -137,7 +137,7 @@ function PropertiesCard({ property, isPromoted }) {
           >
             <img
               className="rounded-circle me-2"
-              style={{ width: "25px" }}
+              style={{ width: "25px", objectFit: "cover", height: "25px" }}
               src={`https://mern-online-properties.herokuapp.com/images/avatars/${property?.ownerId?.avatar}`}
             />
             {property?.ownerId?.fullName}

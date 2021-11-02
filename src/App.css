@@ -537,6 +537,12 @@ html {
   text-decoration: underline;
 }
 
+.user-avatar-thumbnail {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
 .view-profile-btn {
   border: 2px solid #fd5631 !important;
   background-color: #fff !important;

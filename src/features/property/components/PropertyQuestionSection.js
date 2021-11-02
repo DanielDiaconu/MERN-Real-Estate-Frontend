@@ -814,7 +814,9 @@ function PropertyQuestionSection({ property, propRef }) {
           ))}
         </>
       )}
-      <Pagination handlePageChange={handlePageChange} count={totalPages} />
+      {totalPages > 0 && (
+        <Pagination handlePageChange={handlePageChange} count={totalPages} />
+      )}
     </>
   );
 }
