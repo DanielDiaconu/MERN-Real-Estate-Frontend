@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Loader from "../../shared/components/Loader";
 import Pagination from "../../shared/components/Pagination";
-import SmallLoader from "../../shared/components/SmallLoader";
 import UserPropertyCard from "../../shared/components/UserPropertyCard";
 
 function UserProfileProperties({ user }) {
@@ -37,13 +37,14 @@ function UserProfileProperties({ user }) {
       <div className="d-flex flex-column justify-content-center my-4">
         <h1 className="h3 mb-sm-0 me-sm-3">User properties</h1>
       </div>
-      {properties?.map((property, i) => (
-        <UserPropertyCard key={i} property={property} isPromoted={false} />
-      ))}
-      {loading && (
-        <div className="d-flex align-items-center justify-content-center mb-2 mt-2">
-          <SmallLoader />
-        </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          {properties?.map((property, i) => (
+            <UserPropertyCard key={i} property={property} isPromoted={false} />
+          ))}{" "}
+        </>
       )}
       {total > 0 && (
         <Pagination count={total} handlePageChange={onPageChange} limit={4} />

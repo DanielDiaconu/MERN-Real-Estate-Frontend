@@ -44,7 +44,7 @@ function CitiesRow() {
         <Splide options={options}>
           {cities?.map((city, i) => (
             <SplideSlide key={i}>
-              <CitiesCard city={city} />
+              <CitiesCard city={city} url={`/properties?cityId=${city?._id}`} />
             </SplideSlide>
           ))}
         </Splide>

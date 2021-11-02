@@ -146,8 +146,12 @@ function ChatIcon() {
             childRef={chatBodyRef}
           />
         )}
-        {showPreviewMessage && !toggleChat && (
-          <ChatMessagePreview message={previewMessage} />
+        {!toggleChat && (
+          <>
+            {showPreviewMessage && (
+              <ChatMessagePreview message={previewMessage} />
+            )}
+          </>
         )}
       </div>
     </>

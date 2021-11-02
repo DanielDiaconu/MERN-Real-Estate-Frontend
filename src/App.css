@@ -537,6 +537,11 @@ html {
   text-decoration: underline;
 }
 
+.view-profile-btn {
+  border: 2px solid #fd5631 !important;
+  background-color: #fff !important;
+}
+
 @media screen and (min-width: 992px) {
   .catalog-filters-wrapper {
     overflow-y: auto;

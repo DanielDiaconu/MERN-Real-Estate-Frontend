@@ -118,7 +118,7 @@ function PropertiesCard({ property, isPromoted }) {
           {property?.price} $
         </div>
       </div>
-      <div className="card-footer d-flex align-items-center justify-content-evenly mx-3 pt-3 text-nowrap">
+      <div className="card-footer d-flex align-items-center justify-content-between  mx-3 pt-3 text-nowrap">
         <div>
           <span className="d-inline-block mx-1 px-2 fs-sm">
             {property?.bedrooms}
@@ -129,21 +129,20 @@ function PropertiesCard({ property, isPromoted }) {
             <i className="fi-bath ms-1 mt-n1 fs-lg text-muted"></i>
           </span>
         </div>
-        {location.pathname === "/properties" && (
-          <div className="row text-center align-content-end justify-content-end">
-            <Link
-              to={`/profile/${property?.ownerId?._id}`}
-              className="d-flex justify-content-end align-items-center text-decoration-none "
-            >
-              <img
-                className="rounded-circle me-2"
-                style={{ width: "20px" }}
-                src={`https://mern-online-properties.herokuapp.com/images/avatars/${property?.ownerId?.avatar}`}
-              />
-              {property?.ownerId?.fullName}
-            </Link>
-          </div>
-        )}
+
+        <div className="row text-center align-content-end justify-content-end">
+          <Link
+            to={`/profile/${property?.ownerId?._id}`}
+            className="d-flex justify-content-end align-items-center text-decoration-none "
+          >
+            <img
+              className="rounded-circle me-2"
+              style={{ width: "25px" }}
+              src={`https://mern-online-properties.herokuapp.com/images/avatars/${property?.ownerId?.avatar}`}
+            />
+            {property?.ownerId?.fullName}
+          </Link>
+        </div>
       </div>
     </div>
   );

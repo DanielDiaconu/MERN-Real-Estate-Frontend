@@ -43,6 +43,12 @@ function UserDashboardHeader() {
       <Link className="btn btn-primary btn-lg w-100 mb-3" to="/addproperty">
         <i className="fi-plus me-2"></i>Add property
       </Link>
+      <Link
+        className="btn btn-secondary btn-lg w-100 mb-3 view-profile-btn"
+        to={`/profile/${user._id}`}
+      >
+        View profile
+      </Link>
       <UserDashboardMenuNav />
     </>
   );
