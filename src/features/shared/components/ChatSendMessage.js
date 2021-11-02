@@ -43,7 +43,11 @@ function ChatSendMessage({ user }) {
   const typingTimeOut = async () => {
     await socket.emit("chat-currently-typing", {
       typing: false,
-      userAvatar: user.avatar,
+      user: {
+        avatar: user.avatar,
+        id: user._id,
+        name: user.fullName,
+      },
     });
   };
 

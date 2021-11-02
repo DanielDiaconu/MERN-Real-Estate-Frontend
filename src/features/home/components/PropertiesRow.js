@@ -11,7 +11,6 @@ function PropertiesRow() {
     );
     setProperties(res.data);
   };
-  console.log(properties);
 
   useEffect(() => {
     getProperties();

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectUser } from "../../../slices/userSlice";
+import { socket } from "../../../sockets";
 import ChatCurrentlyTyping from "./ChatCurrentlyTyping";
 import ChatMessage from "./ChatMessage";
 import ChatSendMessage from "./ChatSendMessage";
@@ -14,12 +15,25 @@ function ChatBody({
   childRef,
 }) {
   const user = useSelector(selectUser);
+  const [usersCurrentlyTyping, setUsersCurrentlyTyping] = useState([]);
 
-  const onUserCurrentlyTyping = (isTyping) => {
-    // if (isTyping) {
-    //   // ref.current.scrollTop = ref.current.scrollHeight;
-    // }
-  };
+  console.log(usersCurrentlyTyping);
+
+  useEffect(() => {
+    socket.on("receive-chat-typing", (data) => {
+      if (data.typing) {
+        if (
+          !usersCurrentlyTyping.find((item) => item.user.id === data.user.id)
+        ) {
+          setUsersCurrentlyTyping([...usersCurrentlyTyping, data]);
+        }
+      } else {
+        setUsersCurrentlyTyping(
+          usersCurrentlyTyping.filter((item) => item.user.id !== data.user.id)
+        );
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -73,11 +87,13 @@ function ChatBody({
                   </div>
                 )
               )}
-
-              <ChatCurrentlyTyping
-                user={user}
-                onUserCurrentlyTyping={onUserCurrentlyTyping}
-              />
+              {usersCurrentlyTyping.map((typingUser, i) => (
+                <ChatCurrentlyTyping
+                  currentUser={user}
+                  key={i}
+                  typingUser={typingUser}
+                />
+              ))}
             </div>
             <ChatSendMessage user={user} />
           </div>

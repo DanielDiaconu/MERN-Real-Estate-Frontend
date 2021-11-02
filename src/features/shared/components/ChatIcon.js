@@ -6,6 +6,8 @@ import ChatMessagePreview from "./ChatMessagePreview";
 import useSound from "use-sound";
 import messageNotif from "../../../sounds/chatMessage.mp3";
 import { isEmpty } from "lodash";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../slices/userSlice";
 
 function ChatIcon() {
   const [toggleChat, setToggleChat] = useState(false);
@@ -14,6 +16,7 @@ function ChatIcon() {
   const [showPreviewMessage, setShowPreviewMessage] = useState(false);
   const [connectedUsers, setConnectedUsers] = useState(0);
   const [messageCount, setMessageCount] = useState(0);
+  const user = useSelector(selectUser);
   const [play] = useSound(messageNotif, {
     volume: 0.35,
   });
@@ -29,6 +32,7 @@ function ChatIcon() {
 
   const toggleChatBody = () => {
     setToggleChat((prev) => !prev);
+    setShowPreviewMessage(false);
     setMessageCount(0);
     document.title = "MERN-Online Properties";
   };
@@ -41,6 +45,7 @@ function ChatIcon() {
   const hideChatWidget = () => {
     setToggleChat(false);
     setMessageCount(0);
+    setShowPreviewMessage(false);
   };
 
   useEffect(() => {
@@ -48,8 +53,6 @@ function ChatIcon() {
       if (!data.isInformationalBanner) {
         setMessageCount((prev) => prev + 1);
         setPreviewMessage(data);
-        setShowPreviewMessage(true);
-        debouncedHandler();
       }
 
       setMessages((list) => [...list, data]);
@@ -121,6 +124,13 @@ function ChatIcon() {
       play();
     }
   }, [showPreviewMessage, messages]);
+
+  useEffect(() => {
+    if (previewMessage && previewMessage.authorId !== user._id) {
+      setShowPreviewMessage(true);
+      debouncedHandler();
+    }
+  }, [previewMessage]);
 
   return (
     <>

@@ -1,34 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { socket } from "../../../sockets";
 
-function ChatCurrentlyTyping({ user, onUserCurrentlyTyping }) {
+function ChatCurrentlyTyping({ currentUser, typingUser }) {
   const [isTyping, setIsTyping] = useState(false);
-  const [typingUser, setTypingUser] = useState({});
-
-  useEffect(() => {
-    socket.on("receive-chat-typing", (data) => {
-      // onUserCurrentlyTyping(data.typing);
-      setIsTyping(data.typing);
-      setTypingUser(data.user);
-    });
-  }, []);
+  // const [typingUser, setTypingUser] = useState({});
 
   const userCurrentlyTyping = () => {
-    return user?._id === typingUser?.id;
+    return currentUser?._id === typingUser?.user?.id;
   };
 
   return (
     <>
-      {isTyping && (
+      {typingUser?.typing && (
         <div
           className={`d-flex ${
             userCurrentlyTyping() ? "flex-row-reverse" : ""
           } `}
         >
           <img
-            title={typingUser?.fullName}
+            title={typingUser?.user?.fullName}
             className="rounded-circle chat-avatar-img"
-            src={`https://mern-online-properties.herokuapp.com/images/avatars/${typingUser?.avatar}`}
+            src={`https://mern-online-properties.herokuapp.com/images/avatars/${typingUser?.user?.avatar}`}
           />
           <div
             className={`message ${
