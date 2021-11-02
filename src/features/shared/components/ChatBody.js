@@ -1,3 +1,4 @@
+import { find } from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -15,21 +16,21 @@ function ChatBody({
   childRef,
 }) {
   const user = useSelector(selectUser);
-  const [usersCurrentlyTyping, setUsersCurrentlyTyping] = useState([]);
-
-  console.log(usersCurrentlyTyping);
+  const [typingUsers, setTypingUsers] = useState([]);
 
   useEffect(() => {
     socket.on("receive-chat-typing", (data) => {
       if (data.typing) {
-        if (
-          !usersCurrentlyTyping.find((item) => item.user.id === data.user.id)
-        ) {
-          setUsersCurrentlyTyping([...usersCurrentlyTyping, data]);
-        }
+        setTypingUsers((prev) => {
+          if (!find(prev, { user: { id: data.user.id } })) {
+            return [...prev, data];
+          } else {
+            return prev;
+          }
+        });
       } else {
-        setUsersCurrentlyTyping(
-          usersCurrentlyTyping.filter((item) => item.user.id !== data.user.id)
+        setTypingUsers(
+          typingUsers.filter((item) => item.user.id !== data.user.id)
         );
       }
     });
@@ -87,7 +88,7 @@ function ChatBody({
                   </div>
                 )
               )}
-              {usersCurrentlyTyping.map((typingUser, i) => (
+              {typingUsers?.map((typingUser, i) => (
                 <ChatCurrentlyTyping
                   currentUser={user}
                   key={i}
