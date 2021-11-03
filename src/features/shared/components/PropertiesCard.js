@@ -48,7 +48,7 @@ function PropertiesCard({ property, isPromoted }) {
       className={`card shadow-sm  border-0 h-100 property-card p-0 ${
         property.pro && isPromoted ? "golden-border" : ""
       }`}
-      style={{ maxHeight: "500px" }}
+      style={{ maxHeight: "400px" }}
     >
       <div
         className="card-img-top card-img-hover"

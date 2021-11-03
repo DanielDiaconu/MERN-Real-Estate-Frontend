@@ -43,9 +43,9 @@ function CatalogFilters({ onFiltersChange }) {
     initFilters.categoryId = queryString.get("categoryId")
       ? [queryString.get("categoryId")]
       : [];
-    // initFilters.cityId = queryString.get("cityId")
-    //   ? queryString.get("cityId")
-    //   : "";
+    initFilters.cityId = queryString.get("cityId")
+      ? queryString.get("cityId")
+      : "";
   };
 
   const getCategories = async () => {

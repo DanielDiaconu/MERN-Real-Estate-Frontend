@@ -46,12 +46,14 @@ function UserWishlist() {
     <>
       <div className="d-flex align-items-center justify-content-between mb-4 pb-2">
         <h1 className="h2 mb-0">Wishlist</h1>
-        <span
-          className="fw-bold color-primary cursor-pointer"
-          onClick={clearWishlist}
-        >
-          <i className="fi-x fs-xs mt-n1 me-2"></i>Clear all
-        </span>
+        {user?.wishlist && (
+          <span
+            className="fw-bold color-primary cursor-pointer"
+            onClick={clearWishlist}
+          >
+            <i className="fi-x fs-xs mt-n1 me-2"></i>Clear all
+          </span>
+        )}
       </div>
       {loading ? (
         <Loader />

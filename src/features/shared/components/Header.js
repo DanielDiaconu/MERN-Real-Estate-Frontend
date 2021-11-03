@@ -11,7 +11,6 @@ export default function Header() {
   const history = useHistory();
   const [showDropDown, setShowDropdown] = useState(false);
 
-  console.log(location);
   const onSignOut = () => {
     sessionStorage.removeItem("auth-token");
     history.push("/login");
