@@ -95,7 +95,7 @@ function PropertiesCard({ property, isPromoted }) {
         </div>
         <img
           src={`https://mern-online-properties.herokuapp.com/images/property/${property?.thumbnail}`}
-          alt="Image"
+          alt="img/placeholder.png"
         />
       </div>
       <div className="card-body position-relative pb-3">

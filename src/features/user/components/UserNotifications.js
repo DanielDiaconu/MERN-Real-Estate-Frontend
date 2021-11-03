@@ -60,7 +60,7 @@ function UserNotifications() {
 
   return (
     <div>
-      <div className="col-lg-8 col-md-7 mb-5">
+      <div className="col-lg-8 mb-5">
         <h1 className="h2">Notifications</h1>
         <p className="pt-1 mb-4">
           Get real-time updates on your favorite homes, neighborhoods, and more.

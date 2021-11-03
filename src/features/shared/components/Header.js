@@ -1,19 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { selectUser } from "../../../slices/userSlice";
 import UserAvatar from "../../user/components/UserAvatar";
 import NotificationBell from "./NotificationBell";
 
 export default function Header() {
+  const location = useLocation();
   const user = useSelector(selectUser);
   const history = useHistory();
   const [showDropDown, setShowDropdown] = useState(false);
 
+  console.log(location);
   const onSignOut = () => {
     sessionStorage.removeItem("auth-token");
     history.push("/login");
   };
+
+  useEffect(() => {
+    setShowDropdown(false);
+  }, [location]);
 
   return (
     <header
@@ -61,7 +67,12 @@ export default function Header() {
             <span className="d-none d-sm-inline"> property</span>
           </Link>
         )}
-        <div className="collapse navbar-collapse order-lg-2" id="navbarNav">
+        <div
+          className={`collapse navbar-collapse order-lg-2 ${
+            !showDropDown ? "" : "show"
+          }`}
+          id="navbarNav"
+        >
           <ul
             className="navbar-nav navbar-nav-scroll"
             style={{ maxHeight: "35rem" }}
@@ -81,31 +92,29 @@ export default function Header() {
                 <NotificationBell />
               </div>
             )}
-            {showDropDown && (
-              <>
-                <li className="nav-item active">
-                  <Link to="/user/dashboard" className="nav-link">
-                    Acount
+            <>
+              <li className="nav-item active dropdown-mobile">
+                <Link to="/user/dashboard" className="nav-link">
+                  Acount
+                </Link>
+              </li>
+              <li className="nav-item active dropdown-mobile">
+                <span
+                  to="/login"
+                  className="nav-link cursor-pointer"
+                  onClick={onSignOut}
+                >
+                  Sign Out
+                </span>
+              </li>
+              {!user._id && (
+                <li className="nav-item active dropdown-mobile">
+                  <Link to="/login" className="nav-link">
+                    Sign In
                   </Link>
                 </li>
-                <li className="nav-item active">
-                  <span
-                    to="/login"
-                    className="nav-link cursor-pointer"
-                    onClick={onSignOut}
-                  >
-                    Sign Out
-                  </span>
-                </li>
-                {!user._id && (
-                  <li className="nav-item active">
-                    <Link to="/login" className="nav-link">
-                      Sign In
-                    </Link>
-                  </li>
-                )}
-              </>
-            )}
+              )}
+            </>
           </ul>
         </div>
       </div>

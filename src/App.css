@@ -543,6 +543,10 @@ html {
   object-fit: cover;
 }
 
+.dropdown-mobile {
+  display: block;
+}
+
 .view-profile-btn {
   border: 2px solid #fd5631 !important;
   background-color: #fff !important;
@@ -582,5 +586,9 @@ html {
 
   .fa-bell {
     display: block;
+  }
+
+  .dropdown-mobile {
+    display: none;
   }
 }
