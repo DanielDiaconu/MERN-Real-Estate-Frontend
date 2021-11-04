@@ -38,13 +38,51 @@
 ![chat](./public/printscreens/chat-tap-new-message.jpg)
 
 
+
 `2.Notification System:`
 
-![notification](./public/printscreens/notification-beel.jpg)
+![notification](./public/printscreens/notifications beel.jpg)
 
 ![notification](./public/printscreens/user-dashboard-notification-panel.jpg)
 
 ![chat](./public/printscreens/chat-reactions.jpg)
+
+
+`3.Browse Properties:`
+
+![properties](./public/printscreens/catalog.jpg)
+
+
+`4.Property Presentation Page:`
+
+![properties](./public/printscreens/property-1.jpg)
+
+![properties](./public/printscreens/property-info.jpg)
+
+
+`5.Add Properties:`
+
+![properties](./public/printscreens/add-property-1.jpg)
+
+![properties](./public/printscreens/add-property-2.jpg)
+
+![properties](./public/printscreens/add-property-3.jpg)
+
+![properties](./public/printscreens/add-property-progress.jpg)
+
+
+`6.Post a question:`
+
+![properties](./public/printscreens/property-questoin-section.jpg)
+
+
+`7. Wishlist Properties:`
+
+![properties](./public/printscreens/user-dashboard-wishlist.jpg)
+
+`8.Promote Property:`
+
+![properties](./public/printscreens/property-ad-plan.jpg)
 
 
 
