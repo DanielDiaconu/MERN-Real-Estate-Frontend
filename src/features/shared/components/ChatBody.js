@@ -49,9 +49,8 @@ function ChatBody({
                 {user._id ? (
                   <div className="d-flex align-items-center">
                     <img
-                      className="rounded-circle"
+                      className="rounded-circle user-avatar-thumbnail"
                       src={`https://mern-online-properties.herokuapp.com/images/avatars/${user?.avatar}`}
-                      style={{ width: "35px", height: "35px" }}
                     />
                     <div className="d-flex flex-column ms-3">
                       <span className="chatting-as">
