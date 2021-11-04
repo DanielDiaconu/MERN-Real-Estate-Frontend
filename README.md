@@ -41,16 +41,15 @@
 
 `2.Notification System:`
 
-![notification](./public/printscreens/notifications beel.jpg)
+![notification](./public/printscreens/notifications-beel.jpg)
 
 ![notification](./public/printscreens/user-dashboard-notification-panel.jpg)
 
-![chat](./public/printscreens/chat-reactions.jpg)
 
 
 `3.Browse Properties:`
 
-![properties](./public/printscreens/catalog.jpg)
+![properties](./public/printscreens/catalog 1.jpg)
 
 
 `4.Property Presentation Page:`
