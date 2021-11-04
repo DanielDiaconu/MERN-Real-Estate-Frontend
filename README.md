@@ -23,6 +23,15 @@
 
 `1.Global Live Chat:`
 
+![chat](./public/printscreens/chat1.jpg)
+
+![chat](./public/printscreens/chat-reactions.jpg)
+
+![chat](./public/printscreens/chat-typing.jpg)
+
+![chat](./public/printscreens/chat-typing-2.jpg)
+
+![chat](./public/printscreens/chat1.jpg)
 
 
 
