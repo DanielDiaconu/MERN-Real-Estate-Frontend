@@ -69,13 +69,15 @@ function UserProfileReviews({
             <Link to="/login">Please sign in to leave a review!</Link>
           ) : (
             <>
-              <button
-                disabled={profileUser?._id === user?._id}
-                className="btn btn-outline-primary"
-                onClick={() => setToggleAddReview((prev) => !prev)}
-              >
-                <i className="fi-edit me-1"></i>Add review
-              </button>
+              {profileUser?._id !== user?._id && (
+                <button
+                  // disabled={profileUser?._id === user?._id}
+                  className="btn btn-outline-primary"
+                  onClick={() => setToggleAddReview((prev) => !prev)}
+                >
+                  <i className="fi-edit me-1"></i>Add review
+                </button>
+              )}
             </>
           )}
         </div>

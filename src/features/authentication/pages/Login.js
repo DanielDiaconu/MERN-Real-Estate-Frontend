@@ -53,7 +53,10 @@ function Login() {
         rtl={false}
       />
       <div className="container">
-        <div className="row mx-0 align-items-center">
+        <div
+          className="row mx-0 align-items-center"
+          style={{ height: "100vh" }}
+        >
           <div className="col-md-6 border-end-md p-4 p-sm-5">
             <h2 className="h3 mb-4 mb-sm-5">
               Hey there!

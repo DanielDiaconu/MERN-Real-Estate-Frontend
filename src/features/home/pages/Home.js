@@ -1,5 +1,4 @@
 import React from "react";
-import Sockets from "../../shared/components/Sockets";
 import CategoriesRow from "../components/CategoriesRow";
 import CitiesRow from "../components/CitiesRow";
 import PropertiesRow from "../components/PropertiesRow";
@@ -19,7 +18,7 @@ function Home() {
             <p className="position-relative lead me-lg-n5">
               We provide a complete service for the sale, purchase or rental of
               real estate. We have been operating more than 10 years. Search
-              millions of apartments and houses on Finder.
+              millions of apartments and houses on Realty.
             </p>
           </div>
         </div>
