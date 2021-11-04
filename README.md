@@ -100,7 +100,7 @@
 
 `12.Presentation Page:`
 
-![user](./public/printscreens/home-1.jpg)
+![user](./public/printscreens/Home-1.jpg)
 
 
 `13.Login/Register:`
