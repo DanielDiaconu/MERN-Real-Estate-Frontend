@@ -41,7 +41,7 @@
 
 `2.Notification System:`
 
-![notification](./public/printscreens/notifications-beel.jpg)
+![notification](./public/printscreens/notifications-bell.jpg)
 
 ![notification](./public/printscreens/user-dashboard-notification-panel.jpg)
 
@@ -49,7 +49,7 @@
 
 `3.Browse Properties:`
 
-![properties](./public/printscreens/catalog 1.jpg)
+![properties](./public/printscreens/catalog-1.jpg)
 
 
 `4.Property Presentation Page:`
@@ -83,18 +83,31 @@
 
 ![properties](./public/printscreens/property-ad-plan.jpg)
 
+`9. Add funds:`
+
+![funds](./public/printscreens/user-dashboard-payments.jpg)
 
 
+`10.Personal Info:`
+
+![user](./public/printscreens/user-dashboard.jpg)
 
 
+`11.User Public Profile:`
+
+![user](./public/printscreens/user-public-profile-reviews.jpg)
 
 
+`12.Presentation Page:`
+
+![user](./public/printscreens/home-1.jpg)
 
 
+`13.Login/Register:`
 
+![user](./public/printscreens/register.jpg)
 
-
-
+![user](./public/printscreens/login.jpg)
 
 
 
