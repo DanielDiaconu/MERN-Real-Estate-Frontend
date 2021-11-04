@@ -31,11 +31,21 @@
 
 ![chat](./public/printscreens/chat-typing-2.jpg)
 
+![chat](./public/printscreens/chat-user-left.jpg)
+
 ![chat](./public/printscreens/chat-unread-message.jpg)
 
-![chat](./public/printscreens/chat1.jpg)
+![chat](./public/printscreens/chat-tap-new-message.jpg)
 
-![chat](./public/printscreens/chat1.jpg)
+
+`2.Notification System:`
+
+![notification](./public/printscreens/notification-beel.jpg)
+
+![notification](./public/printscreens/user-dashboard-notification-panel.jpg)
+
+![chat](./public/printscreens/chat-reactions.jpg)
+
 
 
 
