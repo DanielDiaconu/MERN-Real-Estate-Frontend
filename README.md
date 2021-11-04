@@ -31,7 +31,13 @@
 
 ![chat](./public/printscreens/chat-typing-2.jpg)
 
+![chat](./public/printscreens/chat-unread-message.jpg)
+
 ![chat](./public/printscreens/chat1.jpg)
+
+![chat](./public/printscreens/chat1.jpg)
+
+
 
 
 
