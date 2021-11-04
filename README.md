@@ -1,44 +1,24 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# Realty - Real Estate Searcher application developted with MERN Stack.
 
-## Available Scripts
+## Hosted Application: https://mern-properties.netlify.app
 
-In the project directory, you can run:
+ Realty is a real estate application suitable for users who are willing to buy a new property, posted by various sellers. It includes a a numerous list of functionalities such as:
+ - Global Live Chat : Real time chat feature in wich users can talk amoung themselves, over eachother advices and react to messages. Unread alerted by a distinctive sound, an unread message count, and a last message preview.
+ - Notification Sistem : Real time notification system in wich user is informed whenever other users interact with his activity in the website. Users can like or dislikes your questions on a property, leave a review on his profile, and post a question on a property listed by the user.
+ - Browse Properties: Users can browse, filter and sort through the various property listings available.
+ - Add Property: Users can add properties that they are willing to sell.
+ - Post a Question: Users can post questions on any property should they have any additional information that they need. Only the property owner can reply to this questions.
+ - Like & Dislike: Users can like or dislike any question or reply from a property.
+ - Wishlist Properties: Users can add/remove any property they are interested into.
+ - Promote: Users can promote a property if they have the necessary founds. Promoted properties are based on tiers and show first in the catalog list of properties.
+ - Add Funds: User can add fake money to their account trough a fake payment method. User funds can be spent to promote properties.
+ - Personal-Info: Users can edit their personal info such as, display name, avatar, email and others.
+ - Change-Password: Users can change their current password.
+ - User-Public-Profile: Users can view any other users profile.
+ - Leave a Review: Users can leave a review for other users on their profile.
+ - Login-Register: In other to access various functionality on the application, users can login/register.
 
-### `npm start`
+## Or run the project locally:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### `1. npm install`
+### `2. npm start`
