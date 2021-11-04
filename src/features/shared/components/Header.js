@@ -26,13 +26,14 @@ export default function Header() {
       data-scroll-header=""
     >
       <div className="container">
-        <Link className="navbar-brand me-3 me-xl-4" to="/">
+        <Link className="navbar-brand me-3 me-xl-4 d-flex main-logo" to="/">
           <img
-            className="d-block"
-            src="/img/logo-dark.svg"
-            width="116"
+            className="d-block me-2 main-logo-img"
+            src="/img/house.png"
+            width="130"
             alt="Finder"
           />
+          <span className="main-logo-name">Realty</span>
         </Link>
         <button
           className="navbar-toggler ms-auto"

@@ -733,7 +733,7 @@ function PropertyQuestionSection({ property, propRef }) {
   return (
     <>
       <div className="mb-4 pb-4 border-bottom" ref={propRef}>
-        <h3 className="h4 pb-3">Questions ({totalPages})</h3>
+        <h3 className="h4 pb-3">Questions ({questions.length})</h3>
         <div className="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between">
           {!toggleAddQuestion && (
             <>
@@ -741,7 +741,7 @@ function PropertyQuestionSection({ property, propRef }) {
                 <button
                   className="btn btn-outline-primary mb-sm-0 mb-3"
                   onClick={() => setToggleAddQuestion((prev) => !prev)}
-                  disabled={!user}
+                  disabled={!user._id}
                 >
                   <i className="fi-edit me-1"></i>Add question
                 </button>

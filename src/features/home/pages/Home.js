@@ -9,10 +9,10 @@ function Home() {
     <>
       <section className="container pt-5 my-5 pb-lg-4">
         <div className="row pt-0 pt-md-2 pt-lg-0">
-          <div className="col-xl-7 col-lg-6 col-md-5 order-md-2 mb-4 mb-lg-3">
-            <img src="img/hero-image.jpg" alt="Hero image" />
+          <div className="col-xl-7 col-lg-6 col-md-8 order-md-2 mb-4 mb-lg-3">
+            <img src="img/home-banner.svg" alt="Hero image" />
           </div>
-          <div className="col-xl-5 col-lg-6 col-md-7 order-md-1 pt-xl-5 pe-lg-0 mb-3 text-md-start text-center">
+          <div className="col-xl-5 col-lg-6 col-md-4 order-md-1 pt-xl-5 pe-lg-0 mb-3 text-md-start text-center">
             <h1 className="display-4 mt-lg-5 mb-md-4 mb-3 pt-md-4 pb-lg-2">
               Easy way to find <br /> a perfect property
             </h1>

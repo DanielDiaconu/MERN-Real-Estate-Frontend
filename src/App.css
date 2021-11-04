@@ -547,6 +547,22 @@ html {
   display: block;
 }
 
+.main-logo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-logo-img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.main-logo-name {
+  font-weight: 400;
+}
+
 .view-profile-btn {
   border: 2px solid #fd5631 !important;
   background-color: #fff !important;
