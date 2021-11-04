@@ -3,7 +3,7 @@
 ## Hosted Application: https://mern-properties.netlify.app
 
  Realty is a real estate application suitable for users who are willing to buy a new property, posted by various sellers. It includes a a numerous list of functionalities such as:
- - Global Live Chat : Real time chat feature in wich users can talk amoung themselves, over eachother advices and react to messages. Unread alerted by a distinctive sound, an unread message count, and a last message preview.
+ - `Global Live Chat`: Real time chat feature in wich users can talk amoung themselves, over eachother advices and react to messages. Unread alerted by a distinctive sound, an unread message count, and a last message preview.
  - Notification Sistem : Real time notification system in wich user is informed whenever other users interact with his activity in the website. Users can like or dislikes your questions on a property, leave a review on his profile, and post a question on a property listed by the user.
  - Browse Properties: Users can browse, filter and sort through the various property listings available.
  - Add Property: Users can add properties that they are willing to sell.
