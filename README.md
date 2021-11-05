@@ -72,7 +72,7 @@
 
 `6.Post a question:`
 
-![properties](./public/printscreens/property-questoin-section.jpg)
+![properties](./public/printscreens/property-question-section.jpg)
 
 
 `7. Wishlist Properties:`
@@ -100,7 +100,7 @@
 
 `12.Presentation Page:`
 
-![user](./public/printscreens/Home-1.jpg)
+![user](./public/printscreens/Home1.jpg)
 
 
 `13.Login/Register:`
