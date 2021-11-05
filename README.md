@@ -21,7 +21,7 @@
 
 ## PRINT-SCREENS
 
- ### 1.Global Live Chat:
+ ### 1. Global Live Chat:
 
 ![chat](./public/printscreens/chat1.jpg)
 
@@ -39,9 +39,9 @@
 
 
 
-`2.Notification System:`
+### 2. Notification System:
 
-![notification](./public/printscreens/notifications-bel-toaster.jpg)
+![notification](./public/printscreens/notification-bel-toaster.jpg)
 
 ![notification](./public/printscreens/notifications-bell.jpg)
 
@@ -49,19 +49,19 @@
 
 
 
-`3.Browse Properties:`
+### 3. Browse Properties:
 
 ![properties](./public/printscreens/catalog-1.jpg)
 
 
-`4.Property Presentation Page:`
+### 4. Property Presentation Page:
 
 ![properties](./public/printscreens/property-1.jpg)
 
 ![properties](./public/printscreens/property-info.jpg)
 
 
-`5.Add Properties:`
+### 5. Add Properties:
 
 ![properties](./public/printscreens/add-property-1.jpg)
 
@@ -72,40 +72,40 @@
 ![properties](./public/printscreens/add-property-progress.jpg)
 
 
-`6.Post a question:`
+### 6. Post a question:
 
 ![properties](./public/printscreens/property-question-section.jpg)
 
 
-`7. Wishlist Properties:`
+### 7. Wishlist Properties:
 
 ![properties](./public/printscreens/user-dashboard-wishlist.jpg)
 
-`8.Promote Property:`
+### 8. Promote Property:
 
 ![properties](./public/printscreens/property-ad-plan.jpg)
 
-`9. Add funds:`
+### 9. Add funds:
 
 ![funds](./public/printscreens/user-dashboard-payments.jpg)
 
 
-`10.Personal Info:`
+### 10. Personal Info:
 
 ![user](./public/printscreens/user-dashboard.jpg)
 
 
-`11.User Public Profile:`
+### 11. User Public Profile:
 
 ![user](./public/printscreens/user-public-profile-reviews.jpg)
 
 
-`12.Presentation Page:`
+### 12. Presentation Page:
 
 ![user](./public/printscreens/Home1.jpg)
 
 
-`13.Login/Register:`
+### 13. Login/Register:
 
 ![user](./public/printscreens/register.jpg)
 
