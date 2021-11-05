@@ -21,7 +21,7 @@
 
 ## PRINT-SCREENS
 
-`1.Global Live Chat:`
+ ### 1.Global Live Chat:
 
 ![chat](./public/printscreens/chat1.jpg)
 
@@ -40,6 +40,8 @@
 
 
 `2.Notification System:`
+
+![notification](./public/printscreens/notifications-bel-toaster.jpg)
 
 ![notification](./public/printscreens/notifications-bell.jpg)
 
