@@ -46,7 +46,7 @@ function UserWishlist() {
     <>
       <div className="d-flex align-items-center justify-content-between mb-4 pb-2">
         <h1 className="h2 mb-0">Wishlist</h1>
-        {user?.wishlist && (
+        {!!user?.wishlist.length && (
           <span
             className="fw-bold color-primary cursor-pointer"
             onClick={clearWishlist}
